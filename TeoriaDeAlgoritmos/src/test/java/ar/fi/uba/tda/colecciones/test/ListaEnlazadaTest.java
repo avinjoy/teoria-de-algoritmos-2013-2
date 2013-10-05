@@ -70,6 +70,53 @@ public class ListaEnlazadaTest {
 	}
 	
 	@Test
+	public void siAgregoDosElementosElTamanioEsDos() {
+		
+		Object primero = new Object();
+		Object segundo = new Object();
+		
+		lista.agregar(primero);
+		lista.agregar(segundo);
+		
+		assertThat("el tamaño de la lista", lista.tamanio(), is(2));
+	}
+	
+	@Test
+	public void siAgregoDosElementosElSegundoEsElUltimo() {
+		
+		Object primero = new Object();
+		Object segundo = new Object();
+		
+		lista.agregar(primero);
+		lista.agregar(segundo);
+		
+		assertThat("el primer elemento", lista.primero(), is(primero));
+		assertThat("el ultimo elemento", lista.ultimo(), is(segundo));
+	}
+	
+	@Test
+	public void siLaListaTieneElementosElIteradorTieneSiguiente() {
+		
+		Object primero = new Object();
+		
+		lista.agregar(primero);
+		
+		Iterator<Object> iterador = lista.iterador();
+		
+		assertThat("la lista tiene elementos", iterador.hasNext(), is(true));
+		
+	}
+	
+	@Test
+	public void siLaListaNoTieneElementosElIteradorNoTieneSiguiente() {
+		
+		Iterator<Object> iterador = lista.iterador();
+		
+		assertThat("la lista tiene elementos", iterador.hasNext(), is(false));
+		
+	}
+	
+	@Test
 	public void puedoRecorrerLaListaEnOrden() {
 		
 		Object primero = new Object();
@@ -78,14 +125,28 @@ public class ListaEnlazadaTest {
 		lista.agregar(primero);
 		lista.agregar(segundo);
 		
-		assertThat("el tamaño", lista.tamanio(), is(2));
-		
 		Iterator<Object> iterador = lista.iterador();
-		
-		assertThat("la lista tiene elementos", iterador.hasNext(), is(true));
 		
 		assertThat("el primer elemento", iterador.next(), is(primero));
 		assertThat("el segundo elemento", iterador.next(), is(segundo));
+		
+	}
+	
+	@Test
+	public void despuesDeSacarElUltimoElementoYaNoPuedoIterar() {
+		
+		Object primero = new Object();
+		Object segundo = new Object();
+		
+		lista.agregar(primero);
+		lista.agregar(segundo);
+		
+		Iterator<Object> iterador = lista.iterador();
+		
+		assertThat("el primer elemento", iterador.next(), is(primero));
+		assertThat("el segundo elemento", iterador.next(), is(segundo));
+		
+		assertThat("la lista tiene elementos", iterador.hasNext(), is(false));
 		
 	}
 
