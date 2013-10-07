@@ -94,6 +94,7 @@ public class ListaEnlazada<T> {
 			this.anterior = anterior;
 			this.siguiente = siguiente;
 		}
+
 	}
 
 }
