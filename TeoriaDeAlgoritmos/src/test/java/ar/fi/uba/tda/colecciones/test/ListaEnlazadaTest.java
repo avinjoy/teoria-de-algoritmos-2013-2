@@ -40,7 +40,7 @@ public class ListaEnlazadaTest {
 	}
 	
 	@Test
-	public void enUnaListaVaciaElTamañoEsCero() {
+	public void enUnaListaVaciaElTama�oEsCero() {
 		
 		assertThat("el tamaño", lista.tamanio(), is(0));
 	}
