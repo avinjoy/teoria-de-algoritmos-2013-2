@@ -40,5 +40,15 @@ public class GrafoTest {
 		assertThat("Hay dos vertices", grafo.getCantidadDeNodosGrafo(), is(2));
 		assertThat("Hay un arco entre Vertice Uno y Dos", grafo.getVertices().primero().getAdyacentes().primero(), is(grafo.getVertices().ultimo()));
 	}
+	
+	@Test
+	public void agregoUnVerticeTestYLoMarco() {
+		Vertice verticeUno = new Vertice("VerticeUno");
+		verticeUno.setVisitado(true);
+		grafo.agregarVertice(verticeUno);
+		assertThat("Agrego un vertice", grafo.getCantidadDeNodosGrafo(), is(1));
+		assertThat("Esta marcado?", grafo.getVertices().primero().isVisitado(), is(true));
+		
+	}
 
 }
