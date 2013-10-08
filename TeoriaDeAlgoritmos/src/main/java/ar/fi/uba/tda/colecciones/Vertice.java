@@ -3,6 +3,7 @@ package ar.fi.uba.tda.colecciones;
 public class Vertice {
 
 	private Object contenido; //TODO:Debemos ver que tipo de contenido ubicar acá
+	private boolean visitado;
 	private ListaEnlazada<Vertice> adyacentes;
 	
 		
@@ -27,6 +28,18 @@ public class Vertice {
 	}
 	public void setAdyacentes(ListaEnlazada<Vertice> adyacentes) {
 		this.adyacentes = adyacentes;
+	}
+
+	public boolean isVisitado() {
+		return visitado;
+	}
+
+	public void setVisitado(boolean vistado) {
+		this.visitado = vistado;
+	}
+	
+	public Integer getGradoVertice(){
+		return this.adyacentes.tamanio();
 	}
 	
 	
