@@ -97,4 +97,21 @@ public class ListaEnlazada<T> {
 
 	}
 
+	public boolean contiene(T datoBuscado) {
+		
+		boolean encontrado = false;
+		Iterator<T> iterador = this.iterador();
+		
+		while (!encontrado && iterador.hasNext()) {
+			
+			T item = iterador.next();
+			
+			if (item.equals(datoBuscado)) {
+				encontrado = true;
+			}
+		}
+		
+		return encontrado;
+	}
+
 }

@@ -149,5 +149,24 @@ public class ListaEnlazadaTest {
 		assertThat("la lista tiene elementos", iterador.hasNext(), is(false));
 		
 	}
+	
+	@Test
+	public void buscaUnElementoEnLaLista() {
+		
+		lista.agregar("Hola");
+		
+		boolean encontrado = lista.contiene("Hola");
+		
+		assertThat("el elemento", encontrado, is(true));
+	}
 
+	@Test
+	public void siElElementoNoEstaDaFalse() {
+		
+		lista.agregar("Hola");
+		
+		boolean encontrado = lista.contiene("Chau");
+		
+		assertThat("el elemento", encontrado, is(false));
+	}
 }
