@@ -21,7 +21,7 @@ public class GrafoTest {
 	
 	@Test
 	public void grafoVacioTest() {
-		assertThat("El grafo está vacío", grafo.getCantidadDeNodosGrafo(), is(0));
+		assertThat("El grafo estï¿½ vacï¿½o", grafo.getCantidadDeNodosGrafo(), is(0));
 	}
 	
 	@Test
@@ -48,6 +48,36 @@ public class GrafoTest {
 		grafo.agregarVertice(verticeUno);
 		assertThat("Agrego un vertice", grafo.getCantidadDeNodosGrafo(), is(1));
 		assertThat("Esta marcado?", grafo.getVertices().primero().isVisitado(), is(true));
+		
+	}
+	
+	@Test
+	public void alAgregarUnArcoSoloAgregaLosVerticesSiCorresponde() {
+		
+		Vertice verticeUno = new Vertice("VerticeUno");
+		Vertice verticeDos = new Vertice("VerticeDos");
+		
+		grafo.agregarVertice(verticeUno);
+		
+		grafo.agregarArco(verticeUno, verticeDos);
+		assertThat("Hay dos vertices", grafo.getCantidadDeNodosGrafo(), is(2));
+		assertThat("Hay un arco entre Vertice Uno y Dos", grafo.getVertices().primero().getAdyacentes().primero(), is(grafo.getVertices().ultimo()));
+		
+	}
+	
+	@Test
+	public void alAgregarUnArcoSoloAgregaLosVerticesSiCorrespondeAunqueNoSeanLaMismaInstancia() {
+		
+		Vertice verticeUno = new Vertice("VerticeUno");
+		Vertice verticeDos = new Vertice("VerticeDos");
+		Vertice verticeDosBis = new Vertice("VerticeDos");
+		
+		grafo.agregarVertice(verticeUno);
+		grafo.agregarVertice(verticeDosBis);
+		
+		grafo.agregarArco(verticeUno, verticeDos);
+		assertThat("Hay dos vertices", grafo.getCantidadDeNodosGrafo(), is(2));
+		assertThat("Hay un arco entre Vertice Uno y Dos", grafo.getVertices().primero().getAdyacentes().primero(), is(grafo.getVertices().ultimo()));
 		
 	}
 

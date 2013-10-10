@@ -2,10 +2,9 @@ package ar.fi.uba.tda.colecciones;
 
 public class Vertice {
 
-	private Object contenido; //TODO:Debemos ver que tipo de contenido ubicar acá
+	private Object contenido; //TODO:Debemos ver que tipo de contenido ubicar acï¿½
 	private boolean visitado;
 	private ListaEnlazada<Vertice> adyacentes;
-	
 		
 	public Vertice() {
 		super();
@@ -40,6 +39,37 @@ public class Vertice {
 	
 	public Integer getGradoVertice(){
 		return this.adyacentes.tamanio();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((contenido == null) ? 0 : contenido.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof Vertice)) {
+			return false;
+		}
+		Vertice other = (Vertice) obj;
+		if (contenido == null) {
+			if (other.contenido != null) {
+				return false;
+			}
+		} else if (!contenido.equals(other.contenido)) {
+			return false;
+		}
+		return true;
 	}
 	
 	
