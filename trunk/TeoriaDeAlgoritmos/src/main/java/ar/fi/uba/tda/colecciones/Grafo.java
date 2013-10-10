@@ -44,7 +44,7 @@ public class Grafo {
 	}
 	
 	/**
-	 * Agrega un vértice al grafo
+	 * Agrega un vï¿½rtice al grafo
 	 * @param vert
 	 */
 	public void agregarVertice(Vertice vert){
@@ -55,7 +55,7 @@ public class Grafo {
 	}
 	
 	/**
-	 * Crea un arco entre 2 vértices (no es grafo dirigido)
+	 * Crea un arco entre 2 vï¿½rtices (no es grafo dirigido)
 	 * @param inicio
 	 * @param fin
 	 */
@@ -63,9 +63,20 @@ public class Grafo {
 		//TODO:Validaciones!!!	
 		inicio.getAdyacentes().agregar(fin);
 		fin.getAdyacentes().agregar(inicio);
-		this.agregarVertice(inicio);
-		this.agregarVertice(fin);
 		
+		if (!this.contieneVertice(inicio)) {
+			this.agregarVertice(inicio);
+		}
+		
+		if (!this.contieneVertice(fin)) {
+			this.agregarVertice(fin);
+		}
+		
+	}
+
+	public boolean contieneVertice(Vertice verticeBuscado) {
+		
+		return vertices.contiene(verticeBuscado);
 	}
 	
 	
