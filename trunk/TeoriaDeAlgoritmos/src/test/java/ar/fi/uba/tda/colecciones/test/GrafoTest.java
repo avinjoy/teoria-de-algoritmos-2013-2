@@ -11,12 +11,17 @@ import ar.fi.uba.tda.colecciones.Vertice;
 
 public class GrafoTest {
 
-	private Grafo grafo;
+	private Grafo<String> grafo;
+	private Vertice<String> verticeUno;
+	private Vertice<String> verticeDos;
 	
 	@Before
 	public void setup() {
 		
-		grafo = new Grafo();
+		grafo = new Grafo<String>();
+		
+		verticeUno = new Vertice<String>("VerticeUno");
+		verticeDos = new Vertice<String>("VerticeDos");
 	}
 	
 	@Test
@@ -26,7 +31,7 @@ public class GrafoTest {
 	
 	@Test
 	public void agregoUnVerticeTest() {
-		Vertice verticeUno = new Vertice("VerticeUno");
+
 		grafo.agregarVertice(verticeUno);
 		assertThat("Agrego un vertice", grafo.getCantidadDeNodosGrafo(), is(1));
 	}
@@ -34,8 +39,7 @@ public class GrafoTest {
 	//TODO:Tenemos que ver si la lista acepta repetidos
 	@Test
 	public void agregoUnArcoTest() {
-		Vertice verticeUno = new Vertice("VerticeUno");
-		Vertice verticeDos = new Vertice("VerticeDos");
+		
 		grafo.agregarArco(verticeUno, verticeDos);
 		assertThat("Hay dos vertices", grafo.getCantidadDeNodosGrafo(), is(2));
 		assertThat("Hay un arco entre Vertice Uno y Dos", grafo.getVertices().primero().getAdyacentes().primero(), is(grafo.getVertices().ultimo()));
@@ -43,7 +47,7 @@ public class GrafoTest {
 	
 	@Test
 	public void agregoUnVerticeTestYLoMarco() {
-		Vertice verticeUno = new Vertice("VerticeUno");
+
 		verticeUno.setVisitado(true);
 		grafo.agregarVertice(verticeUno);
 		assertThat("Agrego un vertice", grafo.getCantidadDeNodosGrafo(), is(1));
@@ -53,9 +57,6 @@ public class GrafoTest {
 	
 	@Test
 	public void alAgregarUnArcoSoloAgregaLosVerticesSiCorresponde() {
-		
-		Vertice verticeUno = new Vertice("VerticeUno");
-		Vertice verticeDos = new Vertice("VerticeDos");
 		
 		grafo.agregarVertice(verticeUno);
 		
@@ -68,9 +69,7 @@ public class GrafoTest {
 	@Test
 	public void alAgregarUnArcoSoloAgregaLosVerticesSiCorrespondeAunqueNoSeanLaMismaInstancia() {
 		
-		Vertice verticeUno = new Vertice("VerticeUno");
-		Vertice verticeDos = new Vertice("VerticeDos");
-		Vertice verticeDosBis = new Vertice("VerticeDos");
+		Vertice<String> verticeDosBis = new Vertice<String>("VerticeDos");
 		
 		grafo.agregarVertice(verticeUno);
 		grafo.agregarVertice(verticeDosBis);
@@ -84,8 +83,7 @@ public class GrafoTest {
 	@Test
 	public void noAgregaVerticesRepetidos() {
 		
-		Vertice verticeDos = new Vertice("VerticeDos");
-		Vertice verticeDosBis = new Vertice("VerticeDos");
+		Vertice<String> verticeDosBis = new Vertice<String>("VerticeDos");
 		
 		grafo.agregarVertice(verticeDos);
 		grafo.agregarVertice(verticeDosBis);

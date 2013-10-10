@@ -1,24 +1,24 @@
 package ar.fi.uba.tda.colecciones;
 
-public class Grafo {
+public class Grafo<T> {
 	
-	private ListaEnlazada<Vertice> vertices;
+	private ListaEnlazada<Vertice<T>> vertices;
 	
 	
-	public Grafo(ListaEnlazada<Vertice> vertices) {
+	public Grafo(ListaEnlazada<Vertice<T>> vertices) {
 		super();
 		this.vertices = vertices;
 	}
 	
 	public Grafo() {
-		this.vertices = new ListaEnlazada<Vertice>();
+		this.vertices = new ListaEnlazada<Vertice<T>>();
 	}
 
-	public ListaEnlazada<Vertice> getVertices() {
+	public ListaEnlazada<Vertice<T>> getVertices() {
 		return vertices;
 	}
 
-	public void setVertices(ListaEnlazada<Vertice> vertices) {
+	public void setVertices(ListaEnlazada<Vertice<T>> vertices) {
 		this.vertices = vertices;
 	}
 	
@@ -47,7 +47,7 @@ public class Grafo {
 	 * Agrega un v�rtice al grafo
 	 * @param vert
 	 */
-	public void agregarVertice(Vertice vert){
+	public void agregarVertice(Vertice<T> vert){
 		if (vert != null && vert.getContenido() != null && !this.contieneVertice(vert)){
 			this.vertices.agregar(vert);
 		}
@@ -59,7 +59,7 @@ public class Grafo {
 	 * @param inicio
 	 * @param fin
 	 */
-	public void agregarArco(Vertice inicio, Vertice fin){
+	public void agregarArco(Vertice<T> inicio, Vertice<T> fin){
 		//TODO:Validaciones!!!	
 		inicio.getAdyacentes().agregar(fin);
 		fin.getAdyacentes().agregar(inicio);
@@ -69,11 +69,9 @@ public class Grafo {
 		
 	}
 
-	public boolean contieneVertice(Vertice verticeBuscado) {
+	public boolean contieneVertice(Vertice<T> verticeBuscado) {
 		
 		return vertices.contiene(verticeBuscado);
 	}
-	
-	
 
 }
