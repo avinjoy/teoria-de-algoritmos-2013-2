@@ -1,31 +1,31 @@
 package ar.fi.uba.tda.colecciones;
 
-public class Vertice {
+public class Vertice<T> {
 
-	private Object contenido; //TODO:Debemos ver que tipo de contenido ubicar ac�
+	private T contenido; //TODO:Debemos ver que tipo de contenido ubicar ac�
 	private boolean visitado;
-	private ListaEnlazada<Vertice> adyacentes;
+	private ListaEnlazada<Vertice<T>> adyacentes;
 		
 	public Vertice() {
 		super();
 	}
 	
-	public Vertice(Object contenido){
+	public Vertice(T contenido){
 		super();
 		this.contenido=contenido;
-		this.adyacentes=new ListaEnlazada<Vertice>();
+		this.adyacentes=new ListaEnlazada<Vertice<T>>();
 	}
 	
-	public Object getContenido() {
+	public T getContenido() {
 		return contenido;
 	}
-	public void setContenido(Object contenido) {
+	public void setContenido(T contenido) {
 		this.contenido = contenido;
 	}
-	public ListaEnlazada<Vertice> getAdyacentes() {
+	public ListaEnlazada<Vertice<T>> getAdyacentes() {
 		return adyacentes;
 	}
-	public void setAdyacentes(ListaEnlazada<Vertice> adyacentes) {
+	public void setAdyacentes(ListaEnlazada<Vertice<T>> adyacentes) {
 		this.adyacentes = adyacentes;
 	}
 
@@ -61,7 +61,7 @@ public class Vertice {
 		if (!(obj instanceof Vertice)) {
 			return false;
 		}
-		Vertice other = (Vertice) obj;
+		Vertice<T> other = (Vertice<T>) obj;
 		if (contenido == null) {
 			if (other.contenido != null) {
 				return false;
