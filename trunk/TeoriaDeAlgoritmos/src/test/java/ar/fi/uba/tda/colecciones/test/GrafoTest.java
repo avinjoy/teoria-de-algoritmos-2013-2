@@ -80,5 +80,18 @@ public class GrafoTest {
 		assertThat("Hay un arco entre Vertice Uno y Dos", grafo.getVertices().primero().getAdyacentes().primero(), is(grafo.getVertices().ultimo()));
 		
 	}
+	
+	@Test
+	public void noAgregaVerticesRepetidos() {
+		
+		Vertice verticeDos = new Vertice("VerticeDos");
+		Vertice verticeDosBis = new Vertice("VerticeDos");
+		
+		grafo.agregarVertice(verticeDos);
+		grafo.agregarVertice(verticeDosBis);
+		
+		assertThat("Hay dos vertices", grafo.getCantidadDeNodosGrafo(), is(1));
+		
+	}
 
 }

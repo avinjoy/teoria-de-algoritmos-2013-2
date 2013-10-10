@@ -23,7 +23,6 @@ public class CargadorDeGrafosTest {
 	}
 	
 	@Test
-	@Ignore
 	public void noAgregaVerticesRepetidos() {
 		
 		Grafo grafo = new Grafo();

@@ -48,7 +48,7 @@ public class Grafo {
 	 * @param vert
 	 */
 	public void agregarVertice(Vertice vert){
-		if (vert != null && vert.getContenido() != null){
+		if (vert != null && vert.getContenido() != null && !this.contieneVertice(vert)){
 			this.vertices.agregar(vert);
 		}
 		
@@ -64,13 +64,8 @@ public class Grafo {
 		inicio.getAdyacentes().agregar(fin);
 		fin.getAdyacentes().agregar(inicio);
 		
-		if (!this.contieneVertice(inicio)) {
-			this.agregarVertice(inicio);
-		}
-		
-		if (!this.contieneVertice(fin)) {
-			this.agregarVertice(fin);
-		}
+		this.agregarVertice(inicio);
+		this.agregarVertice(fin);
 		
 	}
 
