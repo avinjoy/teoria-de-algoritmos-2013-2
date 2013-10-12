@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 public class ListaEnlazada<T> {
 	
-	private Elemento<T> header = new Elemento<T>(null, null, null);
+	private Elemento header = new Elemento(null, null, null);
 	private Integer tamanio = 0;
 
 	public ListaEnlazada () {
@@ -28,9 +28,9 @@ public class ListaEnlazada<T> {
 		agregarAntes(elemento, header);
 	}
 	
-	private void agregarAntes(T elemento, Elemento<T> siguiente) {
+	private void agregarAntes(T elemento, Elemento siguiente) {
 		
-		Elemento<T> nuevo = new Elemento<T>(elemento, siguiente, siguiente.anterior);
+		Elemento nuevo = new Elemento(elemento, siguiente, siguiente.anterior);
 		nuevo.anterior.siguiente = nuevo;
 		nuevo.siguiente.anterior = nuevo;
 		tamanio++;
@@ -47,7 +47,7 @@ public class ListaEnlazada<T> {
 	private class IteradorListaEnlazada implements Iterator<T> {
 
 		private int siguiente;
-		private Elemento<T> siguienteElemento;
+		private Elemento siguienteElemento;
 		
 		public IteradorListaEnlazada () {
 		
@@ -82,13 +82,13 @@ public class ListaEnlazada<T> {
 		
 	}
 	
-	private class Elemento<T> {
+	private class Elemento {
 		
 		T elemento;
-		Elemento<T> anterior;
-		Elemento<T> siguiente;
+		Elemento anterior;
+		Elemento siguiente;
 		
-		public Elemento(T elemento, Elemento<T> siguiente, Elemento<T> anterior) {
+		public Elemento(T elemento, Elemento siguiente, Elemento anterior) {
 			
 			this.elemento = elemento;
 			this.anterior = anterior;
@@ -99,15 +99,20 @@ public class ListaEnlazada<T> {
 
 	public boolean contiene(T datoBuscado) {
 		
-		boolean encontrado = false;
+		return obtener(datoBuscado) != null;
+	}
+
+	public T obtener(T buscado) {
+		
+		T encontrado = null;
 		Iterator<T> iterador = this.iterador();
 		
-		while (!encontrado && iterador.hasNext()) {
+		while (encontrado == null && iterador.hasNext()) {
 			
 			T item = iterador.next();
 			
-			if (item.equals(datoBuscado)) {
-				encontrado = true;
+			if (item.equals(buscado)) {
+				encontrado = item;
 			}
 		}
 		
