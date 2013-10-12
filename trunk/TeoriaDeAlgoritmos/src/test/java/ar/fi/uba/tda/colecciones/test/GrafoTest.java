@@ -3,6 +3,7 @@ package ar.fi.uba.tda.colecciones.test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
+import org.hamcrest.core.IsEqual;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,7 +15,15 @@ public class GrafoTest {
 	private Grafo<String> grafo;
 	private Vertice<String> verticeUno;
 	private Vertice<String> verticeDos;
-	
+	private Vertice <String> verticeA = new Vertice<String>("A");
+	private Vertice <String> verticeB = new Vertice<String>("B");
+	private Vertice <String> verticeC = new Vertice<String>("C");
+	private Vertice <String> verticeD = new Vertice<String>("D");
+	private Vertice <String> verticeE = new Vertice<String>("E");
+	private Vertice <String> verticeF = new Vertice<String>("F");
+	private Vertice <String> verticeG = new Vertice<String>("G");
+	private Vertice <String> verticeH = new Vertice<String>("H");
+		
 	@Before
 	public void setup() {
 		
@@ -22,6 +31,7 @@ public class GrafoTest {
 		
 		verticeUno = new Vertice<String>("VerticeUno");
 		verticeDos = new Vertice<String>("VerticeDos");
+	
 	}
 	
 	@Test
@@ -91,5 +101,43 @@ public class GrafoTest {
 		assertThat("Hay dos vertices", grafo.getCantidadDeNodosGrafo(), is(1));
 		
 	}
+	
+	@Test
+	public void agregarGrafoEnunciadoYDFSTest() {
+		crearGrafoEnunciado();
+		grafo.recorridoDFS(this.grafo.getVertices());
+		assertThat("Hay 8 vertices en el recorrido", grafo.getRecorridoDFS().tamanio(), is(8));
+				
+	}
+	
+	@Test
+	public void agregarGrafoEnunciadoYBFSTest() {
+		crearGrafoEnunciado();
+		grafo.recorridoBFS(this.grafo.getVertices());
+		assertThat("Hay 8 vertices en el recorridos", grafo.getRecorridoBFS().tamanio(), is(8));
+	}
+
+	private void crearGrafoEnunciado() {
+		verticeA = new Vertice<String>("A");
+		verticeB = new Vertice<String>("B");
+		verticeC = new Vertice<String>("C");
+		verticeD = new Vertice<String>("D");
+		verticeE = new Vertice<String>("E");
+		verticeF = new Vertice<String>("F");
+		verticeG = new Vertice<String>("G");
+		verticeH = new Vertice<String>("H");
+		
+		grafo.agregarArco(verticeA, verticeB);
+		grafo.agregarArco(verticeA, verticeC);
+		grafo.agregarArco(verticeB, verticeD);
+		grafo.agregarArco(verticeC, verticeD);
+		grafo.agregarArco(verticeD, verticeE);
+		grafo.agregarArco(verticeE, verticeF);
+		grafo.agregarArco(verticeE, verticeG);
+		grafo.agregarArco(verticeF, verticeH);
+		grafo.agregarArco(verticeG, verticeH);
+	}
+	
+	
 
 }
