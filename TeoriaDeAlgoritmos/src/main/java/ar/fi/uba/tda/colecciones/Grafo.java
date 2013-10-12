@@ -60,13 +60,30 @@ public class Grafo<T> {
 	 * @param fin
 	 */
 	public void agregarArco(Vertice<T> inicio, Vertice<T> fin){
-		//TODO:Validaciones!!!	
+		//TODO:Validaciones!!!
+		Vertice<T> inicioEnGrafo = this.obtener(inicio);
+		
+		if (inicioEnGrafo != null) {
+			inicio = inicioEnGrafo;
+		}
+		
+		Vertice<T> finEnGrafo = this.obtener(fin);
+		
+		if (finEnGrafo != null) {
+			fin = finEnGrafo;
+		}
+		
 		inicio.getAdyacentes().agregar(fin);
 		fin.getAdyacentes().agregar(inicio);
 		
 		this.agregarVertice(inicio);
 		this.agregarVertice(fin);
 		
+	}
+
+	private Vertice<T> obtener(Vertice<T> buscado) {
+		
+		return this.vertices.obtener(buscado);
 	}
 
 	public boolean contieneVertice(Vertice<T> verticeBuscado) {

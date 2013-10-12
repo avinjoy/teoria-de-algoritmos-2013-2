@@ -1,17 +1,17 @@
 package ar.fi.uba.tda.util.test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import static org.mockito.Mockito.*;
 
 import ar.fi.uba.tda.colecciones.Grafo;
+import ar.fi.uba.tda.colecciones.ListaEnlazada;
 import ar.fi.uba.tda.colecciones.Vertice;
 import ar.fi.uba.tda.util.CargadorDeGrafos;
 
@@ -66,7 +66,6 @@ public class CargadorDeGrafosTest {
 	}
 	
 	@Test
-	@Ignore("Hay que modificar el grafo para que busque el vértice a insertar y devuelva ese")
 	public void cargaDesdeUnArchivoUnVerticeConDosAdyacentes() throws IOException {
 		
 		BufferedReader reader = mock(BufferedReader.class);
@@ -85,5 +84,48 @@ public class CargadorDeGrafosTest {
 		
 		assertThat("el vertice A y el B", grafo.getVertices().primero().getAdyacentes().primero(), is(verticeB));
 		assertThat("el vertice A y el C", grafo.getVertices().primero().getAdyacentes().ultimo(), is(verticeC));
+	}
+	
+	@Test
+	public void cargaDesdeUnArchivoDosVerticeConDosAdyacentes() throws IOException {
+		
+		BufferedReader reader = mock(BufferedReader.class);
+		when(reader.readLine()).thenReturn("A:B,C", "B:D,E", (String)null);
+		
+		cargador.cargar(reader);
+		
+		Vertice<String> verticeA = new Vertice<String>("A");
+		Vertice<String> verticeB = new Vertice<String>("B");
+		Vertice<String> verticeC = new Vertice<String>("C");
+		Vertice<String> verticeD = new Vertice<String>("D");
+		Vertice<String> verticeE = new Vertice<String>("E");
+		
+		assertThat("la cantidad de vertices", grafo.getCantidadDeNodosGrafo(), is(5));
+		
+		ListaEnlazada<Vertice<String>> vertices = grafo.getVertices();
+		
+		Vertice<String> verticeAEnElGrafo = vertices.obtener(verticeA);
+		Vertice<String> verticeBEnElGrafo = vertices.obtener(verticeB);
+		Vertice<String> verticeCEnElGrafo = vertices.obtener(verticeC);
+		Vertice<String> verticeDEnElGrafo = vertices.obtener(verticeD);
+		Vertice<String> verticeEEnElGrafo = vertices.obtener(verticeE);
+		
+		assertThat("el vertice A", verticeAEnElGrafo, is(verticeA));
+		assertThat("arista entre A y B", verticeAEnElGrafo.getAdyacentes().primero(), is(verticeB));
+		assertThat("arista entre A y C", verticeAEnElGrafo.getAdyacentes().ultimo(), is(verticeC));
+		
+		assertThat("el vertice B", verticeBEnElGrafo, is(verticeB));
+		assertThat("arista entre B y A", verticeBEnElGrafo.getAdyacentes().primero(), is(verticeA));
+		assertThat("arista entre B y E", verticeBEnElGrafo.getAdyacentes().ultimo(), is(verticeE));
+		
+		assertThat("el vertice C", verticeCEnElGrafo, is(verticeC));
+		assertThat("arista entre C y A", verticeCEnElGrafo.getAdyacentes().primero(), is(verticeA));
+		
+		assertThat("el vertice D", verticeDEnElGrafo, is(verticeD));
+		assertThat("arista entre D y B", verticeDEnElGrafo.getAdyacentes().primero(), is(verticeB));
+		
+		assertThat("el vertice E", verticeEEnElGrafo, is(verticeE));
+		assertThat("arista entre E y B", verticeEEnElGrafo.getAdyacentes().primero(), is(verticeB));
+		
 	}
 }

@@ -161,12 +161,32 @@ public class ListaEnlazadaTest {
 	}
 
 	@Test
-	public void siElElementoNoEstaDaFalse() {
+	public void siElElementoNoEstaDaBuscarloFalse() {
 		
 		lista.agregar("Hola");
 		
 		boolean encontrado = lista.contiene("Chau");
 		
 		assertThat("el elemento", encontrado, is(false));
+	}
+	
+	@Test
+	public void obtieneUnElementoEnLaLista() {
+		
+		lista.agregar("Hola");
+		
+		Object encontrado = lista.obtener("Hola");
+		
+		assertThat("el elemento", encontrado, is((Object)"Hola"));
+	}
+
+	@Test
+	public void siElElementoNoEstaDaObteneroDevuelveNull() {
+		
+		lista.agregar("Hola");
+		
+		Object encontrado = lista.obtener("Chau");
+		
+		assertThat("el elemento", encontrado, nullValue());
 	}
 }

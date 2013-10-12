@@ -15,16 +15,6 @@ public class CargadorDeGrafos {
 		
 	}
 
-	public void agregarArista(String verticeInicial, String verticeFinal) {
-		
-		Vertice<String> inicio = new Vertice<String>(verticeInicial);
-		
-		Vertice<String> fin = new Vertice<String>(verticeFinal);
-		
-		grafo.agregarArco(inicio, fin);
-		
-	}
-
 	public void cargar(BufferedReader reader) throws IOException {
 		
 		String linea = reader.readLine();
@@ -43,6 +33,16 @@ public class CargadorDeGrafos {
 			
 			linea = reader.readLine();
 		}
+	}
+	
+	public void agregarArista(String verticeInicial, String verticeFinal) {
+		
+		Vertice<String> inicio = new Vertice<String>(verticeInicial);
+		
+		Vertice<String> fin = new Vertice<String>(verticeFinal);
+		
+		grafo.agregarArco(inicio, fin);
+		
 	}
 
 }

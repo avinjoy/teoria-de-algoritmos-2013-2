@@ -51,6 +51,7 @@ public class Vertice<T> {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
@@ -71,6 +72,10 @@ public class Vertice<T> {
 		}
 		return true;
 	}
-	
+
+	@Override
+	public String toString() {
+		return contenido.toString();
+	}
 	
 }
