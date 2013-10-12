@@ -2,7 +2,7 @@ package ar.fi.uba.tda.colecciones;
 
 public class Vertice<T> {
 
-	private T contenido; //TODO:Debemos ver que tipo de contenido ubicar ac�
+	private T contenido; 
 	private boolean visitado;
 	private ListaEnlazada<Vertice<T>> adyacentes;
 		
@@ -75,7 +75,7 @@ public class Vertice<T> {
 
 	@Override
 	public String toString() {
-		return contenido.toString();
+		return "Vertice: "+contenido.toString();
 	}
 	
 }
