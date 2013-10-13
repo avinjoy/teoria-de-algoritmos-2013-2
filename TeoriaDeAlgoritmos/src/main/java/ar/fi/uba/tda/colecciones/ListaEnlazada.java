@@ -1,6 +1,7 @@
 package ar.fi.uba.tda.colecciones;
 
 import java.util.Iterator;
+import java.util.ListIterator;
 
 public class ListaEnlazada<T> {
 	
@@ -40,11 +41,11 @@ public class ListaEnlazada<T> {
 		return tamanio;
 	}
 
-	public Iterator<T> iterador() {
+	public ListIterator<T> iterador() {
 		return new IteradorListaEnlazada();
 	}
 	
-	private class IteradorListaEnlazada implements Iterator<T> {
+	private class IteradorListaEnlazada implements ListIterator<T> {
 
 		private int siguiente;
 		private Elemento siguienteElemento;
@@ -76,8 +77,46 @@ public class ListaEnlazada<T> {
 		}
 
 		@Override
+		public boolean hasPrevious() {
+			return siguiente != 0;
+		}
+
+		@Override
+		public T previous() {
+			
+			T aRetornar = null;
+			
+			if (siguiente > 0) {
+				
+				aRetornar = siguienteElemento.anterior.elemento;
+				siguienteElemento = siguienteElemento.anterior;
+				siguiente--;
+			}
+			
+			return aRetornar;
+		}
+		
+		@Override
 		public void remove() {
 			
+		}
+
+		@Override
+		public int nextIndex() {
+			return 0;
+		}
+
+		@Override
+		public int previousIndex() {
+			return 0;
+		}
+
+		@Override
+		public void set(T e) {
+		}
+
+		@Override
+		public void add(T e) {
 		}
 		
 	}
