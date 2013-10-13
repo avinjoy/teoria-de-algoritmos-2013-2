@@ -166,7 +166,7 @@ public class Grafo<T> {
 	}
 
 	
-	//Todavia no est· terminado porque no calcula bien. 
+	//Todavia no est√° terminado porque no calcula bien. 
 	//Hay que revisar.
 	public void encontrarCiclos(ListaEnlazada<Vertice<T>> vertices) {
 
