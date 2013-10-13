@@ -4,6 +4,7 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
 import java.util.Iterator;
+import java.util.ListIterator;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -150,6 +151,25 @@ public class ListaEnlazadaTest {
 		
 		assertThat("la lista tiene elementos", iterador.hasNext(), is(false));
 		
+	}
+	
+	@Test
+	public void puedoRecorrerLaListaEnOrdenInverso() {
+		
+		Object primero = new Object();
+		Object segundo = new Object();
+		
+		lista.agregar(primero);
+		lista.agregar(segundo);
+		
+		ListIterator<Object> iterador = lista.iterador();
+		
+		assertThat("el primer elemento", iterador.next(), is(primero));
+		assertThat("el segundo elemento", iterador.next(), is(segundo));
+		
+		assertThat("el primer elemento", iterador.previous(), is(primero));
+		
+		assertThat("la lista tiene previo", iterador.hasPrevious(), is(true));
 	}
 	
 	@Test

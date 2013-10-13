@@ -1,6 +1,7 @@
 package ar.fi.uba.tda.util;
 
 import java.util.Iterator;
+import java.util.ListIterator;
 
 import ar.fi.uba.tda.colecciones.Arista;
 import ar.fi.uba.tda.colecciones.Grafo;
@@ -21,7 +22,7 @@ public class AumentadorDeRobustez {
 
 		if (laRobustezEsCompatibleConElGrafo(robustez)) {
 			
-			Iterator<ListaEnlazada<Vertice<?>>> listaDeCiclos = ciclos.iterador();
+			ListIterator<ListaEnlazada<Vertice<?>>> listaDeCiclos = ciclos.iterador();
 			
 			while (listaDeCiclos.hasNext()) {
 				
@@ -55,17 +56,26 @@ public class AumentadorDeRobustez {
 	}
 
 	private ListaEnlazada<Vertice<?>> obtenerSiguienteCiclo(ListaEnlazada<ListaEnlazada<Vertice<?>>> ciclos,
-															Iterator<ListaEnlazada<Vertice<?>>> listaDeCiclos) {
+															ListIterator<ListaEnlazada<Vertice<?>>> listaDeCiclos) {
 		
 		ListaEnlazada<Vertice<?>> siguienteCiclo;
 		
 		if (listaDeCiclos.hasNext()) {
 			siguienteCiclo = listaDeCiclos.next();
+			
+			corregirIterador(listaDeCiclos);
 		} else {
 			siguienteCiclo = ciclos.primero();
 		}
 		
 		return siguienteCiclo;
+	}
+
+	private void corregirIterador(
+			ListIterator<ListaEnlazada<Vertice<?>>> listaDeCiclos) {
+		if (listaDeCiclos.hasNext()) {
+			listaDeCiclos.previous();
+		}
 	}
 
 	public ListaEnlazada<Arista> getAristasAgregadas() {
