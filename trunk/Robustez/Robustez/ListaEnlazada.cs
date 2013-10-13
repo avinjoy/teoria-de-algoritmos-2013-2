@@ -7,145 +7,197 @@ namespace TeoriaDelAlgoritmosCSHARP
 {
     public class ListaEnlazada<T>
     {
-        private static Elemento<T> _header = new Elemento<T>(default(T), null, null);
-        private static Int32 _tamanio = 0;
+        private Elemento<T> _header = new Elemento<T>(default(T), null, null);
+        private Int32 _tamanio;
+        private IteradorListaEnlazada _iterador;
 
-        public static Int32 Tamanio
+
+        public Int32 Tamanio
         {
-            get { return ListaEnlazada < T >._tamanio; }
-            set { ListaEnlazada<T>._tamanio = value; }
+            get { return _tamanio; }
+            set { _tamanio = value; }
         }
 
-	    public ListaEnlazada () {
-            _tamanio = 0;
-            _header.Siguiente = _header;
-            _header.Anterior = _header;
-	    }
-	
-	    public bool Vacia() {
-		    return _tamanio == 0;
-	    }
+        private Elemento<T> Header
+        {
+            get { return _header; }
+            set { _header = value; }
+        }
 
-	    public T Primero() {
+        public IteradorListaEnlazada Iterador
+        {
+            get { return _iterador; }
+            set { _iterador = value; }
+        }
+
+        public ListaEnlazada()
+        {
+            Tamanio = 0;
+            Header.Siguiente = _header;
+            Header.Anterior = _header;
+            Iterador = new IteradorListaEnlazada(this);
+        }
+
+        public bool Vacia()
+        {
+            return Tamanio == 0;
+        }
+
+        public T Primero()
+        {
             return _header.Siguiente.Vertice;
-	    }
-
-	    public T Ultimo() {
-		    return _header.Anterior.Vertice;
-	    }
-	
-	    public void agregar(T elemento) {
-		    AgregarAntes(elemento, _header);
-	    }
-        public Int32 GetTamanio()
-        {
-            return _tamanio;
         }
-	
-	    private void AgregarAntes(T elemento, Elemento<T> siguiente) {
-		  
+
+        public T Ultimo()
+        {
+            return _header.Anterior.Vertice;
+        }
+
+        public void Agregar(T elemento)
+        {
+            AgregarAntes(elemento, _header);
+        }
+       
+
+        private void AgregarAntes(T elemento, Elemento<T> siguiente)
+        {
+
+
             Elemento<T> nuevo = new Elemento<T>(elemento, siguiente, siguiente.Anterior);
-		    nuevo.Anterior.Siguiente = nuevo;
+            nuevo.Anterior.Siguiente = nuevo;
             nuevo.Siguiente.Anterior = nuevo;
-            
-		    _tamanio++;
-	    }
-	
-        public IteradorListaEnlazada Iterador()
+
+
+            Tamanio += 1;
+        }     
+
+        public class IteradorListaEnlazada
         {
-		    return new IteradorListaEnlazada();
-	    }
-	
-	    public class IteradorListaEnlazada  {
 
-		    private int siguiente;
-		    private Elemento<T> siguienteElemento;
-		
-		    public IteradorListaEnlazada () {
-		
-			    siguiente = 0;
-			    siguienteElemento = _header;
-		    }
-		
+            private int _siguiente;
+            private Elemento<T> _siguienteElemento;
+            private ListaEnlazada<T> _lista;
 
-		    public bool HasNext() {
-			    return siguiente != Tamanio;
-		    }
+            public int Siguiente
+            {
+                get { return _siguiente; }
+                set { _siguiente = value; }
+            }
+            
+            private Elemento<T> SiguienteElemento
+            {
+                get { return _siguienteElemento; }
+                set { _siguienteElemento = value; }
+            }            
 
-		    public T next() {
-			
-			    T aRetornar = default(T);
-			
-			    if (siguiente < Tamanio) {
-				
-				    aRetornar = siguienteElemento.Siguiente.Vertice;
-				    siguienteElemento = siguienteElemento.Siguiente;
-				    siguiente++;
-			    }
-			
-			    return aRetornar;
-		    }
+            public ListaEnlazada<T> Lista
+            {
+                get { return _lista; }
+                set { _lista = value; }
+            }
+
+            public IteradorListaEnlazada(ListaEnlazada<T> lista)
+            {
+                Siguiente = 0;
+                SiguienteElemento = lista._header;
+                Lista = lista;
+            }
 
 
-		    public void Remove() {
-			
-		    }
+            public bool HasNext()
+            {
+                return _siguiente != _lista.Tamanio;
+            }
+
+            public T Next()
+            {
+
+                T aRetornar = default(T);
+
+                if (_siguiente < _lista.Tamanio)
+                {
+
+                    aRetornar = _siguienteElemento.Siguiente.Vertice;
+                    SiguienteElemento = _siguienteElemento.Siguiente;
+                    Siguiente++;
+                }
+
+                return aRetornar;
+            }
 
 
-         
+            public void Remove()
+            {
+
+            }
+
+
+
         }
-	
-	    private class Elemento<T> {
 
-            private T vertice;
-            private Elemento<T> anterior;
-            private Elemento<T> siguiente;
+        private class Elemento<T>
+        {
+
+            private T _vertice;
+            private Elemento<T> _anterior;
+            private Elemento<T> _siguiente;
 
             public T Vertice
             {
-                get { return vertice; }
-                set { vertice = value; }
+                get { return _vertice; }
+                set { _vertice = value; }
             }
-            
+
             public Elemento<T> Anterior
             {
-                get { return anterior; }
-                set { anterior = value; }
+                get { return _anterior; }
+                set { _anterior = value; }
             }
-            
+
 
             public Elemento<T> Siguiente
             {
-                get { return siguiente; }
-                set { siguiente = value; }
+                get { return _siguiente; }
+                set { _siguiente = value; }
             }
-		
-		    public Elemento(T elemento, Elemento<T> siguiente, Elemento<T> anterior) {
-			
-			    this.vertice = elemento;
-			    this.anterior = anterior;
-			    this.siguiente = siguiente;
-		    }
 
-	    }
+            public Elemento(T elemento, Elemento<T> siguiente, Elemento<T> anterior)
+            {
 
-	    public bool Contiene(T datoBuscado) {
-		
-		    bool encontrado = false;
-            IteradorListaEnlazada iterador = this.Iterador();
-		
-		    while (!encontrado && iterador.HasNext()) {
-			
-			    T item = iterador.next();
-			
-			    if (item.Equals(datoBuscado)) {
-				    encontrado = true;
-			    }
-		    }
-		
-		    return encontrado;
-	    }
+                Vertice = elemento;
+                Anterior = anterior;
+                Siguiente = siguiente;
+            }
 
-       
+        }
+
+        public bool Contiene(T datoBuscado)
+        {
+            
+            return Obtener(datoBuscado) != null;
+
+        }
+
+        public T Obtener(T datoBuscado)
+        {
+
+            T encontrado = default(T);
+            IteradorListaEnlazada iterador = this.Iterador;
+
+            while (encontrado == null && iterador.HasNext())
+            {
+
+                T item = iterador.Next();
+
+                if (item.Equals(datoBuscado))
+                {
+                    encontrado = item;
+                }
+            }
+
+            return encontrado;
+        }
+
+
     }
 }

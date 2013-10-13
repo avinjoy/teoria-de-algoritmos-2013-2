@@ -6,11 +6,6 @@ namespace TeoriaDelAlgoritmosCSHARP
 {
     public class Nodo
     {
-        public Nodo() 
-        {
-
-        }
-
         private Int32 nroCiclo;
         private Int32 nroAdyacentes;
         private string nombre;
