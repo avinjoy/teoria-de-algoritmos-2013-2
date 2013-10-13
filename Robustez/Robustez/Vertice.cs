@@ -2,25 +2,41 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Robustez
+namespace TeoriaDelAlgoritmosCSHARP
 {
-    class Vertice <T>
+    public class Vertice <T>
     {
-        private T contenido; //TODO: Debemos ver que tipo de contenido ubicar acá
+        private T contenido; //TODO:Debemos ver que tipo de contenido ubicar ac�
+        private bool visitado;
+        private ListaEnlazada<Vertice<T>> adyacentes;
+        private long index;
+        private long lowLink;
 
+        public long Index
+        {
+            get { return index; }
+            set { index = value; }
+        }
+
+        public long LowLink
+        {
+            get { return lowLink; }
+            set { lowLink = value; }
+        }
+        
         public T Contenido
         {
             get { return contenido; }
             set { contenido = value; }
         }
-        private bool visitado;
+        
 
         public bool Visitado
         {
             get { return visitado; }
             set { visitado = value; }
         }
-        private ListaEnlazada<Vertice<T>> adyacentes;
+        
 
         public ListaEnlazada<Vertice<T>> Adyacentes
         {
@@ -37,19 +53,7 @@ namespace Robustez
 		    this.adyacentes=new ListaEnlazada<Vertice<T>>();
 	    }
 	
-	    public T getContenido() {
-		    return contenido;
-	    }
-	    public void setContenido(T contenido) {
-		    this.contenido = contenido;
-	    }
-	    public ListaEnlazada<Vertice<T>> getAdyacentes() {
-		    return adyacentes;
-	    }
-	    public void setAdyacentes(ListaEnlazada<Vertice<T>> adyacentes) {
-		    this.adyacentes = adyacentes;
-	    }
-
+	   
 	    public bool isVisitado() {
 		    return visitado;
 	    }

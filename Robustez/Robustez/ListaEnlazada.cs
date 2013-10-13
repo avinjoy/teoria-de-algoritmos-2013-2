@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Collections;
 
-namespace Robustez
+namespace TeoriaDelAlgoritmosCSHARP
 {
-    class ListaEnlazada<T>
+    public class ListaEnlazada<T>
     {
         private static Elemento<T> header = new Elemento<T>(default(T), null, null);
         private static Int32 tamanio = 0;
@@ -16,39 +17,41 @@ namespace Robustez
         }
 
 	    public ListaEnlazada () {
-
-		    header.Siguiente = header.Anterior = header;
+            tamanio = 0;
+            header.Siguiente = header;
+            header.Anterior = header;
 	    }
 	
-	    public bool vacia() {
-		    return true;
+	    public bool Vacia() {
+		    return tamanio == 0;
 	    }
 
-	    public T primero() {
+	    public T Primero() {
             return header.Siguiente.Vertice;
 	    }
 
-	    public T ultimo() {
+	    public T Ultimo() {
 		    return header.Anterior.Vertice;
 	    }
 	
 	    public void agregar(T elemento) {
-		    agregarAntes(elemento, header);
+		    AgregarAntes(elemento, header);
 	    }
         public Int32 GetTamanio()
         {
             return tamanio;
         }
 	
-	    private void agregarAntes(T elemento, Elemento<T> siguiente) {
-		
-		    Elemento<T> nuevo = new Elemento<T>(elemento, siguiente, siguiente.Anterior);
+	    private void AgregarAntes(T elemento, Elemento<T> siguiente) {
+		  
+            Elemento<T> nuevo = new Elemento<T>(elemento, siguiente, siguiente.Anterior);
 		    nuevo.Anterior.Siguiente = nuevo;
             nuevo.Siguiente.Anterior = nuevo;
+            
 		    tamanio++;
 	    }
-
-        public IteradorListaEnlazada iterador()
+	
+        public IteradorListaEnlazada Iterador()
         {
 		    return new IteradorListaEnlazada();
 	    }
@@ -65,8 +68,8 @@ namespace Robustez
 		    }
 		
 
-		    public bool hasNext() {
-			    return siguiente != tamanio;
+		    public bool HasNext() {
+			    return siguiente != Tamanio;
 		    }
 
 		    public T next() {
@@ -84,29 +87,12 @@ namespace Robustez
 		    }
 
 
-		    public void remove() {
+		    public void Remove() {
 			
 		    }
 
-            /*
-            #region IEnumerable<T> Members
 
-            public IEnumerator<T> GetEnumerator()
-            {
-                throw new Exception("The method or operation is not implemented.");
-            }
-
-            #endregion
-
-            #region IEnumerable Members
-
-            System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-            {
-                throw new Exception("The method or operation is not implemented.");
-            }
-
-            #endregion
-             */
+         
         }
 	
 	    private class Elemento<T> {
@@ -143,12 +129,12 @@ namespace Robustez
 
 	    }
 
-	    public bool contiene(T datoBuscado) {
+	    public bool Contiene(T datoBuscado) {
 		
 		    bool encontrado = false;
-            IteradorListaEnlazada iterador = this.iterador();
+            IteradorListaEnlazada iterador = this.Iterador();
 		
-		    while (!encontrado && iterador.hasNext()) {
+		    while (!encontrado && iterador.HasNext()) {
 			
 			    T item = iterador.next();
 			
