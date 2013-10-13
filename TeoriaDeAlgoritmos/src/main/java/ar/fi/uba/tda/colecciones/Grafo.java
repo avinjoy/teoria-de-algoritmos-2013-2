@@ -1,6 +1,7 @@
 package ar.fi.uba.tda.colecciones;
 
 import java.util.Iterator;
+import java.util.Stack;
 
 public class Grafo<T> {
 
@@ -8,6 +9,9 @@ public class Grafo<T> {
 	private ListaEnlazada<Vertice<T>> recorridoDFS;
 	private ListaEnlazada<Vertice<T>> recorridoBFS;
 	private ListaEnlazada<ListaEnlazada<Vertice<T>>> ciclosGrafo;
+	ListaEnlazada<Vertice<T>> subset = new ListaEnlazada<Vertice<T>>();
+	private Stack<Vertice<T>> stack;
+	private Long index;
 
 	public Grafo(ListaEnlazada<Vertice<T>> vertices) {
 		super();
@@ -19,6 +23,8 @@ public class Grafo<T> {
 		this.recorridoDFS = new ListaEnlazada<Vertice<T>>();
 		this.recorridoBFS = new ListaEnlazada<Vertice<T>>();
 		this.ciclosGrafo = new ListaEnlazada<ListaEnlazada<Vertice<T>>>();
+		this.stack = new Stack<Vertice<T>>();
+		this.index = 0L;
 	}
 
 	public ListaEnlazada<Vertice<T>> getVertices() {
@@ -31,56 +37,6 @@ public class Grafo<T> {
 
 	public Integer getCantidadDeNodosGrafo() {
 		return this.vertices.tamanio();
-	}
-
-	/**
-	 * Recorrido en profundidad
-	 */
-	public void recorridoDFS(ListaEnlazada<Vertice<T>> vertices) {
-
-		Iterator<Vertice<T>> iterador = vertices.iterador();
-
-		while (iterador.hasNext()) {
-			Vertice<T> vert = iterador.next();
-			if (!vert.isVisitado()) {
-				vert.setVisitado(true);
-				//System.out.println(vert);
-				getRecorridoDFS().agregar(vert);
-				recorridoDFS(vert.getAdyacentes());
-			}
-		}
-		return;
-	}
-
-	/**
-	 * Recorrido en ancho
-	 */
-	public void recorridoBFS(ListaEnlazada<Vertice<T>> vertices) {
-
-		Iterator<Vertice<T>> iterador = vertices.iterador();
-
-		while (iterador.hasNext()) {
-			Vertice<T> vert = iterador.next();
-
-			if (!vert.isVisitado()) {
-				vert.setVisitado(true);
-				//System.out.println(vert);
-				getRecorridoBFS().agregar(vert);
-			}
-
-			Iterator<Vertice<T>> iteVertice = vert.getAdyacentes().iterador();
-			while (iteVertice.hasNext()) {
-				Vertice<T> vertAdy = iteVertice.next();
-				if (!vertAdy.isVisitado()) {
-					vertAdy.setVisitado(true);
-					//System.out.println(vertAdy);
-					getRecorridoBFS().agregar(vertAdy);
-				}
-			}
-
-		}
-
-		return;
 	}
 
 	public ListaEnlazada<Vertice<T>> getRecorridoDFS() {
@@ -103,7 +59,8 @@ public class Grafo<T> {
 		return ciclosGrafo;
 	}
 
-	public void setCiclosGrafo(ListaEnlazada<ListaEnlazada<Vertice<T>>> ciclosGrafo) {
+	public void setCiclosGrafo(
+			ListaEnlazada<ListaEnlazada<Vertice<T>>> ciclosGrafo) {
 		this.ciclosGrafo = ciclosGrafo;
 	}
 
@@ -127,19 +84,19 @@ public class Grafo<T> {
 	 * @param fin
 	 */
 	public void agregarArco(Vertice<T> inicio, Vertice<T> fin) {
-		//TODO:Validaciones!!!
+		// TODO:Validaciones!!!
 		Vertice<T> inicioEnGrafo = this.obtener(inicio);
-		
+
 		if (inicioEnGrafo != null) {
 			inicio = inicioEnGrafo;
 		}
-		
+
 		Vertice<T> finEnGrafo = this.obtener(fin);
-		
+
 		if (finEnGrafo != null) {
 			fin = finEnGrafo;
 		}
-		
+
 		inicio.getAdyacentes().agregar(fin);
 		fin.getAdyacentes().agregar(inicio);
 
@@ -149,7 +106,7 @@ public class Grafo<T> {
 	}
 
 	private Vertice<T> obtener(Vertice<T> buscado) {
-		
+
 		return this.vertices.obtener(buscado);
 	}
 
@@ -158,4 +115,100 @@ public class Grafo<T> {
 		return vertices.contiene(verticeBuscado);
 	}
 
+	/**
+	 * Recorrido en profundidad
+	 */
+	public void recorridoDFS(ListaEnlazada<Vertice<T>> vertices) {
+
+		Iterator<Vertice<T>> iterador = vertices.iterador();
+
+		while (iterador.hasNext()) {
+			Vertice<T> vert = iterador.next();
+			if (!vert.isVisitado()) {
+				vert.setVisitado(true);
+				// System.out.println(vert);
+				getRecorridoDFS().agregar(vert);
+				recorridoDFS(vert.getAdyacentes());
+			}
+		}
+		return;
+	}
+
+	/**
+	 * Recorrido en ancho
+	 */
+	public void recorridoBFS(ListaEnlazada<Vertice<T>> vertices) {
+
+		Iterator<Vertice<T>> iterador = vertices.iterador();
+
+		while (iterador.hasNext()) {
+			Vertice<T> vert = iterador.next();
+
+			if (!vert.isVisitado()) {
+				vert.setVisitado(true);
+				// System.out.println(vert);
+				getRecorridoBFS().agregar(vert);
+			}
+
+			Iterator<Vertice<T>> iteVertice = vert.getAdyacentes().iterador();
+			while (iteVertice.hasNext()) {
+				Vertice<T> vertAdy = iteVertice.next();
+				if (!vertAdy.isVisitado()) {
+					vertAdy.setVisitado(true);
+					// System.out.println(vertAdy);
+					getRecorridoBFS().agregar(vertAdy);
+				}
+			}
+
+		}
+
+		return;
+	}
+
+	
+	//Todavia no está terminado porque no calcula bien. 
+	//Hay que revisar.
+	public void encontrarCiclos(ListaEnlazada<Vertice<T>> vertices) {
+
+		Iterator<Vertice<T>> iterador = vertices.iterador();
+
+		while (iterador.hasNext()) {
+			Vertice<T> vert = iterador.next();
+			if (!vert.isVisitado()) {
+				vert.setVisitado(true);
+				vert.setIndex(index);
+				vert.setLowLink(index);
+				index++;
+				stack.push(vert);
+				// System.out.println(vert);
+
+				Iterator<Vertice<T>> iterAdyacente = vert.getAdyacentes()
+						.iterador();
+
+				while (iterAdyacente.hasNext()) {
+					Vertice<T> vertAdyacente = iterAdyacente.next();
+
+					if (!vertAdyacente.isVisitado()) {
+						encontrarCiclos(vert.getAdyacentes());
+						vert.setLowLink(Math.min(vert.getLowLink(),
+								vertAdyacente.getLowLink()));
+					} else if (stack.contains(vertAdyacente)) {
+						vert.setLowLink(Math.min(vert.getLowLink(),
+								vertAdyacente.getIndex()));
+					}
+				}
+
+				if (vert.getLowLink() == vert.getIndex()) {
+					Vertice<T> neighbor = null;
+					while (!vert.equals(neighbor)) {
+						neighbor = stack.pop();
+						subset.agregar(neighbor);
+					}
+
+					ciclosGrafo.agregar(subset);
+				}
+			}
+		}
+		return;
+	}
 }

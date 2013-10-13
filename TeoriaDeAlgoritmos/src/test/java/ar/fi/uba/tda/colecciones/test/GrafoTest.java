@@ -106,7 +106,7 @@ public class GrafoTest {
 		crearGrafoEnunciado();
 		grafo.recorridoDFS(this.grafo.getVertices());
 		assertThat("Hay 8 vertices en el recorrido", grafo.getRecorridoDFS().tamanio(), is(8));
-				
+						
 	}
 	
 	@Test
@@ -114,6 +114,13 @@ public class GrafoTest {
 		crearGrafoEnunciado();
 		grafo.recorridoBFS(this.grafo.getVertices());
 		assertThat("Hay 8 vertices en el recorridos", grafo.getRecorridoBFS().tamanio(), is(8));
+	}
+	
+	@Test
+	public void encontrarCiclosTest() {
+		crearGrafoEnunciado();
+		grafo.encontrarCiclos(this.grafo.getVertices());
+		//assertThat("Hay 8 vertices en el recorridos", grafo.getRecorridoBFS().tamanio(), is(8));
 	}
 
 	private void crearGrafoEnunciado() {

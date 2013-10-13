@@ -5,6 +5,9 @@ public class Vertice<T> {
 	private T contenido; 
 	private boolean visitado;
 	private ListaEnlazada<Vertice<T>> adyacentes;
+	private Long index;
+	private Long lowLink;
+	
 		
 	public Vertice() {
 		super();
@@ -27,6 +30,22 @@ public class Vertice<T> {
 	}
 	public void setAdyacentes(ListaEnlazada<Vertice<T>> adyacentes) {
 		this.adyacentes = adyacentes;
+	}
+
+	public Long getIndex() {
+		return index;
+	}
+
+	public void setIndex(Long index) {
+		this.index = index;
+	}
+
+	public Long getLowLink() {
+		return lowLink;
+	}
+
+	public void setLowLink(Long lowLink) {
+		this.lowLink = lowLink;
 	}
 
 	public boolean isVisitado() {
@@ -75,7 +94,7 @@ public class Vertice<T> {
 
 	@Override
 	public String toString() {
-		return "Vertice: "+contenido.toString();
+		return "Vertice: "+contenido.toString()+" (i: "+this.getIndex()+" , l: "+this.getLowLink()+")";
 	}
 	
 }
