@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TeoriaDelAlgoritmosCSHARP
 {
-    class Nodo
+    public class Nodo
     {
         public Nodo() 
         {
@@ -12,20 +12,24 @@ namespace TeoriaDelAlgoritmosCSHARP
         }
 
         private Int32 nroCiclo;
+        private Int32 nroAdyacentes;
+        private string nombre;
+
+
         public Int32 NroCiclo
         {
             get { return nroCiclo; }
             set { nroCiclo = value; }
         }
 
-        private Int32 nroAdyacentes;
+        
         public Int32 NroAdyacentes
         {
             get { return nroAdyacentes; }
             set { nroAdyacentes = value; }
         }
 
-        private string nombre;
+        
         public string Nombre
         {
             get { return nombre; }

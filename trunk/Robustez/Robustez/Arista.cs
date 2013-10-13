@@ -23,8 +23,8 @@ namespace TeoriaDelAlgoritmosCSHARP
 	
 	
 	public Arista(Vertice<T> verticeCicloUno, Vertice<T> verticeCicloDos) {
-		this.origen = verticeCicloUno;
-		this.destino = verticeCicloDos;
+		Origen = verticeCicloUno;
+		Destino = verticeCicloDos;
 	}
 
 	
