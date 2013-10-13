@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TeoriaDelAlgoritmosCSHARP
+namespace Robustez
 {
-    public class ListaEnlazada<T>
+    class ListaEnlazada<T>
     {
         private static Elemento<T> header = new Elemento<T>(default(T), null, null);
         private static Int32 tamanio = 0;
@@ -47,14 +47,13 @@ namespace TeoriaDelAlgoritmosCSHARP
             nuevo.Siguiente.Anterior = nuevo;
 		    tamanio++;
 	    }
-	
-	  
 
-	    public IEnumerable<T> iterador() {
+        public IteradorListaEnlazada iterador()
+        {
 		    return new IteradorListaEnlazada();
 	    }
 	
-	    private class IteradorListaEnlazada : IEnumerable<T> {
+	    public class IteradorListaEnlazada  {
 
 		    private int siguiente;
 		    private Elemento<T> siguienteElemento;
@@ -67,7 +66,7 @@ namespace TeoriaDelAlgoritmosCSHARP
 		
 
 		    public bool hasNext() {
-			    return siguiente != Tamanio;
+			    return siguiente != tamanio;
 		    }
 
 		    public T next() {
@@ -89,7 +88,7 @@ namespace TeoriaDelAlgoritmosCSHARP
 			
 		    }
 
-
+            /*
             #region IEnumerable<T> Members
 
             public IEnumerator<T> GetEnumerator()
@@ -107,6 +106,7 @@ namespace TeoriaDelAlgoritmosCSHARP
             }
 
             #endregion
+             */
         }
 	
 	    private class Elemento<T> {
@@ -146,11 +146,11 @@ namespace TeoriaDelAlgoritmosCSHARP
 	    public bool contiene(T datoBuscado) {
 		
 		    bool encontrado = false;
-		    IEnumerable<T> iterador = this.iterador();
+            IteradorListaEnlazada iterador = this.iterador();
 		
-		    while (!encontrado && iterador.GetEnumerator().MoveNext()) {
+		    while (!encontrado && iterador.hasNext()) {
 			
-			    T item = iterador.GetEnumerator().Current;
+			    T item = iterador.next();
 			
 			    if (item.Equals(datoBuscado)) {
 				    encontrado = true;

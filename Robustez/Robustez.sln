@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Robustez", "Robustez\Robustez.csproj", "{9DFDDC5A-6445-41E6-B6C8-5515CFD9FDA1}"
 EndProject
 Global

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TeoriaDelAlgoritmosCSHARP
+namespace Robustez
 {
     class Vertice <T>
     {
-        private T contenido; //TODO:Debemos ver que tipo de contenido ubicar ac�
+        private T contenido; //TODO: Debemos ver que tipo de contenido ubicar acá
 
         public T Contenido
         {
