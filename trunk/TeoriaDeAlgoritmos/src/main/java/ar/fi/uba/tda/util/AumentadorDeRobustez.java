@@ -32,7 +32,9 @@ public class AumentadorDeRobustez {
 				Iterator<Vertice<?>> verticesPrimerCiclo = ciclo.iterador();
 				Iterator<Vertice<?>> verticesSegundoCiclo = siguienteCiclo.iterador();
 				
-				while (verticesPrimerCiclo.hasNext() && verticesSegundoCiclo.hasNext()) {
+				int robustezAlcanzada = 0;
+				
+				while (robustezAlcanzada < robustez && verticesPrimerCiclo.hasNext() && verticesSegundoCiclo.hasNext()) {
 					
 					Vertice verticeCicloUno = verticesPrimerCiclo.next();
 					Vertice verticeCicloDos = verticesSegundoCiclo.next();
@@ -40,6 +42,8 @@ public class AumentadorDeRobustez {
 					if (!verticeCicloUno.getAdyacentes().contiene(verticeCicloDos)) {
 						aristasAgregadas.agregar(new Arista(verticeCicloUno, verticeCicloDos));
 					}
+					
+					robustezAlcanzada++;
 				}
 				
 			}
