@@ -16,6 +16,7 @@ public class AumentadorDeRobustez {
 		this.grafo = grafo;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void aumentar(ListaEnlazada<ListaEnlazada<Vertice<?>>> ciclos, int robustez) {
 
 		if (laRobustezEsCompatibleConElGrafo(robustez)) {
@@ -33,10 +34,12 @@ public class AumentadorDeRobustez {
 				
 				while (verticesPrimerCiclo.hasNext() && verticesSegundoCiclo.hasNext()) {
 					
-					Vertice<?> verticeCicloUno = verticesPrimerCiclo.next();
-					Vertice<?> verticeCicloDos = verticesSegundoCiclo.next();
+					Vertice verticeCicloUno = verticesPrimerCiclo.next();
+					Vertice verticeCicloDos = verticesSegundoCiclo.next();
 					
-					aristasAgregadas.agregar(new Arista(verticeCicloUno, verticeCicloDos));
+					if (!verticeCicloUno.getAdyacentes().contiene(verticeCicloDos)) {
+						aristasAgregadas.agregar(new Arista(verticeCicloUno, verticeCicloDos));
+					}
 				}
 				
 			}
