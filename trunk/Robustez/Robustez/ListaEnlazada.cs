@@ -57,7 +57,7 @@ namespace TeoriaDelAlgoritmosCSHARP
         {
             AgregarAntes(elemento, _header);
         }
-       
+
 
         private void AgregarAntes(T elemento, Elemento<T> siguiente)
         {
@@ -69,7 +69,7 @@ namespace TeoriaDelAlgoritmosCSHARP
 
 
             Tamanio += 1;
-        }     
+        }
 
         public class IteradorListaEnlazada
         {
@@ -83,12 +83,12 @@ namespace TeoriaDelAlgoritmosCSHARP
                 get { return _siguiente; }
                 set { _siguiente = value; }
             }
-            
+
             private Elemento<T> SiguienteElemento
             {
                 get { return _siguienteElemento; }
                 set { _siguienteElemento = value; }
-            }            
+            }
 
             public ListaEnlazada<T> Lista
             {
@@ -114,7 +114,7 @@ namespace TeoriaDelAlgoritmosCSHARP
 
                 T aRetornar = default(T);
 
-                if (_siguiente < _lista.Tamanio)
+                if (Siguiente < _lista.Tamanio)
                 {
 
                     aRetornar = _siguienteElemento.Siguiente.Vertice;
@@ -125,13 +125,53 @@ namespace TeoriaDelAlgoritmosCSHARP
                 return aRetornar;
             }
 
+            public bool HasPrevious()
+            {
+                return Siguiente != 0;
+            }
+
+
+            public T Previous()
+            {
+
+                T aRetornar = default(T);
+
+                if (Siguiente > 0)
+                {
+
+                    aRetornar = SiguienteElemento.Anterior.Vertice;
+                    SiguienteElemento = SiguienteElemento.Anterior;
+                    Siguiente--;
+                }
+
+                return aRetornar;
+            }
 
             public void Remove()
             {
 
             }
 
+            public int nextIndex()
+            {
+                return 0;
+            }
 
+
+            public int previousIndex()
+            {
+                return 0;
+            }
+
+
+            public void set(T e)
+            {
+            }
+
+
+            public void add(T e)
+            {
+            }
 
         }
 
@@ -173,7 +213,7 @@ namespace TeoriaDelAlgoritmosCSHARP
 
         public bool Contiene(T datoBuscado)
         {
-            
+
             return Obtener(datoBuscado) != null;
 
         }

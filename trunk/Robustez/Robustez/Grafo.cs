@@ -197,10 +197,6 @@ namespace TeoriaDelAlgoritmosCSHARP
         }
 
 
-        /**
-         * Agrega un v�rtice al grafo
-         * @param vert
-         */
         public void AgregarVertice(Vertice<T> vertice)
         {
             if (vertice != null && vertice.Contenido != null && !this.ContieneVertice(vertice))
