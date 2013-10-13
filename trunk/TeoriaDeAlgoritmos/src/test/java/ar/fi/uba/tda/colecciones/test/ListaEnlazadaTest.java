@@ -57,6 +57,8 @@ public class ListaEnlazadaTest {
 		assertThat("el primer elemento", primero, is(elemento));
 		
 		assertThat("el tamaño", lista.tamanio(), is(1));
+		
+		assertThat("lista vacia", lista.vacia(), is(false));
 	}
 	
 	@Test

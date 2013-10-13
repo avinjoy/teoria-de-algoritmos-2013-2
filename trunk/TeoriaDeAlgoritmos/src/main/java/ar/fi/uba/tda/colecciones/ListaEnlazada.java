@@ -13,7 +13,7 @@ public class ListaEnlazada<T> {
 	}
 	
 	public Boolean vacia() {
-		return true;
+		return tamanio == 0;
 	}
 
 	public T primero() {
