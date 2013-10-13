@@ -2,9 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using Robustez;
+using TeoriaDelAlgoritmosCSHARP;
 
-namespace Robustez
+
+namespace TeoriaDelAlgoritmosCSHARP
 {
     class Program
     {
@@ -49,12 +50,12 @@ namespace Robustez
                         vNodo.Adyacentes.agregar(vAdy);
                     }
 
-                    grafo.agregarVertice(vNodo);
+                    grafo.AgregarVertice(vNodo);
 
                 }
 
                 file.Close();
-            }
+        }
    
         }
 
