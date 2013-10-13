@@ -6,7 +6,7 @@ namespace TeoriaDelAlgoritmosCSHARP
 {
     public class Vertice <T>
     {
-        private T contenido; //TODO:Debemos ver que tipo de contenido ubicar ac�
+        private T contenido; 
         private bool visitado;
         private ListaEnlazada<Vertice<T>> adyacentes;
         private long index;
@@ -55,10 +55,12 @@ namespace TeoriaDelAlgoritmosCSHARP
 	
 	  	
 	    public Int32 GetGradoVertice(){
-            return this.adyacentes.GetTamanio();
+            return this.adyacentes.Tamanio;
 	    }
 
-	    public int HashCode() {
+
+        
+	    public override int GetHashCode() {
 		    const int prime = 31;
 		    int result = 1;
 		    result = prime * result

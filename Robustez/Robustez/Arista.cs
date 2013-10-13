@@ -4,29 +4,31 @@ using System.Text;
 
 namespace TeoriaDelAlgoritmosCSHARP
 {
-   public class Arista<T> {
+    public class Arista<T>
+    {
 
-       private Vertice<T> origen;
-       private Vertice<T> destino;
+        private Vertice<T> origen;
+        private Vertice<T> destino;
 
-       public Vertice<T> Origen
-       {
-           get { return origen; }
-           set { origen = value; }
-       }     
+        public Vertice<T> Origen
+        {
+            get { return origen; }
+            set { origen = value; }
+        }
 
-       public Vertice<T> Destino
-       {
-           get { return destino; }
-           set { destino = value; }
-       }
-	
-	
-	public Arista(Vertice<T> verticeCicloUno, Vertice<T> verticeCicloDos) {
-		Origen = verticeCicloUno;
-		Destino = verticeCicloDos;
-	}
+        public Vertice<T> Destino
+        {
+            get { return destino; }
+            set { destino = value; }
+        }
 
-	
-}
+
+        public Arista(Vertice<T> verticeCicloUno, Vertice<T> verticeCicloDos)
+        {
+            Origen = verticeCicloUno;
+            Destino = verticeCicloDos;
+        }
+
+
+    }
 }

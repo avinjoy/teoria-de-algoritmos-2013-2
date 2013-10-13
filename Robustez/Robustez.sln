@@ -1,7 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Robustez", "Robustez\Robustez.csproj", "{9DFDDC5A-6445-41E6-B6C8-5515CFD9FDA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{5AFD5397-A0A8-48F0-B458-B06267D69CBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +15,10 @@ Global
 		{9DFDDC5A-6445-41E6-B6C8-5515CFD9FDA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DFDDC5A-6445-41E6-B6C8-5515CFD9FDA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DFDDC5A-6445-41E6-B6C8-5515CFD9FDA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AFD5397-A0A8-48F0-B458-B06267D69CBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AFD5397-A0A8-48F0-B458-B06267D69CBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AFD5397-A0A8-48F0-B458-B06267D69CBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AFD5397-A0A8-48F0-B458-B06267D69CBF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

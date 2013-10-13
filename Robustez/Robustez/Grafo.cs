@@ -78,7 +78,7 @@ namespace TeoriaDelAlgoritmosCSHARP
 
         public Int32 GetCantidadDeNodosGrafo()
         {
-            return Vertices.GetTamanio();
+            return Vertices.Tamanio;
         }
 
       
@@ -90,16 +90,16 @@ namespace TeoriaDelAlgoritmosCSHARP
         public void RecorridoDFS(ListaEnlazada<Vertice<T>> vertices)
         {
 
-            ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iterador = vertices.Iterador();
+            ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iterador = vertices.Iterador;
 
             while (iterador.HasNext())
             {
-                Vertice<T> vert = iterador.next();
+                Vertice<T> vert = iterador.Next();
                 if (!vert.Visitado)
                 {
                     vert.Visitado = true;
                     // System.out.println(vert);
-                    ListaRecorridoDFS.agregar(vert);
+                    ListaRecorridoDFS.Agregar(vert);
                     RecorridoDFS(vert.Adyacentes);
                 }
             }
@@ -112,28 +112,28 @@ namespace TeoriaDelAlgoritmosCSHARP
         public void RecorridoBFS(ListaEnlazada<Vertice<T>> vertices)
         {
 
-            ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iterador = vertices.Iterador();
+            ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iterador = vertices.Iterador;
 
             while (iterador.HasNext())
             {
-                Vertice<T> vert = iterador.next();
+                Vertice<T> vert = iterador.Next();
 
                 if (!vert.Visitado)
                 {
                     vert.Visitado = true;
                     // System.out.println(vert);
-                    ListaRecorridoBFS.agregar(vert);
+                    ListaRecorridoBFS.Agregar(vert);
                 }
 
-                ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iteVertice = vert.Adyacentes.Iterador();
+                ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iteVertice = vert.Adyacentes.Iterador;
                 while (iteVertice.HasNext())
                 {
-                    Vertice<T> vertAdy = iteVertice.next();
+                    Vertice<T> vertAdy = iteVertice.Next();
                     if (!vertAdy.Visitado)
                     {
                         vertAdy.Visitado = true;
                         // System.out.println(vertAdy);
-                        ListaRecorridoBFS.agregar(vertAdy);
+                        ListaRecorridoBFS.Agregar(vertAdy);
                     }
                 }
 
@@ -148,11 +148,11 @@ namespace TeoriaDelAlgoritmosCSHARP
         public void EncontrarCiclos(ListaEnlazada<Vertice<T>> vertices)
         {
 
-            ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iterador = vertices.Iterador();
+            ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iterador = vertices.Iterador;
 
             while (iterador.HasNext())
             {
-                Vertice<T> vert = iterador.next();
+                Vertice<T> vert = iterador.Next();
                 if (!vert.Visitado)
                 {
                     vert.Visitado = true;
@@ -162,11 +162,11 @@ namespace TeoriaDelAlgoritmosCSHARP
                     _stack.Push(vert);
                     // System.out.println(vert);
 
-                    ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iterAdyacente = vert.Adyacentes.Iterador();
+                    ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iterAdyacente = vert.Adyacentes.Iterador;
 
                     while (iterAdyacente.HasNext())
                     {
-                        Vertice<T> vertAdyacente = iterAdyacente.next();
+                        Vertice<T> vertAdyacente = iterAdyacente.Next();
 
                         if (!vertAdyacente.Visitado)
                         {
@@ -186,10 +186,10 @@ namespace TeoriaDelAlgoritmosCSHARP
                         while (!vert.Equals(neighbor))
                         {
                             neighbor = _stack.Pop();
-                            _subset.agregar(neighbor);
+                            _subset.Agregar(neighbor);
                         }
 
-                        _ciclosGrafo.agregar(_subset);
+                        _ciclosGrafo.Agregar(_subset);
                     }
                 }
             }
@@ -205,25 +205,41 @@ namespace TeoriaDelAlgoritmosCSHARP
         {
             if (vertice != null && vertice.Contenido != null && !this.ContieneVertice(vertice))
             {
-                Vertices.agregar(vertice);
+                Vertices.Agregar(vertice);
             }
 
         }
 
-        /**
-         * Crea un arco entre 2 v�rtices (no es grafo dirigido)
-         * @param inicio
-         * @param fin
-         */
-        public void AgregarArco(Vertice<T> inicio, Vertice<T> fin)
+   
+        public void agregarArco(Vertice<T> inicio, Vertice<T> fin)
         {
-            //TODO:Validaciones!!!	
-            inicio.Adyacentes.agregar(fin);
-            fin.Adyacentes.agregar(inicio);
+            
+            Vertice<T> inicioEnGrafo = Obtener(inicio);
+
+            if (inicioEnGrafo != null)
+            {
+                inicio = inicioEnGrafo;
+            }
+
+            Vertice<T> finEnGrafo = Obtener(fin);
+
+            if (finEnGrafo != null)
+            {
+                fin = finEnGrafo;
+            }
+
+            inicio.Adyacentes.Agregar(fin);
+            fin.Adyacentes.Agregar(inicio);
 
             AgregarVertice(inicio);
             AgregarVertice(fin);
 
+        }
+
+        private Vertice<T> Obtener(Vertice<T> buscado)
+        {
+
+            return Vertices.Obtener(buscado);
         }
 
         public bool ContieneVertice(Vertice<T> verticeBuscado)

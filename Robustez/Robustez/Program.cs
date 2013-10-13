@@ -47,7 +47,7 @@ namespace TeoriaDelAlgoritmosCSHARP
                         ady.Nombre = adyacentes[i].Trim();
                         Vertice<Nodo> vAdy = new Vertice<Nodo>(ady);
 
-                        vNodo.Adyacentes.agregar(vAdy);
+                        vNodo.Adyacentes.Agregar(vAdy);
                     }
 
                     grafo.AgregarVertice(vNodo);
