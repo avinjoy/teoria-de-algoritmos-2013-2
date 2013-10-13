@@ -95,9 +95,9 @@ namespace TeoriaDelAlgoritmosCSHARP
             while (iterador.HasNext())
             {
                 Vertice<T> vert = iterador.next();
-                if (!vert.isVisitado())
+                if (!vert.Visitado)
                 {
-                    vert.setVisitado(true);
+                    vert.Visitado = true;
                     // System.out.println(vert);
                     ListaRecorridoDFS.agregar(vert);
                     RecorridoDFS(vert.Adyacentes);
@@ -118,9 +118,9 @@ namespace TeoriaDelAlgoritmosCSHARP
             {
                 Vertice<T> vert = iterador.next();
 
-                if (!vert.isVisitado())
+                if (!vert.Visitado)
                 {
-                    vert.setVisitado(true);
+                    vert.Visitado = true;
                     // System.out.println(vert);
                     ListaRecorridoBFS.agregar(vert);
                 }
@@ -129,9 +129,9 @@ namespace TeoriaDelAlgoritmosCSHARP
                 while (iteVertice.HasNext())
                 {
                     Vertice<T> vertAdy = iteVertice.next();
-                    if (!vertAdy.isVisitado())
+                    if (!vertAdy.Visitado)
                     {
-                        vertAdy.setVisitado(true);
+                        vertAdy.Visitado = true;
                         // System.out.println(vertAdy);
                         ListaRecorridoBFS.agregar(vertAdy);
                     }
@@ -153,7 +153,7 @@ namespace TeoriaDelAlgoritmosCSHARP
             while (iterador.HasNext())
             {
                 Vertice<T> vert = iterador.next();
-                if (!vert.isVisitado())
+                if (!vert.Visitado)
                 {
                     vert.Visitado = true;
                     vert.Index = _index;
@@ -168,7 +168,7 @@ namespace TeoriaDelAlgoritmosCSHARP
                     {
                         Vertice<T> vertAdyacente = iterAdyacente.next();
 
-                        if (!vertAdyacente.isVisitado())
+                        if (!vertAdyacente.Visitado)
                         {
                             EncontrarCiclos(vert.Adyacentes);
                             vert.LowLink = Math.Min(vert.LowLink,vertAdyacente.LowLink);
@@ -183,7 +183,7 @@ namespace TeoriaDelAlgoritmosCSHARP
                     if (vert.LowLink == vert.Index)
                     {
                         Vertice<T> neighbor = null;
-                        while (!vert.equals(neighbor))
+                        while (!vert.Equals(neighbor))
                         {
                             neighbor = _stack.Pop();
                             _subset.agregar(neighbor);

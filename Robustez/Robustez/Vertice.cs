@@ -49,24 +49,16 @@ namespace TeoriaDelAlgoritmosCSHARP
 	    }
 	
 	    public Vertice(T contenido): base(){
-		    this.contenido=contenido;
-		    this.adyacentes=new ListaEnlazada<Vertice<T>>();
+		    Contenido=contenido;
+		    Adyacentes=new ListaEnlazada<Vertice<T>>();
 	    }
 	
-	   
-	    public bool isVisitado() {
-		    return visitado;
-	    }
-
-	    public void setVisitado(bool vistado) {
-		    this.visitado = vistado;
-	    }
-	
-	    public Int32 getGradoVertice(){
+	  	
+	    public Int32 GetGradoVertice(){
             return this.adyacentes.GetTamanio();
 	    }
 
-	    public int hashCode() {
+	    public int HashCode() {
 		    const int prime = 31;
 		    int result = 1;
 		    result = prime * result
@@ -74,7 +66,7 @@ namespace TeoriaDelAlgoritmosCSHARP
 		    return result;
 	    }
 
-	    public bool equals(Object obj) 
+	    public override bool Equals(Object obj) 
         {
 		    if (this == obj) {
 			    return true;

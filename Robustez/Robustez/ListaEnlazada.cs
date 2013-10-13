@@ -7,39 +7,39 @@ namespace TeoriaDelAlgoritmosCSHARP
 {
     public class ListaEnlazada<T>
     {
-        private static Elemento<T> header = new Elemento<T>(default(T), null, null);
-        private static Int32 tamanio = 0;
+        private static Elemento<T> _header = new Elemento<T>(default(T), null, null);
+        private static Int32 _tamanio = 0;
 
         public static Int32 Tamanio
         {
-            get { return ListaEnlazada < T >.tamanio; }
-            set { ListaEnlazada<T>.tamanio = value; }
+            get { return ListaEnlazada < T >._tamanio; }
+            set { ListaEnlazada<T>._tamanio = value; }
         }
 
 	    public ListaEnlazada () {
-            tamanio = 0;
-            header.Siguiente = header;
-            header.Anterior = header;
+            _tamanio = 0;
+            _header.Siguiente = _header;
+            _header.Anterior = _header;
 	    }
 	
 	    public bool Vacia() {
-		    return tamanio == 0;
+		    return _tamanio == 0;
 	    }
 
 	    public T Primero() {
-            return header.Siguiente.Vertice;
+            return _header.Siguiente.Vertice;
 	    }
 
 	    public T Ultimo() {
-		    return header.Anterior.Vertice;
+		    return _header.Anterior.Vertice;
 	    }
 	
 	    public void agregar(T elemento) {
-		    AgregarAntes(elemento, header);
+		    AgregarAntes(elemento, _header);
 	    }
         public Int32 GetTamanio()
         {
-            return tamanio;
+            return _tamanio;
         }
 	
 	    private void AgregarAntes(T elemento, Elemento<T> siguiente) {
@@ -48,7 +48,7 @@ namespace TeoriaDelAlgoritmosCSHARP
 		    nuevo.Anterior.Siguiente = nuevo;
             nuevo.Siguiente.Anterior = nuevo;
             
-		    tamanio++;
+		    _tamanio++;
 	    }
 	
         public IteradorListaEnlazada Iterador()
@@ -64,7 +64,7 @@ namespace TeoriaDelAlgoritmosCSHARP
 		    public IteradorListaEnlazada () {
 		
 			    siguiente = 0;
-			    siguienteElemento = header;
+			    siguienteElemento = _header;
 		    }
 		
 
