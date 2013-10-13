@@ -102,4 +102,39 @@ public class AumentadorDeRobustezTest {
 		
 		MatcherAssert.assertThat("la cantidad de aristas agregadas", aristasAgregadas.tamanio(), Matchers.is(0));
 	}
+	
+	@Test
+	public void siRecibeDosNodosYaEnlazadosYRobustez1NoAgregaArista() {
+		
+		Grafo<String> grafo = new Grafo<String>();
+		Vertice<String> verticeA = new Vertice<String>("A");
+		Vertice<String> verticeB = new Vertice<String>("B");
+		
+		grafo.agregarVertice(verticeA);
+		grafo.agregarVertice(verticeB);
+		
+		grafo.agregarArco(verticeA, verticeB);
+		
+		AumentadorDeRobustez aumentador = new AumentadorDeRobustez(grafo);
+		
+		ListaEnlazada<ListaEnlazada<Vertice<?>>> ciclos = new ListaEnlazada<ListaEnlazada<Vertice<?>>>();
+		
+		ListaEnlazada<Vertice<?>> primerCiclo = new ListaEnlazada<Vertice<?>>();
+		primerCiclo.agregar(verticeA);
+		
+		ListaEnlazada<Vertice<?>> segundoCiclo = new ListaEnlazada<Vertice<?>>();
+		segundoCiclo.agregar(verticeB);
+		
+		
+		ciclos.agregar(primerCiclo);
+		ciclos.agregar(segundoCiclo);
+		
+		int robustez = 1;
+		
+		aumentador.aumentar(ciclos, robustez);
+		
+		ListaEnlazada<Arista> aristasAgregadas = aumentador.getAristasAgregadas();
+		
+		MatcherAssert.assertThat("la cantidad de aristas agregadas", aristasAgregadas.tamanio(), Matchers.is(0));
+	}
 }
