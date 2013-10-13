@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TeoriaDelAlgoritmosCSHARP
+namespace Robustez
 {
-    class Grafo <T>
+    class Grafo<T>
     {
         private ListaEnlazada<Vertice<T>> vertices;
 
@@ -54,7 +54,7 @@ namespace TeoriaDelAlgoritmosCSHARP
         }
 
         /**
-         * Agrega un v�rtice al grafo
+         * Agrega un vértice al grafo
          * @param vert
          */
         public void agregarVertice(Vertice<T> vert)
@@ -67,7 +67,7 @@ namespace TeoriaDelAlgoritmosCSHARP
         }
 
         /**
-         * Crea un arco entre 2 v�rtices (no es grafo dirigido)
+         * Crea un arco entre 2 vértices (no es grafo dirigido)
          * @param inicio
          * @param fin
          */
