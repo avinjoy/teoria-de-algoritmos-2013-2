@@ -89,5 +89,10 @@ namespace TeoriaDelAlgoritmosCSHARP
 		    }
 		    return true;
 	    }
+
+        public String toString()
+        {
+            return "Vertice: " + contenido.ToString() + " (i: " + this.Index + " , l: " + this.LowLink + ")";
+        }
     }
 }
