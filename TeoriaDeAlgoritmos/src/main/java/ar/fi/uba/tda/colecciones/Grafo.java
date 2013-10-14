@@ -1,7 +1,7 @@
 package ar.fi.uba.tda.colecciones;
 
 import java.util.Iterator;
-import java.util.Stack;
+import java.util.Vector;
 
 public class Grafo<T> {
 
@@ -10,7 +10,7 @@ public class Grafo<T> {
 	private ListaEnlazada<Vertice<T>> recorridoBFS;
 	private ListaEnlazada<ListaEnlazada<Vertice<T>>> ciclosGrafo;
 	ListaEnlazada<Vertice<T>> subset = new ListaEnlazada<Vertice<T>>();
-	private Stack<Vertice<T>> stack;
+	private Vector<Vertice<T>> visitados;
 	private Long index;
 
 	public Grafo(ListaEnlazada<Vertice<T>> vertices) {
@@ -23,7 +23,7 @@ public class Grafo<T> {
 		this.recorridoDFS = new ListaEnlazada<Vertice<T>>();
 		this.recorridoBFS = new ListaEnlazada<Vertice<T>>();
 		this.ciclosGrafo = new ListaEnlazada<ListaEnlazada<Vertice<T>>>();
-		this.stack = new Stack<Vertice<T>>();
+		this.visitados = new Vector<Vertice<T>>();
 		this.index = 0L;
 	}
 
@@ -165,50 +165,56 @@ public class Grafo<T> {
 		return;
 	}
 
-	
-	//Todavia no está terminado porque no calcula bien. 
-	//Hay que revisar.
-	public void encontrarCiclos(ListaEnlazada<Vertice<T>> vertices) {
+	// Todavia no está terminado porque no calcula bien.
+	// Hay que revisar.
+	public void encontrarCiclos(Vertice<T> vert) {
 
-		Iterator<Vertice<T>> iterador = vertices.iterador();
+		if (!vert.isVisitado()) {
+			vert.setVisitado(true);
+			vert.setIndex(index);
+			vert.setLowLink(index);
+			index++;
+			visitados.add(vert);
+			// System.out.println(vert);
 
-		while (iterador.hasNext()) {
-			Vertice<T> vert = iterador.next();
-			if (!vert.isVisitado()) {
-				vert.setVisitado(true);
-				vert.setIndex(index);
-				vert.setLowLink(index);
-				index++;
-				stack.push(vert);
-				// System.out.println(vert);
+			Iterator<Vertice<T>> iterAdyacente = vert.getAdyacentes()
+					.iterador();
 
-				Iterator<Vertice<T>> iterAdyacente = vert.getAdyacentes()
-						.iterador();
+			while (iterAdyacente.hasNext()) {
+				Vertice<T> vertAdyacente = iterAdyacente.next();
 
-				while (iterAdyacente.hasNext()) {
-					Vertice<T> vertAdyacente = iterAdyacente.next();
-
-					if (!vertAdyacente.isVisitado()) {
-						encontrarCiclos(vert.getAdyacentes());
-						vert.setLowLink(Math.min(vert.getLowLink(),
-								vertAdyacente.getLowLink()));
-					} else if (stack.contains(vertAdyacente)) {
-						vert.setLowLink(Math.min(vert.getLowLink(),
-								vertAdyacente.getIndex()));
-					}
-				}
-
-				if (vert.getLowLink() == vert.getIndex()) {
-					Vertice<T> neighbor = null;
-					while (!vert.equals(neighbor)) {
-						neighbor = stack.pop();
-						subset.agregar(neighbor);
-					}
-
-					ciclosGrafo.agregar(subset);
+				if (!vertAdyacente.isVisitado()) {
+					encontrarCiclos(vertAdyacente);
+					vert.setLowLink(Math.min(vert.getLowLink(),
+							vertAdyacente.getLowLink()));
+				} else if (visitados.contains(vertAdyacente)) {
+					vert.setLowLink(Math.min(vert.getLowLink(),
+							vertAdyacente.getIndex()));
 				}
 			}
 		}
-		return;
+
+		if (vert.getLowLink() == vert.getIndex()) { // Es el primero volviendo de la recursion
+			int count =0;
+			Vertice <T> verticeAux=vert;
+			while (count < visitados.size()) {
+				for (Vertice<T> ver : visitados) {
+					if (ver.getLowLink() == verticeAux.getIndex()
+							|| ver.getIndex() == verticeAux.getIndex()) {
+						subset.agregar(ver);
+					} else {
+						verticeAux = ver;
+						ciclosGrafo.agregar(subset);
+						subset=new ListaEnlazada<Vertice<T>>();
+						subset.agregar(ver);
+					}
+					count++;
+				}
+				ciclosGrafo.agregar(subset);
+
+			}
+			return;
+		}
 	}
+
 }

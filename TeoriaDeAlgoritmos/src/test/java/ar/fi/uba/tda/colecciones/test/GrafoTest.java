@@ -119,8 +119,11 @@ public class GrafoTest {
 	@Test
 	public void encontrarCiclosTest() {
 		crearGrafoEnunciado();
-		grafo.encontrarCiclos(this.grafo.getVertices());
-		//assertThat("Hay 8 vertices en el recorridos", grafo.getRecorridoBFS().tamanio(), is(8));
+		grafo.encontrarCiclos(this.grafo.getVertices().primero());
+		assertThat("Hay 8 vertices", grafo.getCantidadDeNodosGrafo(), is(8));
+		assertThat("Hay 2 ciclos en el grafo", grafo.getCiclosGrafo().tamanio(), is(2));
+		assertThat("El primer ciclo es de 4 ", grafo.getCiclosGrafo().primero().tamanio(), is(4));
+		assertThat("El segundo ciclo es de 4 ", grafo.getCiclosGrafo().ultimo().tamanio(), is(4));
 	}
 
 	private void crearGrafoEnunciado() {
