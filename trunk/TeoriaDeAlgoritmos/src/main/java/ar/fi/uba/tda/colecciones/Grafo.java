@@ -166,7 +166,7 @@ public class Grafo<T> {
 
 	/**
 	 * Encuentra los ciclos en el grafo.
-	 * Utilizado para determinar sobre qué vertices crear los arcos para
+	 * Utilizado para determinar sobre que vertices crear los arcos para
 	 * la robustez.
 	 */
 	

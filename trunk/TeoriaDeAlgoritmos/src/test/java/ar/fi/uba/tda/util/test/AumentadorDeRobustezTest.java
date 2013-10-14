@@ -13,15 +13,16 @@ import ar.fi.uba.tda.util.AumentadorDeRobustez;
 public class AumentadorDeRobustezTest {
 
 	@Test
+	@SuppressWarnings({ "rawtypes" })
 	public void siRecibeUnNodoYRobustez1NoAgregaAristas() {
 		
 		Grafo<String> grafo = new Grafo<String>();
 		
 		AumentadorDeRobustez aumentador = new AumentadorDeRobustez(grafo);
 		
-		ListaEnlazada<ListaEnlazada<Vertice<?>>> ciclos = new ListaEnlazada<ListaEnlazada<Vertice<?>>>();
+		ListaEnlazada<ListaEnlazada<Vertice>> ciclos = new ListaEnlazada<ListaEnlazada<Vertice>>();
 		
-		ListaEnlazada<Vertice<?>> primerCiclo = new ListaEnlazada<Vertice<?>>();
+		ListaEnlazada<Vertice> primerCiclo = new ListaEnlazada<Vertice>();
 		
 		primerCiclo.agregar(new Vertice<String>());
 		ciclos.agregar(primerCiclo);
@@ -35,7 +36,7 @@ public class AumentadorDeRobustezTest {
 	}
 	
 	@Test
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void siRecibeDosNodosYRobustez1AgregaUnaArista() {
 		
 		Grafo<String> grafo = new Grafo<String>();
@@ -47,12 +48,12 @@ public class AumentadorDeRobustezTest {
 		
 		AumentadorDeRobustez aumentador = new AumentadorDeRobustez(grafo);
 		
-		ListaEnlazada<ListaEnlazada<Vertice<?>>> ciclos = new ListaEnlazada<ListaEnlazada<Vertice<?>>>();
+		ListaEnlazada<ListaEnlazada<Vertice>> ciclos = new ListaEnlazada<ListaEnlazada<Vertice>>();
 		
-		ListaEnlazada<Vertice<?>> primerCiclo = new ListaEnlazada<Vertice<?>>();
+		ListaEnlazada<Vertice> primerCiclo = new ListaEnlazada<Vertice>();
 		primerCiclo.agregar(verticeA);
 		
-		ListaEnlazada<Vertice<?>> segundoCiclo = new ListaEnlazada<Vertice<?>>();
+		ListaEnlazada<Vertice> segundoCiclo = new ListaEnlazada<Vertice>();
 		segundoCiclo.agregar(verticeB);
 		
 		
@@ -71,6 +72,7 @@ public class AumentadorDeRobustezTest {
 	}
 	
 	@Test
+	@SuppressWarnings({ "rawtypes" })
 	public void siRecibeDosNodosYRobustez2NoAgregaArista() {
 		
 		Grafo<String> grafo = new Grafo<String>();
@@ -82,12 +84,12 @@ public class AumentadorDeRobustezTest {
 		
 		AumentadorDeRobustez aumentador = new AumentadorDeRobustez(grafo);
 		
-		ListaEnlazada<ListaEnlazada<Vertice<?>>> ciclos = new ListaEnlazada<ListaEnlazada<Vertice<?>>>();
+		ListaEnlazada<ListaEnlazada<Vertice>> ciclos = new ListaEnlazada<ListaEnlazada<Vertice>>();
 		
-		ListaEnlazada<Vertice<?>> primerCiclo = new ListaEnlazada<Vertice<?>>();
+		ListaEnlazada<Vertice> primerCiclo = new ListaEnlazada<Vertice>();
 		primerCiclo.agregar(verticeA);
 		
-		ListaEnlazada<Vertice<?>> segundoCiclo = new ListaEnlazada<Vertice<?>>();
+		ListaEnlazada<Vertice> segundoCiclo = new ListaEnlazada<Vertice>();
 		segundoCiclo.agregar(verticeB);
 		
 		
@@ -104,6 +106,7 @@ public class AumentadorDeRobustezTest {
 	}
 	
 	@Test
+	@SuppressWarnings({ "rawtypes" })
 	public void siRecibeDosNodosYaEnlazadosYRobustez1NoAgregaArista() {
 		
 		Grafo<String> grafo = new Grafo<String>();
@@ -117,12 +120,12 @@ public class AumentadorDeRobustezTest {
 		
 		AumentadorDeRobustez aumentador = new AumentadorDeRobustez(grafo);
 		
-		ListaEnlazada<ListaEnlazada<Vertice<?>>> ciclos = new ListaEnlazada<ListaEnlazada<Vertice<?>>>();
+		ListaEnlazada<ListaEnlazada<Vertice>> ciclos = new ListaEnlazada<ListaEnlazada<Vertice>>();
 		
-		ListaEnlazada<Vertice<?>> primerCiclo = new ListaEnlazada<Vertice<?>>();
+		ListaEnlazada<Vertice> primerCiclo = new ListaEnlazada<Vertice>();
 		primerCiclo.agregar(verticeA);
 		
-		ListaEnlazada<Vertice<?>> segundoCiclo = new ListaEnlazada<Vertice<?>>();
+		ListaEnlazada<Vertice> segundoCiclo = new ListaEnlazada<Vertice>();
 		segundoCiclo.agregar(verticeB);
 		
 		
@@ -139,7 +142,7 @@ public class AumentadorDeRobustezTest {
 	}
 	
 	@Test
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void siRecibeDosGruposDeDosNodosYRobustez2AgregaDosAristas() {
 		
 		Grafo<String> grafo = new Grafo<String>();
@@ -158,13 +161,13 @@ public class AumentadorDeRobustezTest {
 		
 		AumentadorDeRobustez aumentador = new AumentadorDeRobustez(grafo);
 		
-		ListaEnlazada<ListaEnlazada<Vertice<?>>> ciclos = new ListaEnlazada<ListaEnlazada<Vertice<?>>>();
+		ListaEnlazada<ListaEnlazada<Vertice>> ciclos = new ListaEnlazada<ListaEnlazada<Vertice>>();
 		
-		ListaEnlazada<Vertice<?>> primerCiclo = new ListaEnlazada<Vertice<?>>();
+		ListaEnlazada<Vertice> primerCiclo = new ListaEnlazada<Vertice>();
 		primerCiclo.agregar(verticeA);
 		primerCiclo.agregar(verticeB);
 		
-		ListaEnlazada<Vertice<?>> segundoCiclo = new ListaEnlazada<Vertice<?>>();
+		ListaEnlazada<Vertice> segundoCiclo = new ListaEnlazada<Vertice>();
 		segundoCiclo.agregar(verticeC);
 		segundoCiclo.agregar(verticeD);
 		
@@ -186,7 +189,7 @@ public class AumentadorDeRobustezTest {
 	}
 	
 	@Test
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void siRecibeDosGruposDeDosNodosYRobustez1AgregaUnaArista() {
 		
 		Grafo<String> grafo = new Grafo<String>();
@@ -205,13 +208,13 @@ public class AumentadorDeRobustezTest {
 		
 		AumentadorDeRobustez aumentador = new AumentadorDeRobustez(grafo);
 		
-		ListaEnlazada<ListaEnlazada<Vertice<?>>> ciclos = new ListaEnlazada<ListaEnlazada<Vertice<?>>>();
+		ListaEnlazada<ListaEnlazada<Vertice>> ciclos = new ListaEnlazada<ListaEnlazada<Vertice>>();
 		
-		ListaEnlazada<Vertice<?>> primerCiclo = new ListaEnlazada<Vertice<?>>();
+		ListaEnlazada<Vertice> primerCiclo = new ListaEnlazada<Vertice>();
 		primerCiclo.agregar(verticeA);
 		primerCiclo.agregar(verticeB);
 		
-		ListaEnlazada<Vertice<?>> segundoCiclo = new ListaEnlazada<Vertice<?>>();
+		ListaEnlazada<Vertice> segundoCiclo = new ListaEnlazada<Vertice>();
 		segundoCiclo.agregar(verticeC);
 		segundoCiclo.agregar(verticeD);
 		
@@ -231,7 +234,7 @@ public class AumentadorDeRobustezTest {
 	}
 	
 	@Test
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void siRecibeTresGruposDeDosNodosYRobustez1AgregaDosAristas() {
 		
 		Grafo<String> grafo = new Grafo<String>();
@@ -255,17 +258,17 @@ public class AumentadorDeRobustezTest {
 		
 		AumentadorDeRobustez aumentador = new AumentadorDeRobustez(grafo);
 		
-		ListaEnlazada<ListaEnlazada<Vertice<?>>> ciclos = new ListaEnlazada<ListaEnlazada<Vertice<?>>>();
+		ListaEnlazada<ListaEnlazada<Vertice>> ciclos = new ListaEnlazada<ListaEnlazada<Vertice>>();
 		
-		ListaEnlazada<Vertice<?>> primerCiclo = new ListaEnlazada<Vertice<?>>();
+		ListaEnlazada<Vertice> primerCiclo = new ListaEnlazada<Vertice>();
 		primerCiclo.agregar(verticeA);
 		primerCiclo.agregar(verticeB);
 		
-		ListaEnlazada<Vertice<?>> segundoCiclo = new ListaEnlazada<Vertice<?>>();
+		ListaEnlazada<Vertice> segundoCiclo = new ListaEnlazada<Vertice>();
 		segundoCiclo.agregar(verticeC);
 		segundoCiclo.agregar(verticeD);
 		
-		ListaEnlazada<Vertice<?>> tercerCiclo = new ListaEnlazada<Vertice<?>>();
+		ListaEnlazada<Vertice> tercerCiclo = new ListaEnlazada<Vertice>();
 		tercerCiclo.agregar(verticeE);
 		tercerCiclo.agregar(verticeF);
 		
