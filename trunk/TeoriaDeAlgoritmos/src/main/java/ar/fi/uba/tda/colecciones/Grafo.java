@@ -84,7 +84,6 @@ public class Grafo<T> {
 	 * @param fin
 	 */
 	public void agregarArco(Vertice<T> inicio, Vertice<T> fin) {
-		// TODO:Validaciones!!!
 		Vertice<T> inicioEnGrafo = this.obtener(inicio);
 
 		if (inicioEnGrafo != null) {
@@ -165,8 +164,12 @@ public class Grafo<T> {
 		return;
 	}
 
-	// Todavia no estÃ¡ terminado porque no calcula bien.
-	// Hay que revisar.
+	/**
+	 * Encuentra los ciclos en el grafo.
+	 * Utilizado para determinar sobre qué vertices crear los arcos para
+	 * la robustez.
+	 */
+	
 	public void encontrarCiclos(Vertice<T> vert) {
 
 		if (!vert.isVisitado()) {
