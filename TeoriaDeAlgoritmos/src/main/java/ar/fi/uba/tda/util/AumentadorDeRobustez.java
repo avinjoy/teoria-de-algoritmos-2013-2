@@ -18,20 +18,20 @@ public class AumentadorDeRobustez {
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void aumentar(ListaEnlazada<ListaEnlazada<Vertice<?>>> ciclos, int robustez) {
+	public void aumentar(ListaEnlazada<ListaEnlazada<Vertice>> ciclos, int robustez) {
 
 		if (laRobustezEsCompatibleConElGrafo(robustez)) {
 			
-			ListIterator<ListaEnlazada<Vertice<?>>> listaDeCiclos = ciclos.iterador();
+			ListIterator<ListaEnlazada<Vertice>> listaDeCiclos = ciclos.iterador();
 			
 			while (listaDeCiclos.hasNext()) {
 				
-				ListaEnlazada<Vertice<?>> ciclo = listaDeCiclos.next();
+				ListaEnlazada<Vertice> ciclo = listaDeCiclos.next();
 				
-				ListaEnlazada<Vertice<?>> siguienteCiclo = obtenerSiguienteCiclo(ciclos, listaDeCiclos);
+				ListaEnlazada<Vertice> siguienteCiclo = obtenerSiguienteCiclo(ciclos, listaDeCiclos);
 				
-				Iterator<Vertice<?>> verticesPrimerCiclo = ciclo.iterador();
-				Iterator<Vertice<?>> verticesSegundoCiclo = siguienteCiclo.iterador();
+				Iterator<Vertice> verticesPrimerCiclo = ciclo.iterador();
+				Iterator<Vertice> verticesSegundoCiclo = siguienteCiclo.iterador();
 				
 				int robustezAlcanzada = 0;
 				
@@ -55,10 +55,11 @@ public class AumentadorDeRobustez {
 		return grafo.getCantidadDeNodosGrafo() > robustez;
 	}
 
-	private ListaEnlazada<Vertice<?>> obtenerSiguienteCiclo(ListaEnlazada<ListaEnlazada<Vertice<?>>> ciclos,
-															ListIterator<ListaEnlazada<Vertice<?>>> listaDeCiclos) {
+	@SuppressWarnings("rawtypes")
+	private ListaEnlazada<Vertice> obtenerSiguienteCiclo(ListaEnlazada<ListaEnlazada<Vertice>> ciclos,
+															ListIterator<ListaEnlazada<Vertice>> listaDeCiclos) {
 		
-		ListaEnlazada<Vertice<?>> siguienteCiclo;
+		ListaEnlazada<Vertice> siguienteCiclo;
 		
 		if (listaDeCiclos.hasNext()) {
 			siguienteCiclo = listaDeCiclos.next();
@@ -71,8 +72,9 @@ public class AumentadorDeRobustez {
 		return siguienteCiclo;
 	}
 
+	@SuppressWarnings("rawtypes")
 	private void corregirIterador(
-			ListIterator<ListaEnlazada<Vertice<?>>> listaDeCiclos) {
+			ListIterator<ListaEnlazada<Vertice>> listaDeCiclos) {
 		if (listaDeCiclos.hasNext()) {
 			listaDeCiclos.previous();
 		}
