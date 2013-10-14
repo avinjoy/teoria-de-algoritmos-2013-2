@@ -1,5 +1,11 @@
 package ar.fi.uba.tda;
 
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -7,13 +13,12 @@ import java.io.PrintStream;
 import org.junit.Before;
 import org.junit.Test;
 
+import ar.fi.uba.tda.colecciones.Arista;
 import ar.fi.uba.tda.colecciones.Grafo;
 import ar.fi.uba.tda.colecciones.ListaEnlazada;
 import ar.fi.uba.tda.colecciones.Vertice;
 import ar.fi.uba.tda.util.AumentadorDeRobustez;
 import ar.fi.uba.tda.util.CargadorDeGrafos;
-
-import static org.mockito.Mockito.*;
 
 public class RobustezTest {
 	
@@ -68,6 +73,7 @@ public class RobustezTest {
 		when(grafo.getVertices()).thenReturn(listaVertices);
 		when(listaVertices.primero()).thenReturn(vertice);
 		when(grafo.getCiclosGrafo()).thenReturn(listaCiclos);
+		when(aumentador.getAristasAgregadas()).thenReturn(new ListaEnlazada<Arista>());
 		
 		Robustez robustez = new Robustez(grafo, cargador, aumentador);
 		

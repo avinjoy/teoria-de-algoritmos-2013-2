@@ -19,4 +19,8 @@ public class Arista {
 		return destino;
 	}
 
+	@Override
+	public String toString() {
+		return origen.getContenido() + ", " + destino.getContenido();
+	}
 }

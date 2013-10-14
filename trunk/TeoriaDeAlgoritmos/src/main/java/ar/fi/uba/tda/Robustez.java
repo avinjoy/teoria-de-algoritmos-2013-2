@@ -1,12 +1,14 @@
 package ar.fi.uba.tda;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Iterator;
 
+import ar.fi.uba.tda.colecciones.Arista;
 import ar.fi.uba.tda.colecciones.Grafo;
+import ar.fi.uba.tda.colecciones.ListaEnlazada;
 import ar.fi.uba.tda.colecciones.Vertice;
 import ar.fi.uba.tda.util.AumentadorDeRobustez;
 import ar.fi.uba.tda.util.CargadorDeGrafos;
@@ -28,7 +30,6 @@ public class Robustez {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static void main(String[] args) throws IOException {
 		
-		System.out.println(new File("prueba").getAbsolutePath());
 		if (args.length > 0) {
 			
 			int robustezDeseada = Integer.valueOf(args[0]);
@@ -66,6 +67,21 @@ public class Robustez {
 		
 		grafo.encontrarCiclos((Vertice) grafo.getVertices().primero());
 		aumentador.aumentar(grafo.getCiclosGrafo(), robustezDeseada);
+		
+		ListaEnlazada<Arista> aristas = aumentador.getAristasAgregadas();
+		int numeroArista = 0;
+		
+		Iterator<Arista> itAristas = aristas.iterador();
+		
+		while (itAristas.hasNext()) {
+			
+			numeroArista++;
+			Arista arista = itAristas.next();
+			
+			System.out.println("Arista " + numeroArista + ": " + arista);
+			
+		}
+		
 	}
 
 }
