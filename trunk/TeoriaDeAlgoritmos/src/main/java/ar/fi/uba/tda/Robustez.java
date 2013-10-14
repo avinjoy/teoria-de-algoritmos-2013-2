@@ -1,6 +1,9 @@
 package ar.fi.uba.tda;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 
 import ar.fi.uba.tda.colecciones.Grafo;
@@ -22,15 +25,38 @@ public class Robustez {
 		this.aumentador = aumentador;
 	}
 
-	public static void main(String[] args) {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static void main(String[] args) throws IOException {
 		
-		if (args.length == 0) {
+		System.out.println(new File("prueba").getAbsolutePath());
+		if (args.length > 0) {
 			
+			int robustezDeseada = Integer.valueOf(args[0]);
+			BufferedReader archivo = leerArchivo(args);
+			
+			Grafo grafo = new Grafo();
+			CargadorDeGrafos cargador = new CargadorDeGrafos(grafo);
+			AumentadorDeRobustez aumentador = new AumentadorDeRobustez(grafo);
+			
+			new Robustez(grafo, cargador, aumentador).ejecutar(robustezDeseada, archivo);
+
+		} else {
+		
 			System.err.println("Se debe ingresar el grado de robustez y el nombre de archivo");
 			System.err.println("O solo el grado de robustez");
 			System.err.println("i.e.: java -jar Robustez.jar 3");
 		}
+	}
 
+	private static BufferedReader leerArchivo(String[] args) throws FileNotFoundException {
+		
+		String rutaArchivo = "grafo.txt";
+		
+		if (args.length > 1) {
+			rutaArchivo = args[1];
+		}
+
+		return new BufferedReader(new FileReader(rutaArchivo));
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

@@ -27,15 +27,15 @@ public class RobustezTest {
 	}
 	
 	@Test
-	public void elProgramaTomaComoEntradaLaRobustezYElNombreDeArchivo() {
+	public void elProgramaTomaComoEntradaLaRobustezYElNombreDeArchivo() throws IOException {
 		
-		Robustez.main(new String[]{"3", "grafo.txt"});
+		Robustez.main(new String[]{"3", "src/test/resources/grafo.txt"});
 		
 		verify(err, never()).println(anyString());
 	}
 	
 	@Test
-	public void elProgramaTomaComoEntradaLaRobustezYTomaUnNombreDeArchivoDefault() {
+	public void elProgramaTomaComoEntradaLaRobustezYTomaUnNombreDeArchivoDefault() throws IOException {
 		
 		Robustez.main(new String[]{"3"});
 		
@@ -43,7 +43,7 @@ public class RobustezTest {
 	}
 	
 	@Test
-	public void siNoSeProveenDatosInformaDelError() {
+	public void siNoSeProveenDatosInformaDelError() throws IOException {
 		
 		Robustez.main(new String[]{});
 		
