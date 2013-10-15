@@ -2,21 +2,23 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using TeoriaDelAlgoritmosCSHARP;
+using Robustez;
 
 
-namespace TeoriaDelAlgoritmosCSHARP
+namespace Robustez
 {
     class Program
     {
-        static void Main(string[] args)
+	    private AumentadorRobustez<Nodo> aumentador;
+	    private Grafo<Nodo> grafo;
+	
+	    public Program(Grafo<Nodo> grafo, AumentadorRobustez<Nodo> aumentador) 
         {
-            ReadTextFile("grafo1.txt");
+		    this.grafo = grafo;
+		    this.aumentador = aumentador;
+	    }
 
-            Console.ReadKey();
-        }
-
-        public static void ReadTextFile(string archivo)
+        public static Grafo<Nodo> ReadTextFile(string archivo)
         {
 
             string line;
@@ -55,8 +57,47 @@ namespace TeoriaDelAlgoritmosCSHARP
                 }
 
                 file.Close();
-        }
+            }
+
+            return grafo;
    
+        }
+
+
+        public void ejecutar(int robustezDeseada) 
+        {
+		    grafo.encontrarCiclos((Vertice<Nodo>) grafo.Vertices.Primero());
+		    aumentador.Aumentar(grafo.CiclosGrafo, robustezDeseada);
+	    }
+
+
+        static void Main(string[] args)
+        {
+            int robustezDeseada = Convert.ToInt32("3");
+
+            Grafo<Nodo> grafo = ReadTextFile("grafo1.txt");
+            AumentadorRobustez<Nodo> aumentador = new AumentadorRobustez<Nodo>(grafo);
+
+            new Program(grafo, aumentador).ejecutar(robustezDeseada);
+
+            Console.ReadKey();
+            /*
+            if (args.Length > 0)
+            {
+                int robustezDeseada = Convert.ToInt32(args[0]);
+
+                Grafo<Nodo> grafo = ReadTextFile(args[1]);
+                AumentadorRobustez<Nodo> aumentador = new AumentadorRobustez<Nodo>(grafo);
+
+                new Program(grafo, aumentador).ejecutar(robustezDeseada);
+
+                Console.ReadKey();
+            }
+            else
+            {
+                System.Console.Write("Se debe ingresar el grado de robustez y el nombre de archivo");
+            }
+            */
         }
 
     }

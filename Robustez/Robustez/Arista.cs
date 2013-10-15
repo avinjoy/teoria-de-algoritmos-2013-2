@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace TeoriaDelAlgoritmosCSHARP
+namespace Robustez
 {
     public class Arista<T>
     {
