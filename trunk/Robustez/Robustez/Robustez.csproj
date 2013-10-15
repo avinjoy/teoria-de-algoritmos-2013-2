@@ -78,6 +78,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="grafo1.txt" />
+    <Content Include="grafo2.txt" />
+    <Content Include="grafo3.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
