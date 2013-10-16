@@ -30,6 +30,11 @@ public class Robustez {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static void main(String[] args) throws IOException {
 		
+		System.out.println("Teoría de algoritmos - TP 1");
+		System.out.println("Autores:");
+		System.out.println("Alejo Vinjoy - 83.989");
+		System.out.println("Santiago Nicolas Risaro Sesar - 84.623");
+		
 		if (args.length > 0) {
 			
 			int robustezDeseada = Integer.valueOf(args[0]);
