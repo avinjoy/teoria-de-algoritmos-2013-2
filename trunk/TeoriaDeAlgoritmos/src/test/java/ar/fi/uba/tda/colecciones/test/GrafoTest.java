@@ -125,6 +125,14 @@ public class GrafoTest {
 		assertThat("El primer ciclo es de 4 ", grafo.getCiclosGrafo().primero().tamanio(), is(4));
 		assertThat("El segundo ciclo es de 4 ", grafo.getCiclosGrafo().ultimo().tamanio(), is(4));
 	}
+	
+	@Test
+	public void encontrarCiclosEnGrafoAciclicoTest() {
+		crearGrafoAciclico();
+		grafo.encontrarCiclos(this.grafo.getVertices().primero());
+		assertThat("Hay 8 vertices", grafo.getCantidadDeNodosGrafo(), is(7));
+		assertThat("Hay 4 ciclos en el grafo", grafo.getCiclosGrafo().tamanio(), is((grafo.getCantidadDeNodosGrafo()+1)/2));
+	}
 
 	private void crearGrafoEnunciado() {
 		verticeA = new Vertice<String>("A");
@@ -147,6 +155,22 @@ public class GrafoTest {
 		grafo.agregarArco(verticeG, verticeH);
 	}
 	
+	private void crearGrafoAciclico() {
+		verticeA = new Vertice<String>("A");
+		verticeB = new Vertice<String>("B");
+		verticeC = new Vertice<String>("C");
+		verticeD = new Vertice<String>("D");
+		verticeE = new Vertice<String>("E");
+		verticeF = new Vertice<String>("F");
+		verticeG = new Vertice<String>("G");
+		
+		grafo.agregarArco(verticeA, verticeB);
+		grafo.agregarArco(verticeB, verticeC);
+		grafo.agregarArco(verticeC, verticeD);
+		grafo.agregarArco(verticeD, verticeE);
+		grafo.agregarArco(verticeE, verticeF);
+		grafo.agregarArco(verticeF, verticeG);
+	}	
 	
 
 }
