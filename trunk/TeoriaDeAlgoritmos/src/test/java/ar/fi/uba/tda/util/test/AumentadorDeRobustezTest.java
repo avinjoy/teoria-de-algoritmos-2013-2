@@ -290,4 +290,33 @@ public class AumentadorDeRobustezTest {
 		MatcherAssert.assertThat("el destino de la segunda arista", (Vertice<String>) aristasAgregadas.ultimo().getDestino(), Matchers.is(verticeE));
 		
 	}
+	
+	@Test
+	@SuppressWarnings({ "rawtypes" })
+	public void noAgregaAristaQueUnaUnVerticeConSiMismo() {
+		
+		Grafo<String> grafo = new Grafo<String>();
+		Vertice<String> verticeA = new Vertice<String>("A");
+		Vertice<String> verticeB = new Vertice<String>("B");
+		
+		grafo.agregarVertice(verticeA);
+		grafo.agregarVertice(verticeB);
+		
+		AumentadorDeRobustez aumentador = new AumentadorDeRobustez(grafo);
+		
+		ListaEnlazada<ListaEnlazada<Vertice>> ciclos = new ListaEnlazada<ListaEnlazada<Vertice>>();
+		
+		ListaEnlazada<Vertice> primerCiclo = new ListaEnlazada<Vertice>();
+		primerCiclo.agregar(verticeA);
+		
+		ciclos.agregar(primerCiclo);
+		
+		int robustez = 1;
+		
+		aumentador.aumentar(ciclos, robustez);
+		
+		ListaEnlazada<Arista> aristasAgregadas = aumentador.getAristasAgregadas();
+		
+		MatcherAssert.assertThat("la cantidad de aristas agregadas", aristasAgregadas.tamanio(), Matchers.is(0));
+	}
 }

@@ -40,7 +40,7 @@ public class AumentadorDeRobustez {
 					Vertice verticeCicloUno = verticesPrimerCiclo.next();
 					Vertice verticeCicloDos = verticesSegundoCiclo.next();
 					
-					if (!verticeCicloUno.getAdyacentes().contiene(verticeCicloDos)) {
+					if (!verticeCicloUno.getAdyacentes().contiene(verticeCicloDos) && !verticeCicloUno.equals(verticeCicloDos)) {
 						aristasAgregadas.agregar(new Arista(verticeCicloUno, verticeCicloDos));
 					}
 					
