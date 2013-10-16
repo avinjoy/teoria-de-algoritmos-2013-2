@@ -11,7 +11,7 @@
 	</properties>
   
 	<build>
-		<finalName>Robustez</finalName>
+		<finalName>tdatp1</finalName>
 		
 		<plugins>
 			<plugin>
