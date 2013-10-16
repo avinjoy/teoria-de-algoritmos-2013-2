@@ -1,10 +1,13 @@
-using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Text;
 using Robustez;
+using NUnit.Framework;
 
 namespace Test
 {
     [TestFixture]
-    public class TestGrafo
+    public class TestRobustez
     {
         private Grafo<Nodo> _grafo;
 
@@ -17,7 +20,7 @@ namespace Test
 
 
         [Test]
-        public void TestEncontrarCiclosGrafoTres()
+        public void TestAumentarRobustezGrafoTres()
         {
 
             Vertice<Nodo> verticeA = new Vertice<Nodo>(new Nodo("A"));
@@ -42,7 +45,7 @@ namespace Test
             verticeC.Adyacentes.Agregar(verticeB);
             //D: E
             verticeD.Adyacentes.Agregar(verticeE);
-            
+
             //E: D, G
             verticeE.Adyacentes.Agregar(verticeD);
             verticeE.Adyacentes.Agregar(verticeG);
@@ -65,24 +68,19 @@ namespace Test
             _grafo.AgregarVertice(verticeG);
             _grafo.AgregarVertice(verticeH);
             _grafo.AgregarVertice(verticeI);
-            
+
 
             _grafo.EncontrarCiclos(verticeA);
+            Robustez<Nodo> robustez = new Robustez<Nodo>(_grafo);
+            robustez.Aumentar(_grafo.CiclosGrafo, 3);
 
-            Assert.AreEqual(3, _grafo.Visitados.Count);
+            Assert.AreEqual(2,robustez.AristasAgregadas.Tamanio);
 
-            Assert.AreEqual(1, _grafo.CiclosGrafo.Tamanio);
-
-            Assert.AreEqual(3, _grafo.CiclosGrafo.Iterador.Next().Tamanio);
-            Assert.AreEqual(verticeA, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());
-            Assert.AreEqual(verticeB, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());
-            Assert.AreEqual(verticeC, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());
-    
 
         }
 
         [Test]
-        public void TestEncontrarCiclosGrafoDos()
+        public void TestAumentarRobustezGrafoDos()
         {
 
             Vertice<Nodo> verticeA = new Vertice<Nodo>(new Nodo("A"));
@@ -90,8 +88,8 @@ namespace Test
             Vertice<Nodo> verticeC = new Vertice<Nodo>(new Nodo("C"));
             Vertice<Nodo> verticeD = new Vertice<Nodo>(new Nodo("D"));
             Vertice<Nodo> verticeE = new Vertice<Nodo>(new Nodo("E"));
-            Vertice<Nodo> verticeF = new Vertice<Nodo>(new Nodo("F"));      
-       
+            Vertice<Nodo> verticeF = new Vertice<Nodo>(new Nodo("F"));
+
             //A: B, C
             verticeA.Adyacentes.Agregar(verticeB);
             verticeA.Adyacentes.Agregar(verticeC);
@@ -120,33 +118,20 @@ namespace Test
             _grafo.AgregarVertice(verticeD);
             _grafo.AgregarVertice(verticeE);
             _grafo.AgregarVertice(verticeF);
-         
+
 
             _grafo.EncontrarCiclos(verticeA);
+            Robustez<Nodo> robustez = new Robustez<Nodo>(_grafo);
+            robustez.Aumentar(_grafo.CiclosGrafo, 3);
 
-            Assert.AreEqual(6, _grafo.Visitados.Count);
-
-            Assert.AreEqual(2, _grafo.CiclosGrafo.Tamanio);
-
-            Assert.AreEqual(3, _grafo.CiclosGrafo.Iterador.Next().Tamanio);
-            Assert.AreEqual(verticeA, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());
-            Assert.AreEqual(verticeB, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());
-            Assert.AreEqual(verticeC, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());
-         
-            
-            Assert.AreEqual(3, _grafo.CiclosGrafo.Iterador.Next().Tamanio);
-
-            Assert.AreEqual(verticeE, _grafo.CiclosGrafo.Iterador.Lista.Ultimo().Iterador.Next());
-            Assert.AreEqual(verticeD, _grafo.CiclosGrafo.Iterador.Lista.Ultimo().Iterador.Next());            
-            Assert.AreEqual(verticeF, _grafo.CiclosGrafo.Iterador.Lista.Ultimo().Iterador.Next());        
-
+            Assert.AreEqual(3, robustez.AristasAgregadas.Tamanio);
 
 
 
         }
 
         [Test]
-        public void TestEncontrarCiclosGrafoUno()
+        public void TestAumentarRobustezGrafoUno()
         {
 
             Vertice<Nodo> verticeA = new Vertice<Nodo>(new Nodo("A"));
@@ -196,23 +181,10 @@ namespace Test
             _grafo.AgregarVertice(verticeH);
 
             _grafo.EncontrarCiclos(verticeA);
+            Robustez<Nodo> robustez = new Robustez<Nodo>(_grafo);
+            robustez.Aumentar(_grafo.CiclosGrafo, 3);
 
-            Assert.AreEqual(8, _grafo.Visitados.Count);
-
-            Assert.AreEqual(2, _grafo.CiclosGrafo.Tamanio);
-
-            Assert.AreEqual(4, _grafo.CiclosGrafo.Iterador.Next().Tamanio);
-            Assert.AreEqual(verticeA, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());
-            Assert.AreEqual(verticeB, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());
-            Assert.AreEqual(verticeD, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());
-            Assert.AreEqual(verticeC, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());
-
-            Assert.AreEqual(4, _grafo.CiclosGrafo.Iterador.Next().Tamanio);
-
-            Assert.AreEqual(verticeE, _grafo.CiclosGrafo.Iterador.Lista.Ultimo().Iterador.Next());
-            Assert.AreEqual(verticeF, _grafo.CiclosGrafo.Iterador.Lista.Ultimo().Iterador.Next());
-            Assert.AreEqual(verticeH, _grafo.CiclosGrafo.Iterador.Lista.Ultimo().Iterador.Next());
-            Assert.AreEqual(verticeG, _grafo.CiclosGrafo.Iterador.Lista.Ultimo().Iterador.Next());
+            Assert.AreEqual(3, robustez.AristasAgregadas.Tamanio);
 
 
 
@@ -220,50 +192,7 @@ namespace Test
 
         }
 
-        [Test]
-        public void TestAgregarVertice()
-        {
-            _grafo.AgregarVertice(new Vertice<Nodo>(new Nodo("Vertice1")));
-
-            Assert.AreEqual(1, _grafo.Vertices.Tamanio);
-            Assert.AreEqual("Vertice1", _grafo.Vertices.Iterador.Next().Contenido.Nombre);
-
-        }
-
-        [Test]
-        public void TestAgregarArco()
-        {
-
-            _grafo.AgregarArco(new Vertice<Nodo>(new Nodo("Vertice1")), new Vertice<Nodo>(new Nodo("Vertice2")));
-
-            Assert.AreEqual(2, _grafo.Vertices.Tamanio);
-            Assert.AreEqual(new Vertice<Nodo>(new Nodo("Vertice1")), _grafo.Vertices.Primero());
-            Assert.AreEqual(new Vertice<Nodo>(new Nodo("Vertice2")), _grafo.Vertices.Ultimo());
-            Assert.AreEqual(1, _grafo.Vertices.Primero().Adyacentes.Tamanio);
-            Assert.AreEqual(1, _grafo.Vertices.Ultimo().Adyacentes.Tamanio);
-            Assert.AreEqual(new Vertice<Nodo>(new Nodo("Vertice2")), _grafo.Vertices.Primero().Adyacentes.Iterador.Next());
-            Assert.AreEqual(new Vertice<Nodo>(new Nodo("Vertice1")), _grafo.Vertices.Ultimo().Adyacentes.Iterador.Next());
-
-        }
-
-        [Test]
-        public void TestContieneVertice()
-        {
-            _grafo.AgregarVertice(new Vertice<Nodo>(new Nodo("Vertice1")));
-
-            Assert.AreEqual(1, _grafo.Vertices.Tamanio);
-            Assert.IsTrue(_grafo.Vertices.Contiene(new Vertice<Nodo>(new Nodo("Vertice1"))));
-        }
-
-        [Test]
-        public void TestObtenerVertice()
-        {
-            _grafo.AgregarVertice(new Vertice<Nodo>(new Nodo("Vertice1")));
-
-            Assert.AreEqual(1, _grafo.Vertices.Tamanio);
-            Assert.AreEqual(new Vertice<Nodo>(new Nodo("Vertice1")), _grafo.Vertices.Obtener(new Vertice<Nodo>(new Nodo("Vertice1"))));
-        }
-
+      
 
         [TearDown]
         public void TearDown()
@@ -275,3 +204,4 @@ namespace Test
     }
 
 }
+
