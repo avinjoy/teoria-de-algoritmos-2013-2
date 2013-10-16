@@ -53,7 +53,7 @@ namespace Robustez
             Adyacentes = new ListaEnlazada<Vertice<T>>();
         }
 
-
+        
         public Int32 GetGradoVertice()
         {
             return _adyacentes.Tamanio;
@@ -70,7 +70,11 @@ namespace Robustez
             return result;
         }
 
-
+        /// <summary>
+        /// Devuelve true o false segun si un vertice es igual a otro respectivamente.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(Object obj)
         {
             if (this == null && obj == null)
@@ -96,6 +100,10 @@ namespace Robustez
             }
         }
 
+        /// <summary>
+        /// Metodo sobreescrito para mostrar claramente el vertice.
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return "Vertice: " + Contenido + " (i: " + Index + " , l: " + LowLink + ")";

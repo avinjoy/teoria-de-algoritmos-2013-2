@@ -6,17 +6,17 @@ namespace Robustez
 {
     class Program
     {
-	    private AumentadorRobustez<Nodo> _aumentador;
+	    private Robustez<Nodo> _aumentador;
 	    private Grafo<Nodo> _grafo;
 	
-	    public Program(Grafo<Nodo> grafo, AumentadorRobustez<Nodo> aumentador) 
+	    public Program(Grafo<Nodo> grafo, Robustez<Nodo> aumentador) 
         {
 	        Grafo = grafo;
 		    Aumentador = aumentador;
 	        
         }
 
-        public AumentadorRobustez<Nodo> Aumentador
+        public Robustez<Nodo> Aumentador
         {
             get { return _aumentador; }
             set { _aumentador = value; }
@@ -85,7 +85,7 @@ namespace Robustez
             int robustezDeseada = Convert.ToInt32("3");
 
             Grafo<Nodo> grafo = ReadTextFile("grafo1.txt");
-            AumentadorRobustez<Nodo> aumentador = new AumentadorRobustez<Nodo>(grafo);
+            Robustez<Nodo> aumentador = new Robustez<Nodo>(grafo);
 
             new Program(grafo, aumentador).Ejecutar(robustezDeseada);
 

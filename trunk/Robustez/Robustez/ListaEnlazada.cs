@@ -141,33 +141,7 @@ namespace Robustez
                 }
 
                 return aRetornar;
-            }
-
-            public void Remove()
-            {
-
-            }
-
-            public int NextIndex()
-            {
-                return 0;
-            }
-
-
-            public int PreviousIndex()
-            {
-                return 0;
-            }
-
-
-            public void Set(T e)
-            {
-            }
-
-
-            public void Add(T e)
-            {
-            }
+            }        
 
         }
 

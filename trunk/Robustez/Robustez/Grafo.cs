@@ -63,7 +63,7 @@ namespace Robustez
             return Vertices.Tamanio;
         }
 
-      
+
         public void EncontrarCiclos(Vertice<T> vert)
         {
             if (!vert.Visitado)
@@ -123,6 +123,11 @@ namespace Robustez
             }
         }
 
+        /// <summary>
+        /// Agrega un nuevo vertice al grafo.
+        /// En caso de existir, no lo vuelve agregar.
+        /// </summary>
+        /// <param name="vertice"></param>
         public void AgregarVertice(Vertice<T> vertice)
         {
             if (vertice != null && vertice.Contenido != null && !ContieneVertice(vertice))
@@ -132,18 +137,22 @@ namespace Robustez
 
         }
 
-   
+        /// <summary>
+        /// Agrega un arco al grafo dados vertice inicio y un vertice fin.
+        /// </summary>
+        /// <param name="inicio"></param>
+        /// <param name="fin"></param>
         public void AgregarArco(Vertice<T> inicio, Vertice<T> fin)
         {
-            
-            Vertice<T> inicioEnGrafo = Obtener(inicio);
+
+            Vertice<T> inicioEnGrafo = ObtenerVertice(inicio);
 
             if (inicioEnGrafo != null)
             {
                 inicio = inicioEnGrafo;
             }
 
-            Vertice<T> finEnGrafo = Obtener(fin);
+            Vertice<T> finEnGrafo = ObtenerVertice(fin);
 
             if (finEnGrafo != null)
             {
@@ -158,12 +167,22 @@ namespace Robustez
 
         }
 
-        private Vertice<T> Obtener(Vertice<T> buscado)
+        /// <summary>
+        /// Si contiene el vertice buscado, lo devuelve.
+        /// </summary>
+        /// <param name="buscado"></param>
+        /// <returns></returns>
+        private Vertice<T> ObtenerVertice(Vertice<T> verticeBuscado)
         {
 
-            return Vertices.Obtener(buscado);
+            return Vertices.Obtener(verticeBuscado);
         }
 
+        /// <summary>
+        /// Devuelve true o false segun si contiene o no el vertice buscado respectivamente.
+        /// </summary>
+        /// <param name="verticeBuscado"></param>
+        /// <returns></returns>
         public bool ContieneVertice(Vertice<T> verticeBuscado)
         {
 

@@ -2,17 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace TeoriaDelAlgoritmosCSHARP
+
+namespace Robustez
 {
     public class Robustez<T>
     {
 
-        private Grafo<T> grafo;
-        private ListaEnlazada<Arista<T>> aristasAgregadas = new ListaEnlazada<Arista<T>>();
+        private Grafo<T> _grafo;
+        private ListaEnlazada<Arista<T>> _aristasAgregadas = new ListaEnlazada<Arista<T>>();
 
         public Robustez(Grafo<T> grafo)
         {
-            this.grafo = grafo;
+            this._grafo = grafo;
         }
 
 
@@ -44,7 +45,7 @@ namespace TeoriaDelAlgoritmosCSHARP
 
                         if (!verticeCicloUno.Adyacentes.Contiene(verticeCicloDos))
                         {
-                            aristasAgregadas.Agregar(new Arista<T>(verticeCicloUno, verticeCicloDos));
+                            _aristasAgregadas.Agregar(new Arista<T>(verticeCicloUno, verticeCicloDos));
                         }
 
                         robustezAlcanzada++;
@@ -56,7 +57,7 @@ namespace TeoriaDelAlgoritmosCSHARP
 
         private bool RobustezEsCompatibleConElGrafo(int robustez)
         {
-            return grafo.GetCantidadDeNodosGrafo() > robustez;
+            return _grafo.GetCantidadDeNodosGrafo() > robustez;
         }
 
         private ListaEnlazada<Vertice<T>> ObtenerSiguienteCiclo(ListaEnlazada<ListaEnlazada<Vertice<T>>> ciclos,
@@ -90,7 +91,7 @@ namespace TeoriaDelAlgoritmosCSHARP
 
         public ListaEnlazada<Arista<T>> GetAristasAgregadas()
         {
-            return aristasAgregadas;
+            return _aristasAgregadas;
         }
 
     }
