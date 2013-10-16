@@ -84,5 +84,19 @@ public class RobustezTest {
 		verify(grafo).getCiclosGrafo();
 		verify(aumentador).aumentar(listaCiclos, 3);
 	}
+	
+	@Test
+	public void grafoQueNoSePuedeAumentarYPidoRobustez3() throws IOException {
+		
+		Robustez.main(new String[]{"3", "src/test/resources/grafoImposibleDeAumentar.txt"});
+		verify(err, never()).println(anyString());
+	}
+	
+	@Test
+	public void grafoGrandeRobustez3() throws IOException {
+		
+		Robustez.main(new String[]{"3", "src/test/resources/grafoGrande.txt"});
+		verify(err, never()).println(anyString());
+	}
 
 }

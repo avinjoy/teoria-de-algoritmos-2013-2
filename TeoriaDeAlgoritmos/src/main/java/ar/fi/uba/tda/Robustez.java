@@ -82,6 +82,8 @@ public class Robustez {
 			
 		}
 		
+		//System.out.println("FIN");
+		
 	}
 
 }
