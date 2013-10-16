@@ -128,4 +128,20 @@ public class CargadorDeGrafosTest {
 		assertThat("arista entre E y B", verticeEEnElGrafo.getAdyacentes().primero(), is(verticeB));
 		
 	}
+	
+	@Test
+	public void cargaDesdeUnArchivoUnVerticeSinAdyacentes() throws IOException {
+		
+		BufferedReader reader = mock(BufferedReader.class);
+		when(reader.readLine()).thenReturn("A", (String)null);
+		
+		cargador.cargar(reader);
+		
+		Vertice<String> verticeA = new Vertice<String>("A");
+		
+		assertThat("la cantidad de vertices", grafo.getCantidadDeNodosGrafo(), is(1));
+		
+		assertThat("el primer vertice", grafo.getVertices().primero(), is(verticeA));
+		
+	}
 }
