@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Collections;
 
 namespace Robustez
 {
     public class ListaEnlazada<T>
     {
-        private Elemento<T> _header = new Elemento<T>(default(T), null, null);
+        private readonly Elemento<T> _header = new Elemento<T>(default(T), null, null);
         private Int32 _tamanio;
         private IteradorListaEnlazada _iterador;
 
@@ -21,7 +18,6 @@ namespace Robustez
         private Elemento<T> Header
         {
             get { return _header; }
-            set { _header = value; }
         }
 
         public IteradorListaEnlazada Iterador
@@ -152,24 +148,24 @@ namespace Robustez
 
             }
 
-            public int nextIndex()
+            public int NextIndex()
             {
                 return 0;
             }
 
 
-            public int previousIndex()
+            public int PreviousIndex()
             {
                 return 0;
             }
 
 
-            public void set(T e)
+            public void Set(T e)
             {
             }
 
 
-            public void add(T e)
+            public void Add(T e)
             {
             }
 
@@ -222,7 +218,7 @@ namespace Robustez
         {
 
             T encontrado = default(T);
-            IteradorListaEnlazada iterador = this.Iterador;
+            IteradorListaEnlazada iterador = Iterador;
 
             while (encontrado == null && iterador.HasNext())
             {

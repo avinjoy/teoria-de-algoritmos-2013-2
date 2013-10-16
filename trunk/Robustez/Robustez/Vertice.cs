@@ -1,98 +1,104 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Robustez
 {
-    public class Vertice <T>
+    public class Vertice<T>
     {
-        private T contenido; 
-        private bool visitado;
-        private ListaEnlazada<Vertice<T>> adyacentes;
-        private long index;
-        private long lowLink;
+        private T _contenido;
+        private bool _visitado;
+        private ListaEnlazada<Vertice<T>> _adyacentes;
+        private long _index;
+        private long _lowLink;
 
         public long Index
         {
-            get { return index; }
-            set { index = value; }
+            get { return _index; }
+            set { _index = value; }
         }
 
         public long LowLink
         {
-            get { return lowLink; }
-            set { lowLink = value; }
+            get { return _lowLink; }
+            set { _lowLink = value; }
         }
-        
+
         public T Contenido
         {
-            get { return contenido; }
-            set { contenido = value; }
+            get { return _contenido; }
+            set { _contenido = value; }
         }
-        
+
 
         public bool Visitado
         {
-            get { return visitado; }
-            set { visitado = value; }
+            get { return _visitado; }
+            set { _visitado = value; }
         }
-        
+
 
         public ListaEnlazada<Vertice<T>> Adyacentes
         {
-            get { return adyacentes; }
-            set { adyacentes = value; }
+            get { return _adyacentes; }
+            set { _adyacentes = value; }
         }
-		
-	    public Vertice(): base() {
-            
-	    }
-	
-	    public Vertice(T contenido): base(){
-		    Contenido=contenido;
-		    Adyacentes=new ListaEnlazada<Vertice<T>>();
-	    }
-	
-	  	
-	    public Int32 GetGradoVertice(){
-            return this.adyacentes.Tamanio;
-	    }
 
-
-        
-	    public override int GetHashCode() {
-		    const int prime = 31;
-		    int result = 1;
-		    result = prime * result
-				    + ((contenido == null) ? 0 : contenido.GetHashCode());
-		    return result;
-	    }
-
-	    public override bool Equals(Object obj) 
+        public Vertice()
         {
-		    if (this == obj) {
-			    return true;
-		    }
-		    if (obj == null) {
-			    return false;
-		    }
-		    if (!(obj is Vertice<T>)) {
-			    return false;
-		    }
-		    Vertice<T> other = (Vertice<T>) obj;
-		    if (contenido == null) {
-			    if (other.contenido != null) {
-				    return false;
-			    }
-		    } else if (!contenido.Equals(other.contenido)) {
-			    return false;
-		    }
-		    return true;
-	    }
+            Adyacentes = new ListaEnlazada<Vertice<T>>();
+        }
 
-        public String toString()
+        public Vertice(T contenido)
         {
-            return "Vertice: " + contenido.ToString() + " (i: " + this.Index + " , l: " + this.LowLink + ")";
+            Contenido = contenido;
+            Adyacentes = new ListaEnlazada<Vertice<T>>();
+        }
+
+
+        public Int32 GetGradoVertice()
+        {
+            return _adyacentes.Tamanio;
+        }
+
+
+
+        public override int GetHashCode()
+        {
+            const int prime = 31;
+            int result = 1;
+            result = prime * result
+                    + ((Contenido == null) ? 0 : Contenido.GetHashCode());
+            return result;
+        }
+
+
+        public override bool Equals(Object obj)
+        {
+            if (this == null && obj == null)
+                return true;
+            else
+            {
+                if (this == null || obj == null)
+                    return false;
+                else
+                {
+                    Vertice<T> otroVertice = (Vertice<T>) obj;
+                    if (Contenido == null && otroVertice.Contenido == null)
+                        return true;
+                    else
+                    {
+                        if (Contenido == null || otroVertice.Contenido == null)
+                            return false;
+                        else
+                            return Contenido.Equals(otroVertice.Contenido);
+                    }
+
+                }
+            }
+        }
+
+        public override string ToString()
+        {
+            return "Vertice: " + Contenido + " (i: " + Index + " , l: " + LowLink + ")";
         }
     }
 }

@@ -1,37 +1,46 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
-using Robustez;
 
 
 namespace Robustez
 {
     class Program
     {
-	    private AumentadorRobustez<Nodo> aumentador;
-	    private Grafo<Nodo> grafo;
+	    private AumentadorRobustez<Nodo> _aumentador;
+	    private Grafo<Nodo> _grafo;
 	
 	    public Program(Grafo<Nodo> grafo, AumentadorRobustez<Nodo> aumentador) 
         {
-		    this.grafo = grafo;
-		    this.aumentador = aumentador;
-	    }
+	        Grafo = grafo;
+		    Aumentador = aumentador;
+	        
+        }
+
+        public AumentadorRobustez<Nodo> Aumentador
+        {
+            get { return _aumentador; }
+            set { _aumentador = value; }
+        }
+
+        public Grafo<Nodo> Grafo
+        {
+            get { return _grafo; }
+            set { _grafo = value; }
+        }
+
 
         public static Grafo<Nodo> ReadTextFile(string archivo)
         {
-
-            string line;
-
             Grafo<Nodo> grafo = new Grafo<Nodo>();
 
             // Lee el archivo linea por linea
             using (StreamReader file = new StreamReader(archivo))
             {
+                string line;
                 while ((line = file.ReadLine()) != null)
                 {
 
-                    char[] delimiterNodo = new char[] { ':' };
+                    char[] delimiterNodo = { ':' };
                     string[] nodos = line.Split(delimiterNodo, StringSplitOptions.RemoveEmptyEntries);
 
                     Nodo nodo = new Nodo();
@@ -39,7 +48,7 @@ namespace Robustez
 
                     vNodo.Contenido.Nombre = nodos[0];
 
-                    char[] delimiterAdy = new char[] { ',' };
+                    char[] delimiterAdy = { ',' };
                     string[] adyacentes = nodos[1].Split(delimiterAdy, StringSplitOptions.RemoveEmptyEntries);
                     for (int i = 0; i < adyacentes.Length; i++)
                     {
@@ -64,10 +73,10 @@ namespace Robustez
         }
 
 
-        public void ejecutar(int robustezDeseada) 
+        public void Ejecutar(int robustezDeseada) 
         {
-		    grafo.encontrarCiclos((Vertice<Nodo>) grafo.Vertices.Primero());
-		    aumentador.Aumentar(grafo.CiclosGrafo, robustezDeseada);
+		    Grafo.EncontrarCiclos(Grafo.Vertices.Primero());
+		    Aumentador.Aumentar(Grafo.CiclosGrafo, robustezDeseada);
 	    }
 
 
@@ -78,7 +87,7 @@ namespace Robustez
             Grafo<Nodo> grafo = ReadTextFile("grafo1.txt");
             AumentadorRobustez<Nodo> aumentador = new AumentadorRobustez<Nodo>(grafo);
 
-            new Program(grafo, aumentador).ejecutar(robustezDeseada);
+            new Program(grafo, aumentador).Ejecutar(robustezDeseada);
 
             Console.ReadKey();
             /*
