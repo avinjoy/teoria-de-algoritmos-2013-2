@@ -24,11 +24,19 @@ public class CargadorDeGrafos {
 			String[] vertices = linea.split(":");
 			
 			String vertice = vertices[0].trim();
-			String[] adyacentes = vertices[1].split(",");
 			
-			for (int i = 0; i < adyacentes.length; i++) {
+			if (vertices.length > 1) {
 				
-				agregarArista(vertice, adyacentes[i].trim());
+				String[] adyacentes = vertices[1].split(",");
+				
+				for (int i = 0; i < adyacentes.length; i++) {
+					
+					agregarArista(vertice, adyacentes[i].trim());
+				}
+				
+			} else {
+				
+				grafo.agregarVertice(new Vertice<String>(vertice));
 			}
 			
 			linea = reader.readLine();
