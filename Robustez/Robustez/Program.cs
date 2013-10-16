@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-
+using System.Text;
 
 namespace Robustez
 {
@@ -77,6 +77,25 @@ namespace Robustez
         {
 		    Grafo.EncontrarCiclos(Grafo.Vertices.Primero());
 		    Aumentador.Aumentar(Grafo.CiclosGrafo, robustezDeseada);
+
+
+            ListaEnlazada<Arista<Nodo>> aristas = Aumentador.GetAristasAgregadas();
+		    int numeroArista = 0;
+		
+		    ListaEnlazada<Arista<Nodo>>.IteradorListaEnlazada itAristas = aristas.Iterador;
+		    //Open the File
+		    StreamWriter sw = new StreamWriter("salida.txt", false, Encoding.ASCII);
+
+		    while (itAristas.HasNext()) {
+			
+			    numeroArista++;
+			    Arista<Nodo> arista = itAristas.Next();
+				
+                sw.Write("Arista " + numeroArista + ": " + arista + System.Environment.NewLine);
+			
+		    }
+            //close the file
+			sw.Close();
 	    }
 
 
@@ -84,7 +103,7 @@ namespace Robustez
         {
             int robustezDeseada = Convert.ToInt32("3");
 
-            Grafo<Nodo> grafo = ReadTextFile("grafo1.txt");
+            Grafo<Nodo> grafo = ReadTextFile("grafo3.txt");
             Robustez<Nodo> aumentador = new Robustez<Nodo>(grafo);
 
             new Program(grafo, aumentador).Ejecutar(robustezDeseada);
