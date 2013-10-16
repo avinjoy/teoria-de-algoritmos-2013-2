@@ -1,35 +1,46 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Robustez
 {
     public class Nodo
     {
-        private Int32 nroCiclo;
-        private Int32 nroAdyacentes;
-        private string nombre;
+        private int _nroCiclo;
+        private int _nroAdyacentes;
+        private string _nombre;
 
-
-        public Int32 NroCiclo
+        public Nodo()
         {
-            get { return nroCiclo; }
-            set { nroCiclo = value; }
         }
 
-        
-        public Int32 NroAdyacentes
+        public Nodo(string nombre)
+        {     
+            Nombre = nombre;
+        }
+
+        public int NroCiclo
         {
-            get { return nroAdyacentes; }
-            set { nroAdyacentes = value; }
+            get { return _nroCiclo; }
+            set { _nroCiclo = value; }
+        }
+
+
+        public int NroAdyacentes
+        {
+            get { return _nroAdyacentes; }
+            set { _nroAdyacentes = value; }
         }
 
         
         public string Nombre
         {
-            get { return nombre; }
-            set { nombre = value; }
+            get { return _nombre; }
+            set { _nombre = value; }
         }
 
+        public override bool Equals(object obj)
+        {
+            Nodo nodo = (Nodo)obj;
+            return Nombre.Equals(nodo.Nombre);
+        }
     }
 }
