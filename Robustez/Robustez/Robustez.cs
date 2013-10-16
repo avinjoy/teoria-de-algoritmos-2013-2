@@ -9,11 +9,25 @@ namespace Robustez
     {
 
         private Grafo<T> _grafo;
-        private ListaEnlazada<Arista<T>> _aristasAgregadas = new ListaEnlazada<Arista<T>>();
+        private ListaEnlazada<Arista<T>> _aristasAgregadas;
+
+        public Grafo<T> Grafo
+        {
+            get { return _grafo; }
+            set { _grafo = value; }
+        }
+        
+
+        public ListaEnlazada<Arista<T>> AristasAgregadas
+        {
+            get { return _aristasAgregadas; }
+            set { _aristasAgregadas = value; }
+        }
 
         public Robustez(Grafo<T> grafo)
         {
-            this._grafo = grafo;
+            AristasAgregadas = new ListaEnlazada<Arista<T>>();
+            Grafo = grafo;
         }
 
 
