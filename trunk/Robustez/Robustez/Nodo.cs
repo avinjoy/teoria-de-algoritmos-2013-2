@@ -47,5 +47,10 @@ namespace Robustez
             Nodo nodo = (Nodo)obj;
             return Nombre.Equals(nodo.Nombre);
         }
+
+        public override string ToString()
+        {
+            return this.Nombre;
+        }
     }
 }

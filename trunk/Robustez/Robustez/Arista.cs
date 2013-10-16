@@ -29,6 +29,10 @@ namespace Robustez
             Destino = verticeCicloDos;
         }
 
+        public override string ToString()
+        {
+            return _origen.Contenido.ToString() + ", " + _destino.Contenido.ToString();
+        }
 
     }
 }
