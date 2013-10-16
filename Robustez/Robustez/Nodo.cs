@@ -37,6 +37,11 @@ namespace Robustez
             set { _nombre = value; }
         }
 
+        /// <summary>
+        /// Determina cuando un nodo es igual a otro.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj)
         {
             Nodo nodo = (Nodo)obj;
