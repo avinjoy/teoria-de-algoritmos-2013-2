@@ -80,7 +80,7 @@ public class RobustezTest {
 		robustez.ejecutar(3, reader);
 		
 		verify(cargador).cargar(reader);
-		verify(grafo).encontrarCiclos(vertice);
+		verify(grafo).encontrarCiclos(listaVertices);
 		verify(grafo).getCiclosGrafo();
 		verify(aumentador).aumentar(listaCiclos, 3);
 	}
