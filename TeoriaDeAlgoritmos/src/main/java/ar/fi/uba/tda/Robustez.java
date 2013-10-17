@@ -9,7 +9,6 @@ import java.util.Iterator;
 import ar.fi.uba.tda.colecciones.Arista;
 import ar.fi.uba.tda.colecciones.Grafo;
 import ar.fi.uba.tda.colecciones.ListaEnlazada;
-import ar.fi.uba.tda.colecciones.Vertice;
 import ar.fi.uba.tda.util.AumentadorDeRobustez;
 import ar.fi.uba.tda.util.CargadorDeGrafos;
 
@@ -70,7 +69,7 @@ public class Robustez {
 
 		cargador.cargar(archivo);
 		
-		grafo.encontrarCiclos((Vertice) grafo.getVertices().primero());
+		grafo.encontrarCiclos( grafo.getVertices());
 		aumentador.aumentar(grafo.getCiclosGrafo(), robustezDeseada);
 		
 		ListaEnlazada<Arista> aristas = aumentador.getAristasAgregadas();
