@@ -99,6 +99,8 @@ namespace Robustez
                 }
             }
         }
+        
+
 
         /// <summary>
         /// Metodo sobreescrito para mostrar claramente el vertice.

@@ -71,7 +71,7 @@ namespace Robustez
 
         private bool RobustezEsCompatibleConElGrafo(int robustez)
         {
-            return _grafo.GetCantidadDeNodosGrafo() > robustez;
+            return _grafo.GetCantidadDestringsGrafo() > robustez;
         }
 
         private ListaEnlazada<Vertice<T>> ObtenerSiguienteCiclo(ListaEnlazada<ListaEnlazada<Vertice<T>>> ciclos,

@@ -6,90 +6,54 @@ namespace Robustez
 {
     class Program
     {
-	    private Robustez<Nodo> _aumentador;
-	    private Grafo<Nodo> _grafo;
+        private ArchivoGrafoManager _loader;
+	    private Robustez<string> _aumentador;
+	    private Grafo<string> _grafo;
 	
-	    public Program(Grafo<Nodo> grafo, Robustez<Nodo> aumentador) 
+	    public Program(Grafo<string> grafo, ArchivoGrafoManager loader, Robustez<string> aumentador) 
         {
 	        Grafo = grafo;
 		    Aumentador = aumentador;
-	        
+            Loader = loader;
         }
 
-        public Robustez<Nodo> Aumentador
+        public Robustez<string> Aumentador
         {
             get { return _aumentador; }
             set { _aumentador = value; }
         }
 
-        public Grafo<Nodo> Grafo
+        public Grafo<string> Grafo
         {
             get { return _grafo; }
             set { _grafo = value; }
         }
 
-
-        public static Grafo<Nodo> ReadTextFile(string archivo)
+        public ArchivoGrafoManager Loader
         {
-            Grafo<Nodo> grafo = new Grafo<Nodo>();
-
-            // Lee el archivo linea por linea
-            using (StreamReader file = new StreamReader(archivo))
-            {
-                string line;
-                while ((line = file.ReadLine()) != null)
-                {
-
-                    char[] delimiterNodo = { ':' };
-                    string[] nodos = line.Split(delimiterNodo, StringSplitOptions.RemoveEmptyEntries);
-
-                    Nodo nodo = new Nodo();
-                    Vertice<Nodo> vNodo = new Vertice<Nodo>(nodo);
-
-                    vNodo.Contenido.Nombre = nodos[0];
-
-                    char[] delimiterAdy = { ',' };
-                    string[] adyacentes = nodos[1].Split(delimiterAdy, StringSplitOptions.RemoveEmptyEntries);
-                    for (int i = 0; i < adyacentes.Length; i++)
-                    {
-                        vNodo.Contenido.NroAdyacentes = adyacentes.Length;
-
-                        Nodo ady = new Nodo();
-                        ady.Nombre = adyacentes[i].Trim();
-                        Vertice<Nodo> vAdy = new Vertice<Nodo>(ady);
-
-                        vNodo.Adyacentes.Agregar(vAdy);
-                    }
-
-                    grafo.AgregarVertice(vNodo);
-
-                }
-
-                file.Close();
-            }
-
-            return grafo;
-   
+            get { return _loader; }
+            set { _loader = value; }
         }
 
 
-        public void Ejecutar(int robustezDeseada) 
+        public void Ejecutar(int robustezDeseada, StreamReader archivo) 
         {
+            Loader.cargar(archivo);
 		    Grafo.EncontrarCiclos(Grafo.Vertices.Primero());
 		    Aumentador.Aumentar(Grafo.CiclosGrafo, robustezDeseada);
 
 
-            ListaEnlazada<Arista<Nodo>> aristas = Aumentador.GetAristasAgregadas();
+            ListaEnlazada<Arista<string>> aristas = Aumentador.GetAristasAgregadas();
 		    int numeroArista = 0;
 		
-		    ListaEnlazada<Arista<Nodo>>.IteradorListaEnlazada itAristas = aristas.Iterador;
+		    ListaEnlazada<Arista<string>>.IteradorListaEnlazada itAristas = aristas.Iterador;
 		    //Open the File
 		    StreamWriter sw = new StreamWriter("salida.txt", false, Encoding.ASCII);
 
 		    while (itAristas.HasNext()) {
 			
 			    numeroArista++;
-			    Arista<Nodo> arista = itAristas.Next();
+			    Arista<string> arista = itAristas.Next();
 				
                 sw.Write("Arista " + numeroArista + ": " + arista + System.Environment.NewLine);
 			
@@ -101,31 +65,26 @@ namespace Robustez
 
         static void Main(string[] args)
         {
-            int robustezDeseada = Convert.ToInt32("3");
-
-            Grafo<Nodo> grafo = ReadTextFile("grafo3.txt");
-            Robustez<Nodo> aumentador = new Robustez<Nodo>(grafo);
-
-            new Program(grafo, aumentador).Ejecutar(robustezDeseada);
-
-            Console.ReadKey();
-            /*
+            
             if (args.Length > 0)
             {
                 int robustezDeseada = Convert.ToInt32(args[0]);
+                StreamReader archivo = new StreamReader(args[1]);
 
-                Grafo<Nodo> grafo = ReadTextFile(args[1]);
-                AumentadorRobustez<Nodo> aumentador = new AumentadorRobustez<Nodo>(grafo);
+                Grafo<string> grafo = new Grafo<string>();
+                ArchivoGrafoManager loader = new ArchivoGrafoManager(grafo);
+                Robustez<string> aumentador = new Robustez<string>(grafo);
 
-                new Program(grafo, aumentador).ejecutar(robustezDeseada);
+                new Program(grafo, loader, aumentador).Ejecutar(robustezDeseada, archivo);
 
                 Console.ReadKey();
             }
             else
             {
                 System.Console.Write("Se debe ingresar el grado de robustez y el nombre de archivo");
+                Console.ReadKey();
             }
-            */
+            
         }
 
     }

@@ -6,12 +6,12 @@ namespace Test
     [TestFixture]
     public class TestGrafo
     {
-        private Grafo<Nodo> _grafo;
+        private Grafo<string> _grafo;
 
         [SetUp]
         public void SetUp()
         {
-            _grafo = new Grafo<Nodo>();
+            _grafo = new Grafo<string>();
         }
 
 
@@ -20,15 +20,15 @@ namespace Test
         public void TestEncontrarCiclosGrafoTres()
         {
 
-            Vertice<Nodo> verticeA = new Vertice<Nodo>(new Nodo("A"));
-            Vertice<Nodo> verticeB = new Vertice<Nodo>(new Nodo("B"));
-            Vertice<Nodo> verticeC = new Vertice<Nodo>(new Nodo("C"));
-            Vertice<Nodo> verticeD = new Vertice<Nodo>(new Nodo("D"));
-            Vertice<Nodo> verticeE = new Vertice<Nodo>(new Nodo("E"));
-            Vertice<Nodo> verticeF = new Vertice<Nodo>(new Nodo("F"));
-            Vertice<Nodo> verticeG = new Vertice<Nodo>(new Nodo("G"));
-            Vertice<Nodo> verticeH = new Vertice<Nodo>(new Nodo("H"));
-            Vertice<Nodo> verticeI = new Vertice<Nodo>(new Nodo("I"));
+            Vertice<string> verticeA = new Vertice<string>("A");
+            Vertice<string> verticeB = new Vertice<string>("B");
+            Vertice<string> verticeC = new Vertice<string>("C");
+            Vertice<string> verticeD = new Vertice<string>("D");
+            Vertice<string> verticeE = new Vertice<string>("E");
+            Vertice<string> verticeF = new Vertice<string>("F");
+            Vertice<string> verticeG = new Vertice<string>("G");
+            Vertice<string> verticeH = new Vertice<string>("H");
+            Vertice<string> verticeI = new Vertice<string>("I");
 
 
             //A: B, C
@@ -85,12 +85,12 @@ namespace Test
         public void TestEncontrarCiclosGrafoDos()
         {
 
-            Vertice<Nodo> verticeA = new Vertice<Nodo>(new Nodo("A"));
-            Vertice<Nodo> verticeB = new Vertice<Nodo>(new Nodo("B"));
-            Vertice<Nodo> verticeC = new Vertice<Nodo>(new Nodo("C"));
-            Vertice<Nodo> verticeD = new Vertice<Nodo>(new Nodo("D"));
-            Vertice<Nodo> verticeE = new Vertice<Nodo>(new Nodo("E"));
-            Vertice<Nodo> verticeF = new Vertice<Nodo>(new Nodo("F"));      
+            Vertice<string> verticeA = new Vertice<string>("A");
+            Vertice<string> verticeB = new Vertice<string>("B");
+            Vertice<string> verticeC = new Vertice<string>("C");
+            Vertice<string> verticeD = new Vertice<string>("D");
+            Vertice<string> verticeE = new Vertice<string>("E");
+            Vertice<string> verticeF = new Vertice<string>("F");      
        
             //A: B, C
             verticeA.Adyacentes.Agregar(verticeB);
@@ -149,14 +149,14 @@ namespace Test
         public void TestEncontrarCiclosGrafoUno()
         {
 
-            Vertice<Nodo> verticeA = new Vertice<Nodo>(new Nodo("A"));
-            Vertice<Nodo> verticeB = new Vertice<Nodo>(new Nodo("B"));
-            Vertice<Nodo> verticeC = new Vertice<Nodo>(new Nodo("C"));
-            Vertice<Nodo> verticeD = new Vertice<Nodo>(new Nodo("D"));
-            Vertice<Nodo> verticeE = new Vertice<Nodo>(new Nodo("E"));
-            Vertice<Nodo> verticeF = new Vertice<Nodo>(new Nodo("F"));
-            Vertice<Nodo> verticeG = new Vertice<Nodo>(new Nodo("G"));
-            Vertice<Nodo> verticeH = new Vertice<Nodo>(new Nodo("H"));
+            Vertice<string> verticeA = new Vertice<string>("A");
+            Vertice<string> verticeB = new Vertice<string>("B");
+            Vertice<string> verticeC = new Vertice<string>("C");
+            Vertice<string> verticeD = new Vertice<string>("D");
+            Vertice<string> verticeE = new Vertice<string>("E");
+            Vertice<string> verticeF = new Vertice<string>("F");
+            Vertice<string> verticeG = new Vertice<string>("G");
+            Vertice<string> verticeH = new Vertice<string>("H");
 
 
             //A: B, C
@@ -223,10 +223,10 @@ namespace Test
         [Test]
         public void TestAgregarVertice()
         {
-            _grafo.AgregarVertice(new Vertice<Nodo>(new Nodo("Vertice1")));
+            _grafo.AgregarVertice(new Vertice<string>("Vertice1"));
 
             Assert.AreEqual(1, _grafo.Vertices.Tamanio);
-            Assert.AreEqual("Vertice1", _grafo.Vertices.Iterador.Next().Contenido.Nombre);
+            Assert.AreEqual("Vertice1", _grafo.Vertices.Iterador.Next().Contenido);
 
         }
 
@@ -234,41 +234,41 @@ namespace Test
         public void TestAgregarArco()
         {
 
-            _grafo.AgregarArco(new Vertice<Nodo>(new Nodo("Vertice1")), new Vertice<Nodo>(new Nodo("Vertice2")));
+            _grafo.AgregarArco(new Vertice<string>("Vertice1"), new Vertice<string>("Vertice2"));
 
             Assert.AreEqual(2, _grafo.Vertices.Tamanio);
-            Assert.AreEqual(new Vertice<Nodo>(new Nodo("Vertice1")), _grafo.Vertices.Primero());
-            Assert.AreEqual(new Vertice<Nodo>(new Nodo("Vertice2")), _grafo.Vertices.Ultimo());
+            Assert.AreEqual(new Vertice<string>("Vertice1"), _grafo.Vertices.Primero());
+            Assert.AreEqual(new Vertice<string>("Vertice2"), _grafo.Vertices.Ultimo());
             Assert.AreEqual(1, _grafo.Vertices.Primero().Adyacentes.Tamanio);
             Assert.AreEqual(1, _grafo.Vertices.Ultimo().Adyacentes.Tamanio);
-            Assert.AreEqual(new Vertice<Nodo>(new Nodo("Vertice2")), _grafo.Vertices.Primero().Adyacentes.Iterador.Next());
-            Assert.AreEqual(new Vertice<Nodo>(new Nodo("Vertice1")), _grafo.Vertices.Ultimo().Adyacentes.Iterador.Next());
+            Assert.AreEqual(new Vertice<string>("Vertice2"), _grafo.Vertices.Primero().Adyacentes.Iterador.Next());
+            Assert.AreEqual(new Vertice<string>("Vertice1"), _grafo.Vertices.Ultimo().Adyacentes.Iterador.Next());
 
         }
 
         [Test]
         public void TestContieneVertice()
         {
-            _grafo.AgregarVertice(new Vertice<Nodo>(new Nodo("Vertice1")));
+            _grafo.AgregarVertice(new Vertice<string>("Vertice1"));
 
             Assert.AreEqual(1, _grafo.Vertices.Tamanio);
-            Assert.IsTrue(_grafo.Vertices.Contiene(new Vertice<Nodo>(new Nodo("Vertice1"))));
+            Assert.IsTrue(_grafo.Vertices.Contiene(new Vertice<string>("Vertice1")));
         }
 
         [Test]
         public void TestObtenerVertice()
         {
-            _grafo.AgregarVertice(new Vertice<Nodo>(new Nodo("Vertice1")));
+            _grafo.AgregarVertice(new Vertice<string>("Vertice1"));
 
             Assert.AreEqual(1, _grafo.Vertices.Tamanio);
-            Assert.AreEqual(new Vertice<Nodo>(new Nodo("Vertice1")), _grafo.Vertices.Obtener(new Vertice<Nodo>(new Nodo("Vertice1"))));
+            Assert.AreEqual(new Vertice<string>("Vertice1"), _grafo.Vertices.Obtener(new Vertice<string>("Vertice1")));
         }
 
 
         [TearDown]
         public void TearDown()
         {
-            _grafo = new Grafo<Nodo>();
+            _grafo = new Grafo<string>();
 
 
         }

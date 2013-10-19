@@ -31,7 +31,7 @@ namespace Robustez
 
         public override string ToString()
         {
-            return _origen.Contenido.ToString() + ", " + _destino.Contenido.ToString();
+            return _origen.Contenido + ", " + _destino.Contenido;
         }
 
     }
