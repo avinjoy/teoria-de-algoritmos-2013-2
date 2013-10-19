@@ -145,6 +145,32 @@ namespace Robustez
 
         }
 
+        public bool Contiene(T datoBuscado)
+        {
+
+            return Obtener(datoBuscado) != null;
+
+        }
+
+        public T Obtener(T datoBuscado)
+        {
+
+            T encontrado = default(T);
+            Iterador = new IteradorListaEnlazada(this);
+
+            while (encontrado == null && Iterador.HasNext())
+            {
+                T item = Iterador.Next();
+
+                if (item.Equals(datoBuscado))
+                {
+                    encontrado = item;
+                }
+            }
+
+            return encontrado;
+        }
+
         private class Elemento<T>
         {
 
@@ -179,33 +205,6 @@ namespace Robustez
                 Siguiente = siguiente;
             }
 
-        }
-
-        public bool Contiene(T datoBuscado)
-        {
-
-            return Obtener(datoBuscado) != null;
-
-        }
-
-        public T Obtener(T datoBuscado)
-        {
-
-            T encontrado = default(T);
-            IteradorListaEnlazada iterador = Iterador;
-
-            while (encontrado == null && iterador.HasNext())
-            {
-
-                T item = iterador.Next();
-
-                if (item.Equals(datoBuscado))
-                {
-                    encontrado = item;
-                }
-            }
-
-            return encontrado;
         }
 
 

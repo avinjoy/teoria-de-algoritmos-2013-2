@@ -58,7 +58,7 @@ namespace Robustez
             Vertices = vertices;
         }
 
-        public Int32 GetCantidadDeNodosGrafo()
+        public Int32 GetCantidadDestringsGrafo()
         {
             return Vertices.Tamanio;
         }
@@ -152,18 +152,9 @@ namespace Robustez
                 inicio = inicioEnGrafo;
             }
 
-            Vertice<T> finEnGrafo = ObtenerVertice(fin);
-
-            if (finEnGrafo != null)
-            {
-                fin = finEnGrafo;
-            }
-
             inicio.Adyacentes.Agregar(fin);
-            fin.Adyacentes.Agregar(inicio);
 
             AgregarVertice(inicio);
-            AgregarVertice(fin);
 
         }
 

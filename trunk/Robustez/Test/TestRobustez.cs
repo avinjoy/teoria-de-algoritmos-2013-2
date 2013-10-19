@@ -9,12 +9,12 @@ namespace Test
     [TestFixture]
     public class TestRobustez
     {
-        private Grafo<Nodo> _grafo;
+        private Grafo<string> _grafo;
 
         [SetUp]
         public void SetUp()
         {
-            _grafo = new Grafo<Nodo>();
+            _grafo = new Grafo<string>();
         }
 
 
@@ -23,15 +23,15 @@ namespace Test
         public void TestAumentarRobustezGrafoTres()
         {
 
-            Vertice<Nodo> verticeA = new Vertice<Nodo>(new Nodo("A"));
-            Vertice<Nodo> verticeB = new Vertice<Nodo>(new Nodo("B"));
-            Vertice<Nodo> verticeC = new Vertice<Nodo>(new Nodo("C"));
-            Vertice<Nodo> verticeD = new Vertice<Nodo>(new Nodo("D"));
-            Vertice<Nodo> verticeE = new Vertice<Nodo>(new Nodo("E"));
-            Vertice<Nodo> verticeF = new Vertice<Nodo>(new Nodo("F"));
-            Vertice<Nodo> verticeG = new Vertice<Nodo>(new Nodo("G"));
-            Vertice<Nodo> verticeH = new Vertice<Nodo>(new Nodo("H"));
-            Vertice<Nodo> verticeI = new Vertice<Nodo>(new Nodo("I"));
+            Vertice<string> verticeA = new Vertice<string>("A");
+            Vertice<string> verticeB = new Vertice<string>("B");
+            Vertice<string> verticeC = new Vertice<string>("C");
+            Vertice<string> verticeD = new Vertice<string>("D");
+            Vertice<string> verticeE = new Vertice<string>("E");
+            Vertice<string> verticeF = new Vertice<string>("F");
+            Vertice<string> verticeG = new Vertice<string>("G");
+            Vertice<string> verticeH = new Vertice<string>("H");
+            Vertice<string> verticeI = new Vertice<string>("I");
 
 
             //A: B, C
@@ -71,7 +71,7 @@ namespace Test
 
 
             _grafo.EncontrarCiclos(verticeA);
-            Robustez<Nodo> robustez = new Robustez<Nodo>(_grafo);
+            Robustez<string> robustez = new Robustez<string>(_grafo);
             robustez.Aumentar(_grafo.CiclosGrafo, 3);
 
             Assert.AreEqual(2,robustez.AristasAgregadas.Tamanio);
@@ -83,12 +83,12 @@ namespace Test
         public void TestAumentarRobustezGrafoDos()
         {
 
-            Vertice<Nodo> verticeA = new Vertice<Nodo>(new Nodo("A"));
-            Vertice<Nodo> verticeB = new Vertice<Nodo>(new Nodo("B"));
-            Vertice<Nodo> verticeC = new Vertice<Nodo>(new Nodo("C"));
-            Vertice<Nodo> verticeD = new Vertice<Nodo>(new Nodo("D"));
-            Vertice<Nodo> verticeE = new Vertice<Nodo>(new Nodo("E"));
-            Vertice<Nodo> verticeF = new Vertice<Nodo>(new Nodo("F"));
+            Vertice<string> verticeA = new Vertice<string>("A");
+            Vertice<string> verticeB = new Vertice<string>("B");
+            Vertice<string> verticeC = new Vertice<string>("C");
+            Vertice<string> verticeD = new Vertice<string>("D");
+            Vertice<string> verticeE = new Vertice<string>("E");
+            Vertice<string> verticeF = new Vertice<string>("F");
 
             //A: B, C
             verticeA.Adyacentes.Agregar(verticeB);
@@ -121,7 +121,7 @@ namespace Test
 
 
             _grafo.EncontrarCiclos(verticeA);
-            Robustez<Nodo> robustez = new Robustez<Nodo>(_grafo);
+            Robustez<string> robustez = new Robustez<string>(_grafo);
             robustez.Aumentar(_grafo.CiclosGrafo, 3);
 
             Assert.AreEqual(3, robustez.AristasAgregadas.Tamanio);
@@ -134,14 +134,14 @@ namespace Test
         public void TestAumentarRobustezGrafoUno()
         {
 
-            Vertice<Nodo> verticeA = new Vertice<Nodo>(new Nodo("A"));
-            Vertice<Nodo> verticeB = new Vertice<Nodo>(new Nodo("B"));
-            Vertice<Nodo> verticeC = new Vertice<Nodo>(new Nodo("C"));
-            Vertice<Nodo> verticeD = new Vertice<Nodo>(new Nodo("D"));
-            Vertice<Nodo> verticeE = new Vertice<Nodo>(new Nodo("E"));
-            Vertice<Nodo> verticeF = new Vertice<Nodo>(new Nodo("F"));
-            Vertice<Nodo> verticeG = new Vertice<Nodo>(new Nodo("G"));
-            Vertice<Nodo> verticeH = new Vertice<Nodo>(new Nodo("H"));
+            Vertice<string> verticeA = new Vertice<string>("A");
+            Vertice<string> verticeB = new Vertice<string>("B");
+            Vertice<string> verticeC = new Vertice<string>("C");
+            Vertice<string> verticeD = new Vertice<string>("D");
+            Vertice<string> verticeE = new Vertice<string>("E");
+            Vertice<string> verticeF = new Vertice<string>("F");
+            Vertice<string> verticeG = new Vertice<string>("G");
+            Vertice<string> verticeH = new Vertice<string>("H");
 
 
             //A: B, C
@@ -181,7 +181,7 @@ namespace Test
             _grafo.AgregarVertice(verticeH);
 
             _grafo.EncontrarCiclos(verticeA);
-            Robustez<Nodo> robustez = new Robustez<Nodo>(_grafo);
+            Robustez<string> robustez = new Robustez<string>(_grafo);
             robustez.Aumentar(_grafo.CiclosGrafo, 3);
 
             Assert.AreEqual(3, robustez.AristasAgregadas.Tamanio);
@@ -197,7 +197,7 @@ namespace Test
         [TearDown]
         public void TearDown()
         {
-            _grafo = new Grafo<Nodo>();
+            _grafo = new Grafo<string>();
 
 
         }
