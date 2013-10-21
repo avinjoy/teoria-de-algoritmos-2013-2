@@ -12,6 +12,24 @@ namespace Robustez
         private List<Vertice<T>> _visitados;
         private long _index;
 
+        private ListaEnlazada<Vertice<T>> _recorridoBFS;
+        private long _nroCreciente;
+        private long _nroDecreciente;
+        public ListaEnlazada<Vertice<T>> RecorridoDFS
+        {
+            get { return _recorridoBFS; }
+            set { _recorridoBFS = value; }
+        }
+        public long NroCreciente
+        {
+            get { return _nroCreciente; }
+            set { _nroCreciente = value; }
+        }
+        public long NroDecreciente
+        {
+            get { return _nroDecreciente; }
+            set { _nroDecreciente = value; }
+        }
 
         public ListaEnlazada<Vertice<T>> Vertices
         {
@@ -51,7 +69,10 @@ namespace Robustez
             CiclosGrafo = new ListaEnlazada<ListaEnlazada<Vertice<T>>>();
             Subset = new ListaEnlazada<Vertice<T>>();
             Visitados = new List<Vertice<T>>();
+            RecorridoDFS = new ListaEnlazada<Vertice<T>>();
 
+            NroCreciente = 0;
+            NroDecreciente = 0;
         }
         public Grafo(ListaEnlazada<Vertice<T>> vertices)
         {
@@ -61,6 +82,82 @@ namespace Robustez
         public Int32 GetCantidadDestringsGrafo()
         {
             return Vertices.Tamanio;
+        }
+
+
+        public void recorridoDFS(Grafo<T> grafo)
+        {
+            ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iterador = grafo.Vertices.Iterador;
+            while (iterador.HasNext())
+            {
+                Vertice<T> v = iterador.Next();
+                v.Color = Color.blanco;
+                v.Padre = null;
+            }
+
+            NroCreciente = 0;
+
+            grafo.Vertices.Iterador = new ListaEnlazada<Vertice<T>>.IteradorListaEnlazada(grafo.Vertices);
+            iterador = grafo.Vertices.Iterador;
+            while (iterador.HasNext())
+            {
+                Vertice<T> v = iterador.Next();
+                if (v.Color == Color.blanco) 
+                {
+                    DFS_Visitar(v);
+                }
+            }
+        }
+
+        private void DFS_Visitar(Vertice<T> v)
+        {
+            NroCreciente++;
+            v.Index = NroCreciente;
+            v.Color = Color.gris;
+
+            ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iterAdyacente = v.Adyacentes.Iterador;
+            while (iterAdyacente.HasNext())
+            {
+                Vertice<T> vertAdy = iterAdyacente.Next();
+                if (vertAdy.Color == Color.gris)
+                    procesarCiclo(vertAdy);
+                if (vertAdy.Color == Color.blanco)
+                {
+                    vertAdy.Padre = v;
+                    DFS_Visitar(vertAdy);
+                }
+            }
+
+            v.Color = Color.negro;
+            NroCreciente++;
+            v.LowLink = NroCreciente;
+        }
+
+        private void procesarCiclo(Vertice<T> v)
+        {
+            RecorridoDFS.Agregar(v);
+        }
+
+        public void recorridoDFS2(Vertice<T> vertice)
+        {
+            vertice.Visitado = true;
+            NroCreciente++;
+            vertice.Index = NroCreciente;
+
+            ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iterAdyacente = vertice.Adyacentes.Iterador;
+            while (iterAdyacente.HasNext())
+            {
+                Vertice<T> vertAdy = iterAdyacente.Next();
+                if (!vertAdy.Visitado)
+                {
+                    RecorridoDFS.Agregar(vertAdy);
+                    recorridoDFS2(vertAdy);
+                }
+
+                NroDecreciente++;
+                vertice.LowLink = NroDecreciente;
+            }
+            return;
         }
 
 
@@ -152,9 +249,17 @@ namespace Robustez
                 inicio = inicioEnGrafo;
             }
 
-            inicio.Adyacentes.Agregar(fin);
+            Vertice<T> finEnGrafo = ObtenerVertice(fin);
+
+            if (finEnGrafo != null)
+            {
+                fin = finEnGrafo;
+            }
 
             AgregarVertice(inicio);
+            AgregarVertice(fin);
+
+            inicio.Adyacentes.Agregar(fin);
 
         }
 

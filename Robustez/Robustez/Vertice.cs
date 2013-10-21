@@ -2,11 +2,15 @@
 
 namespace Robustez
 {
+    public enum Color {blanco, gris, negro};
+
     public class Vertice<T>
     {
         private T _contenido;
         private bool _visitado;
         private ListaEnlazada<Vertice<T>> _adyacentes;
+        private Color _color;
+        private Vertice<T> _padre;
         private long _index;
         private long _lowLink;
 
@@ -20,6 +24,18 @@ namespace Robustez
         {
             get { return _lowLink; }
             set { _lowLink = value; }
+        }
+
+        public Color Color
+        {
+            get { return _color; }
+            set { _color = value; }
+        }
+
+        public Vertice<T> Padre
+        {
+            get { return _padre; }
+            set { _padre = value; }
         }
 
         public T Contenido
