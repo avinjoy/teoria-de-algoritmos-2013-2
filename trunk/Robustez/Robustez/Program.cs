@@ -39,7 +39,9 @@ namespace Robustez
         public void Ejecutar(int robustezDeseada, StreamReader archivo) 
         {
             Loader.cargar(archivo);
-		    Grafo.EncontrarCiclos(Grafo.Vertices.Primero());
+		    //Grafo.EncontrarCiclos(Grafo.Vertices.Primero());
+            //Grafo.recorridoDFS(Grafo.Vertices.Primero());
+            Grafo.recorridoDFS(Grafo);
 		    Aumentador.Aumentar(Grafo.CiclosGrafo, robustezDeseada);
 
 
