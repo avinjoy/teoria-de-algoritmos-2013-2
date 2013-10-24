@@ -35,28 +35,29 @@ namespace Robustez
         /// </summary>
         /// <param name="ciclos"></param>
         /// <param name="robustez"></param>
-        public void Aumentar(ListaEnlazada<ListaEnlazada<Vertice<T>>> ciclos, int robustez)
+        public void Aumentar(ListaCircular<ListaCircular<Vertice<T>>> ciclos, int robustez)
         {
 
-            ListaEnlazada<ListaEnlazada<Vertice<T>>>.IteradorListaEnlazada listaDeCiclos = ciclos.Iterador;
-            ListaEnlazada<ListaEnlazada<Vertice<T>>>.IteradorListaEnlazada listaDeCiclosAuxiliar = ciclos.Iterador;
-
+            ListaCircular<ListaCircular<Vertice<T>>>.IteradorListaCircular listaDeCiclos = ciclos.Iterador;
+            
+            //Obtengo el primer ciclo.
+            ListaCircular<Vertice<T>> ciclo = listaDeCiclos.Next();
             //Mientras haya ciclos disponibles.
-          while(listaDeCiclos.HasNext()){           
-                 
-                //Obtengo el primer ciclo.
-                ListaEnlazada<Vertice<T>> ciclo = listaDeCiclos.Next();
-                ListaEnlazada<Vertice<T>> siguienteCiclo = ObtenerSiguienteCiclo(ciclos, listaDeCiclos);
+            for (int h = 0; h < ciclos.Tamanio; h++)
+            {              
+            
+                //Obtengo el segundo ciclo.
+                ListaCircular<Vertice<T>> siguienteCiclo = listaDeCiclos.Next();
              
                 //Mantego su referencia para no perderlo.
-                ListaEnlazada<Vertice<T>> mantengoSiguienteCiclo = siguienteCiclo;
+                ListaCircular<Vertice<T>> mantengoSiguienteCiclo = siguienteCiclo;
 
 
                 //Para cada vertice del primer ciclo.
                 for (int i = 0; i < ciclo.Tamanio; i++)
                 {
                     siguienteCiclo = mantengoSiguienteCiclo;
-                    siguienteCiclo.Iterador = new ListaEnlazada<Vertice<T>>.IteradorListaEnlazada(siguienteCiclo);
+                    siguienteCiclo.Iterador = new ListaCircular<Vertice<T>>.IteradorListaCircular(siguienteCiclo);
 
                     Vertice<T> verticeInicio = ciclo.Iterador.Next();
 
@@ -115,74 +116,24 @@ namespace Robustez
                         {
                             //Si recorri todo el segundo ciclo, paso al ciclo siguiente, hasta poder completarlo.
 
-                            if (listaDeCiclosAuxiliar.HasNext())
-                            {
-                                siguienteCiclo = listaDeCiclosAuxiliar.Next();
-                                if (siguienteCiclo == null)
-                                {
-                                    listaDeCiclosAuxiliar.Siguiente--;
-                                    siguienteCiclo = listaDeCiclosAuxiliar.Next();
-                                }
-                            }
-                            else
-                            {
-                                listaDeCiclosAuxiliar.Siguiente = 0;
-                                siguienteCiclo = ciclos.Primero();
-                            }
-                            siguienteCiclo.ResetIterator();
+                            siguienteCiclo = listaDeCiclos.Next();                        
                         }
                     }
                 }
+                ciclo = siguienteCiclo;
+                
             }
         }
 
 
-
-        //public void Aumentar(ListaEnlazada<ListaEnlazada<Vertice<T>>> ciclos, int robustez)
-        //{
-
-        //    if (RobustezEsCompatibleConElGrafo(robustez))
-        //    {
-
-        //        ListaEnlazada<ListaEnlazada<Vertice<T>>>.IteradorListaEnlazada listaDeCiclos = ciclos.Iterador;
-
-        //        while (listaDeCiclos.HasNext())
-        //        {
-
-        //            ListaEnlazada<Vertice<T>> ciclo = listaDeCiclos.Next();
-
-        //            ListaEnlazada<Vertice<T>> siguienteCiclo = ObtenerSiguienteCiclo(ciclos, listaDeCiclos);
-
-        //            ListaEnlazada<Vertice<T>>.IteradorListaEnlazada verticesPrimerCiclo = ciclo.Iterador;
-        //            ListaEnlazada<Vertice<T>>.IteradorListaEnlazada verticesSegundoCiclo = siguienteCiclo.Iterador;
-
-        //            int robustezAlcanzada = 0;
-
-        //            while (robustezAlcanzada < robustez && verticesPrimerCiclo.HasNext() && verticesSegundoCiclo.HasNext())
-        //            {
-
-        //                Vertice<T> verticeCicloUno = verticesPrimerCiclo.Next();
-        //                Vertice<T> verticeCicloDos = verticesSegundoCiclo.Next();
-
-        //                if (!verticeCicloUno.Adyacentes.Contiene(verticeCicloDos))
-        //                {
-        //                    _aristasAgregadas.Agregar(new Arista<T>(verticeCicloUno, verticeCicloDos));
-        //                }
-
-        //                robustezAlcanzada++;
-        //            }
-
-        //        }
-        //    }
-        //}
 
         private bool RobustezEsCompatibleConElGrafo(int robustez)
         {
             return _grafo.GetCantidadDeVertices() > robustez;
         }
 
-        private ListaEnlazada<Vertice<T>> ObtenerSiguienteCiclo(ListaEnlazada<ListaEnlazada<Vertice<T>>> ciclos,
-                                                                ListaEnlazada<ListaEnlazada<Vertice<T>>>.IteradorListaEnlazada listaDeCiclos)
+        private ListaEnlazada<Vertice<T>> ObtenerSiguienteCiclo(ListaCircular<ListaEnlazada<Vertice<T>>> ciclos,
+                                                                ListaCircular<ListaEnlazada<Vertice<T>>>.IteradorListaCircular listaDeCiclos)
         {
 
             ListaEnlazada<Vertice<T>> siguienteCiclo;
@@ -199,15 +150,6 @@ namespace Robustez
             }
 
             return siguienteCiclo;
-        }
-
-        private void CorregirIterador(
-                ListaEnlazada<ListaEnlazada<Vertice<T>>>.IteradorListaEnlazada listaDeCiclos)
-        {
-            if (listaDeCiclos.HasNext())
-            {
-                listaDeCiclos.Previous();
-            }
         }
 
         public ListaEnlazada<Arista<T>> GetAristasAgregadas()

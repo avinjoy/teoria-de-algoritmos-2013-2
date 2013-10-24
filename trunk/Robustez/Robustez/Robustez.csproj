@@ -58,6 +58,7 @@
     <Compile Include="ArchivoGrafoManager.cs" />
     <Compile Include="Arista.cs" />
     <Compile Include="Grafo.cs" />
+    <Compile Include="ListaCircular.cs" />
     <Compile Include="ListaEnlazada.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

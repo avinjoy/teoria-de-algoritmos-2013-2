@@ -7,8 +7,8 @@ namespace Robustez
     public class Grafo<T>
     {
         private ListaEnlazada<Vertice<T>> _vertices;
-        private ListaEnlazada<ListaEnlazada<Vertice<T>>> _ciclosGrafo;
-        private ListaEnlazada<Vertice<T>> _subset;
+        private ListaCircular<ListaCircular<Vertice<T>>> _ciclosGrafo;
+        private ListaCircular<Vertice<T>> _subset;
         private List<Vertice<T>> _visitados;
         private long _index;
 
@@ -37,14 +37,14 @@ namespace Robustez
             set { _vertices = value; }
         }
 
-        public ListaEnlazada<ListaEnlazada<Vertice<T>>> CiclosGrafo
+        public ListaCircular<ListaCircular<Vertice<T>>> CiclosGrafo
         {
             get { return _ciclosGrafo; }
             set { _ciclosGrafo = value; }
         }
 
 
-        public ListaEnlazada<Vertice<T>> Subset
+        public ListaCircular<Vertice<T>> Subset
         {
             get { return _subset; }
             set { _subset = value; }
@@ -66,8 +66,8 @@ namespace Robustez
         public Grafo()
         {
             Vertices = new ListaEnlazada<Vertice<T>>();
-            CiclosGrafo = new ListaEnlazada<ListaEnlazada<Vertice<T>>>();
-            Subset = new ListaEnlazada<Vertice<T>>();
+            CiclosGrafo = new ListaCircular<ListaCircular<Vertice<T>>>();
+            Subset = new ListaCircular<Vertice<T>>();
             Visitados = new List<Vertice<T>>();
             RecorridoDFS = new ListaEnlazada<Vertice<T>>();
 
@@ -136,7 +136,7 @@ namespace Robustez
         private void procesarCiclo(Vertice<T> v1, Vertice<T> v2)
         {
             Vertice<T> vAux = v1.Padre;
-            _subset = new ListaEnlazada<Vertice<T>>();
+            _subset = new ListaCircular<Vertice<T>>();
             v1.AgregadoEnListaCiclo = true;
             _subset.Agregar(v1);
             while (vAux != v2) 
@@ -222,7 +222,7 @@ namespace Robustez
                         {
                             verticeAux = ver;
                             _ciclosGrafo.Agregar(_subset);
-                            _subset = new ListaEnlazada<Vertice<T>>();
+                            _subset = new ListaCircular<Vertice<T>>();
                             _subset.Agregar(ver);
                         }
                         count++;
