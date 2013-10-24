@@ -79,7 +79,7 @@ namespace Robustez
             Vertices = vertices;
         }
 
-        public Int32 GetCantidadDestringsGrafo()
+        public Int32 GetCantidadDeVertices()
         {
             return Vertices.Tamanio;
         }
@@ -151,27 +151,27 @@ namespace Robustez
             _ciclosGrafo.Agregar(_subset);
         }
 
-        public void recorridoDFS2(Vertice<T> vertice)
-        {
-            vertice.Visitado = true;
-            NroCreciente++;
-            vertice.Index = NroCreciente;
+        //public void EncontrarCiclos(Vertice<T> vertice)
+        //{
+        //    vertice.Visitado = true;
+        //    NroCreciente++;
+        //    vertice.Index = NroCreciente;
 
-            ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iterAdyacente = vertice.Adyacentes.Iterador;
-            while (iterAdyacente.HasNext())
-            {
-                Vertice<T> vertAdy = iterAdyacente.Next();
-                if (!vertAdy.Visitado)
-                {
-                    RecorridoDFS.Agregar(vertAdy);
-                    recorridoDFS2(vertAdy);
-                }
+        //    ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iterAdyacente = vertice.Adyacentes.Iterador;
+        //    while (iterAdyacente.HasNext())
+        //    {
+        //        Vertice<T> vertAdy = iterAdyacente.Next();
+        //        if (!vertAdy.Visitado)
+        //        {
+        //            RecorridoDFS.Agregar(vertAdy);
+        //            EncontrarCiclos(vertAdy);
+        //        }
 
-                NroDecreciente++;
-                vertice.LowLink = NroDecreciente;
-            }
-            return;
-        }
+        //        NroDecreciente++;
+        //        vertice.LowLink = NroDecreciente;
+        //    }
+        //    return;
+        //}
 
 
         public void EncontrarCiclos(Vertice<T> vert)
@@ -273,7 +273,7 @@ namespace Robustez
             AgregarVertice(fin);
 
             inicio.Adyacentes.Agregar(fin);
-
+           
         }
 
         /// <summary>

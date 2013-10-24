@@ -66,7 +66,7 @@ namespace Robustez
         private void EnlistarVerticesDiscontinuos(Grafo<string> Grafo)
         {
             ListaEnlazada<Vertice<string>> lista = Grafo.Vertices;
-            lista.resetIterator();
+            lista.ResetIterator();
             ListaEnlazada<Vertice<string>>.IteradorListaEnlazada iter = lista.Iterador;
             ListaEnlazada<Vertice<string>> _subset;
 
