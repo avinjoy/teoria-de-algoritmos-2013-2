@@ -19,65 +19,65 @@ namespace Test
 
 
 
-        [Test]
-        public void TestAumentarRobustezGrafoTres()
-        {
+        //[Test]
+        //public void TestAumentarRobustezGrafoTres()
+        //{
 
-            Vertice<string> verticeA = new Vertice<string>("A");
-            Vertice<string> verticeB = new Vertice<string>("B");
-            Vertice<string> verticeC = new Vertice<string>("C");
-            Vertice<string> verticeD = new Vertice<string>("D");
-            Vertice<string> verticeE = new Vertice<string>("E");
-            Vertice<string> verticeF = new Vertice<string>("F");
-            Vertice<string> verticeG = new Vertice<string>("G");
-            Vertice<string> verticeH = new Vertice<string>("H");
-            Vertice<string> verticeI = new Vertice<string>("I");
-
-
-            //A: B, C
-            verticeA.Adyacentes.Agregar(verticeB);
-            verticeA.Adyacentes.Agregar(verticeC);
-            //B: A, C
-            verticeB.Adyacentes.Agregar(verticeA);
-            verticeB.Adyacentes.Agregar(verticeC);
-            //C: A, B
-            verticeC.Adyacentes.Agregar(verticeA);
-            verticeC.Adyacentes.Agregar(verticeB);
-            //D: E
-            verticeD.Adyacentes.Agregar(verticeE);
-
-            //E: D, G
-            verticeE.Adyacentes.Agregar(verticeD);
-            verticeE.Adyacentes.Agregar(verticeG);
-            //F: G            
-            verticeF.Adyacentes.Agregar(verticeG);
-            //G: E, F
-            verticeG.Adyacentes.Agregar(verticeE);
-            verticeG.Adyacentes.Agregar(verticeF);
-            //H:I            
-            verticeH.Adyacentes.Agregar(verticeI);
-            //I:H
-            verticeI.Adyacentes.Agregar(verticeH);
-
-            _grafo.AgregarVertice(verticeA);
-            _grafo.AgregarVertice(verticeB);
-            _grafo.AgregarVertice(verticeC);
-            _grafo.AgregarVertice(verticeD);
-            _grafo.AgregarVertice(verticeE);
-            _grafo.AgregarVertice(verticeF);
-            _grafo.AgregarVertice(verticeG);
-            _grafo.AgregarVertice(verticeH);
-            _grafo.AgregarVertice(verticeI);
+        //    Vertice<string> verticeA = new Vertice<string>("A");
+        //    Vertice<string> verticeB = new Vertice<string>("B");
+        //    Vertice<string> verticeC = new Vertice<string>("C");
+        //    Vertice<string> verticeD = new Vertice<string>("D");
+        //    Vertice<string> verticeE = new Vertice<string>("E");
+        //    Vertice<string> verticeF = new Vertice<string>("F");
+        //    Vertice<string> verticeG = new Vertice<string>("G");
+        //    Vertice<string> verticeH = new Vertice<string>("H");
+        //    Vertice<string> verticeI = new Vertice<string>("I");
 
 
-            _grafo.EncontrarCiclos(verticeA);
-            Robustez<string> robustez = new Robustez<string>(_grafo);
-            robustez.Aumentar(_grafo.CiclosGrafo, 3);
+        //    //A: B, C
+        //    verticeA.Adyacentes.Agregar(verticeB);
+        //    verticeA.Adyacentes.Agregar(verticeC);
+        //    //B: A, C
+        //    verticeB.Adyacentes.Agregar(verticeA);
+        //    verticeB.Adyacentes.Agregar(verticeC);
+        //    //C: A, B
+        //    verticeC.Adyacentes.Agregar(verticeA);
+        //    verticeC.Adyacentes.Agregar(verticeB);
+        //    //D: E
+        //    verticeD.Adyacentes.Agregar(verticeE);
 
-            Assert.AreEqual(2,robustez.AristasAgregadas.Tamanio);
+        //    //E: D, G
+        //    verticeE.Adyacentes.Agregar(verticeD);
+        //    verticeE.Adyacentes.Agregar(verticeG);
+        //    //F: G            
+        //    verticeF.Adyacentes.Agregar(verticeG);
+        //    //G: E, F
+        //    verticeG.Adyacentes.Agregar(verticeE);
+        //    verticeG.Adyacentes.Agregar(verticeF);
+        //    //H:I            
+        //    verticeH.Adyacentes.Agregar(verticeI);
+        //    //I:H
+        //    verticeI.Adyacentes.Agregar(verticeH);
+
+        //    _grafo.AgregarVertice(verticeA);
+        //    _grafo.AgregarVertice(verticeB);
+        //    _grafo.AgregarVertice(verticeC);
+        //    _grafo.AgregarVertice(verticeD);
+        //    _grafo.AgregarVertice(verticeE);
+        //    _grafo.AgregarVertice(verticeF);
+        //    _grafo.AgregarVertice(verticeG);
+        //    _grafo.AgregarVertice(verticeH);
+        //    _grafo.AgregarVertice(verticeI);
 
 
-        }
+        //    _grafo.EncontrarCiclos(verticeA);
+        //    Robustez<string> robustez = new Robustez<string>(_grafo);
+        //    robustez.Aumentar(_grafo.CiclosGrafo, 3);
+
+        //    Assert.AreEqual(2,robustez.AristasAgregadas.Tamanio);
+
+
+        //}
 
         [Test]
         public void TestAumentarRobustezGrafoDosRobustezTres()
@@ -133,7 +133,7 @@ namespace Test
         }
 
         [Test]
-        public void TestAumentarRobustezGrafoDosRobustezCuatro()
+        public void TestAumentarRobustezGrafoDosRobustezCuatroComienzoDeC()
         {
 
             Vertice<string> verticeA = new Vertice<string>("A");
@@ -187,6 +187,61 @@ namespace Test
 
         }
 
+        [Test]
+        public void TestAumentarRobustezGrafoDosRobustezCuatroComienzoDeA()
+        {
+
+            Vertice<string> verticeA = new Vertice<string>("A");
+            Vertice<string> verticeB = new Vertice<string>("B");
+            Vertice<string> verticeC = new Vertice<string>("C");
+            Vertice<string> verticeD = new Vertice<string>("D");
+            Vertice<string> verticeE = new Vertice<string>("E");
+            Vertice<string> verticeF = new Vertice<string>("F");
+
+            //A: B, C
+            verticeA.Adyacentes.Agregar(verticeB);
+            verticeA.Adyacentes.Agregar(verticeC);
+            //B: A, C, E
+            verticeB.Adyacentes.Agregar(verticeA);
+            verticeB.Adyacentes.Agregar(verticeC);
+            verticeB.Adyacentes.Agregar(verticeE);
+            //C: A, B
+            verticeC.Adyacentes.Agregar(verticeA);
+            verticeC.Adyacentes.Agregar(verticeB);
+            //D: E, F
+            verticeD.Adyacentes.Agregar(verticeE);
+            verticeD.Adyacentes.Agregar(verticeF);
+            //E: B, D, F
+            verticeE.Adyacentes.Agregar(verticeB);
+            verticeE.Adyacentes.Agregar(verticeD);
+            verticeE.Adyacentes.Agregar(verticeF);
+            //F: D, E
+            verticeF.Adyacentes.Agregar(verticeD);
+            verticeF.Adyacentes.Agregar(verticeE);
+
+
+            _grafo.AgregarVertice(verticeA);
+            _grafo.AgregarVertice(verticeB);
+            _grafo.AgregarVertice(verticeC);
+            _grafo.AgregarVertice(verticeD);
+            _grafo.AgregarVertice(verticeE);
+            _grafo.AgregarVertice(verticeF);
+
+            _grafo.EncontrarCiclos(verticeA);
+            Robustez<string> robustez = new Robustez<string>(_grafo);
+            robustez.Aumentar(_grafo.CiclosGrafo, 4);
+            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeA, verticeE)));
+            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeA, verticeD)));
+            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeB, verticeD)));
+            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeC, verticeF)));
+            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeC, verticeE)));
+            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeF, verticeA)));
+
+            Assert.AreEqual(6, robustez.AristasAgregadas.Tamanio);
+
+
+
+        }
 
         [Test]
         public void TestAumentarRobustezGrafoUno()
@@ -242,6 +297,10 @@ namespace Test
             Robustez<string> robustez = new Robustez<string>(_grafo);
             robustez.Aumentar(_grafo.CiclosGrafo, 3);
 
+            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeA, verticeF)));
+            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeB, verticeH)));
+            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeC, verticeG)));
+          
             Assert.AreEqual(3, robustez.AristasAgregadas.Tamanio);
 
 

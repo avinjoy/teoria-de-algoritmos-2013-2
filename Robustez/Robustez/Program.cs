@@ -68,7 +68,7 @@ namespace Robustez
             ListaEnlazada<Vertice<string>> lista = Grafo.Vertices;
             lista.ResetIterator();
             ListaEnlazada<Vertice<string>>.IteradorListaEnlazada iter = lista.Iterador;
-            ListaEnlazada<Vertice<string>> _subset;
+            ListaCircular<Vertice<string>> _subset;
 
             while (iter.HasNext())
             {
@@ -76,7 +76,7 @@ namespace Robustez
                 if (vActual.LowLink == vActual.Index + 1 && !vActual.AgregadoEnListaCiclo) 
                 {
                     Vertice<string> vAux = vActual.Padre;
-                    _subset = new ListaEnlazada<Vertice<string>>();
+                    _subset = new ListaCircular<Vertice<string>>();
                     _subset.Agregar(vActual);
                     while (vAux != null)
                     {
