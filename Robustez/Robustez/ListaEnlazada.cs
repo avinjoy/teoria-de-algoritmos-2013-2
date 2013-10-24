@@ -39,7 +39,7 @@ namespace Robustez
             return Tamanio == 0;
         }
 
-        public void resetIterator() 
+        public void ResetIterator() 
         {
             Iterador = new IteradorListaEnlazada(this);
         }
@@ -100,7 +100,7 @@ namespace Robustez
             public IteradorListaEnlazada(ListaEnlazada<T> lista)
             {
                 Siguiente = 0;
-                SiguienteElemento = lista._header;
+                SiguienteElemento = lista.Header;
                 Lista = lista;
             }
 
@@ -122,7 +122,7 @@ namespace Robustez
                     SiguienteElemento = _siguienteElemento.Siguiente;
                     Siguiente++;
                 }
-
+              
                 return aRetornar;
             }
 

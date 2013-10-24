@@ -13,8 +13,15 @@ namespace Robustez
         private Vertice<T> _padre;
         private long _index;
         private long _lowLink;
+        private bool _agregadoEnListaCiclo;
 
-        public bool AgregadoEnListaCiclo { get; set; }
+        public bool AgregadoEnListaCiclo
+        {
+            get { return _agregadoEnListaCiclo; }
+            set { _agregadoEnListaCiclo = value; }
+        }
+
+        //public bool AgregadoEnListaCiclo { get; set; }
 
         public long Index
         {

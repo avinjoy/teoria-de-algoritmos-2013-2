@@ -33,6 +33,10 @@ namespace Robustez
         {
             return _origen.Contenido + ", " + _destino.Contenido;
         }
-
+        public override bool Equals(object obj)
+        {
+            Arista<T> arista = (Arista<T>)obj;
+            return Origen.Equals(arista.Origen) && Destino.Equals(arista.Destino);
+        }
     }
 }
