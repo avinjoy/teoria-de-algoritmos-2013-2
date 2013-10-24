@@ -39,6 +39,11 @@ namespace Robustez
             return Tamanio == 0;
         }
 
+        public void resetIterator() 
+        {
+            Iterador = new IteradorListaEnlazada(this);
+        }
+
         public T Primero()
         {
             return _header.Siguiente.Vertice;

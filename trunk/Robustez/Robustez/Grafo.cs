@@ -118,7 +118,6 @@ namespace Robustez
             ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iterAdyacente = v.Adyacentes.Iterador;
             while (iterAdyacente.HasNext())
             {
-
                 Vertice<T> vertAdy = iterAdyacente.Next();
                 if (vertAdy.Color == Color.gris && vertAdy != v.Padre)
                     procesarCiclo(v, vertAdy);
@@ -127,7 +126,6 @@ namespace Robustez
                     vertAdy.Padre = v;
                     DFS_Visitar(vertAdy);
                 }
-                
             }
 
             v.Color = Color.negro;
@@ -139,12 +137,15 @@ namespace Robustez
         {
             Vertice<T> vAux = v1.Padre;
             _subset = new ListaEnlazada<Vertice<T>>();
+            v1.AgregadoEnListaCiclo = true;
             _subset.Agregar(v1);
             while (vAux != v2) 
             {
+                vAux.AgregadoEnListaCiclo = true;
                 _subset.Agregar(vAux);
                 vAux = vAux.Padre;
             }
+            v2.AgregadoEnListaCiclo = true;
             _subset.Agregar(v2);
 
             _ciclosGrafo.Agregar(_subset);
