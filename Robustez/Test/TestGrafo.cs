@@ -240,9 +240,9 @@ namespace Test
             Assert.AreEqual(new Vertice<string>("Vertice1"), _grafo.Vertices.Primero());
             Assert.AreEqual(new Vertice<string>("Vertice2"), _grafo.Vertices.Ultimo());
             Assert.AreEqual(1, _grafo.Vertices.Primero().Adyacentes.Tamanio);
-            Assert.AreEqual(1, _grafo.Vertices.Ultimo().Adyacentes.Tamanio);
+            Assert.AreEqual(0, _grafo.Vertices.Ultimo().Adyacentes.Tamanio);
             Assert.AreEqual(new Vertice<string>("Vertice2"), _grafo.Vertices.Primero().Adyacentes.Iterador.Next());
-            Assert.AreEqual(new Vertice<string>("Vertice1"), _grafo.Vertices.Ultimo().Adyacentes.Iterador.Next());
+            Assert.AreEqual(null, _grafo.Vertices.Ultimo().Adyacentes.Iterador.Next());
 
         }
 
