@@ -77,16 +77,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BuildTargets.xml" />
-    <Content Include="GlobalBuildSettings.xml" />
     <Content Include="grafo1.txt" />
     <Content Include="grafo2.txt" />
     <Content Include="grafo3.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="DeployAzureApp.ps1" />
-    <None Include="Nant.build" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
