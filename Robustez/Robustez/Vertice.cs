@@ -14,6 +14,8 @@ namespace Robustez
         private long _index;
         private long _lowLink;
 
+        public bool AgregadoEnListaCiclo { get; set; }
+
         public long Index
         {
             get { return _index; }
@@ -126,5 +128,6 @@ namespace Robustez
         {
             return "Vertice: " + Contenido + " (i: " + Index + " , l: " + LowLink + ")";
         }
+
     }
 }

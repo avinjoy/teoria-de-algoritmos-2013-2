@@ -38,8 +38,8 @@ namespace Robustez
 				    }
 				
 			    } else {
-				
-				    grafo.AgregarVertice(new Vertice<string>(vertice));
+
+                    grafo.AgregarVertice(new Vertice<String>(vertice));
 			    }
 			
 			    line = reader.ReadLine();
