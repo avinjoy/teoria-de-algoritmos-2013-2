@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="C:\Users\PCDAMBROSIO\Desktop\teoria-de-algoritmos-2013-2\Robustez\Test\bin\Debug\Test.dll" total="22" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2013-10-25" time="11:52:55">
+  <environment nunit-version="2.6.1.12217" clr-version="2.0.50727.5472" os-version="Microsoft Windows NT 6.1.7601 Service Pack 1" platform="Win32NT" cwd="C:\Users\PCDAMBROSIO\Desktop\teoria-de-algoritmos-2013-2\Robustez" machine-name="JDAMBROSIO-PC" user="JDAMBROSIO" user-domain="JDAMBROSIO-PC" />
+  <culture-info current-culture="es-AR" current-uiculture="es-ES" />
+  <test-suite type="Assembly" name="C:\Users\PCDAMBROSIO\Desktop\teoria-de-algoritmos-2013-2\Robustez\Test\bin\Debug\Test.dll" executed="True" result="Success" success="True" time="0.169" asserts="0">
+    <results>
+      <test-suite type="Namespace" name="Test" executed="True" result="Success" success="True" time="0.154" asserts="0">
+        <results>
+          <test-suite type="TestFixture" name="TestGrafo" executed="True" result="Success" success="True" time="0.120" asserts="0">
+            <results>
+              <test-case name="Test.TestGrafo.TestAgregarArco" executed="True" result="Success" success="True" time="0.080" asserts="7" />
+              <test-case name="Test.TestGrafo.TestAgregarVertice" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+              <test-case name="Test.TestGrafo.TestContieneVertice" executed="True" result="Success" success="True" time="0.002" asserts="2" />
+              <test-case name="Test.TestGrafo.TestEncontrarCiclosGrafoDos" executed="True" result="Success" success="True" time="0.010" asserts="10" />
+              <test-case name="Test.TestGrafo.TestEncontrarCiclosGrafoTres" executed="True" result="Success" success="True" time="0.003" asserts="6" />
+              <test-case name="Test.TestGrafo.TestEncontrarCiclosGrafoUno" executed="True" result="Success" success="True" time="0.004" asserts="12" />
+              <test-case name="Test.TestGrafo.TestObtenerVertice" executed="True" result="Success" success="True" time="0.000" asserts="2" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="TestListaEnlazada" executed="True" result="Success" success="True" time="0.012" asserts="0">
+            <results>
+              <test-case name="Test.TestListaEnlazada.TestElementoContieneFalse" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+              <test-case name="Test.TestListaEnlazada.TestElementoContieneTrue" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+              <test-case name="Test.TestListaEnlazada.TestIteradorListaHasNextFalse" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+              <test-case name="Test.TestListaEnlazada.TestIteradorListaHasNextTrue" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+              <test-case name="Test.TestListaEnlazada.TestIteradorListaNextDosVertices" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+              <test-case name="Test.TestListaEnlazada.TestIteradorListaNextNull" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+              <test-case name="Test.TestListaEnlazada.TestIteradorListaNextUnVertice" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+              <test-case name="Test.TestListaEnlazada.TestPrimero" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+              <test-case name="Test.TestListaEnlazada.TestUltimo" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+              <test-case name="Test.TestListaEnlazada.TestVaciaFalse" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+              <test-case name="Test.TestListaEnlazada.TestVaciaTrue" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+            </results>
+          </test-suite>
+          <test-suite type="TestFixture" name="TestRobustez" executed="True" result="Success" success="True" time="0.016" asserts="0">
+            <results>
+              <test-case name="Test.TestRobustez.TestAumentarRobustezGrafoDosRobustezCuatroComienzoDeA" executed="True" result="Success" success="True" time="0.007" asserts="7" />
+              <test-case name="Test.TestRobustez.TestAumentarRobustezGrafoDosRobustezCuatroComienzoDeC" executed="True" result="Success" success="True" time="0.003" asserts="6" />
+              <test-case name="Test.TestRobustez.TestAumentarRobustezGrafoDosRobustezTres" executed="True" result="Success" success="True" time="0.002" asserts="3" />
+              <test-case name="Test.TestRobustez.TestAumentarRobustezGrafoUno" executed="True" result="Success" success="True" time="0.003" asserts="4" />
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>
