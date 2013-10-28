@@ -67,7 +67,7 @@ namespace Test
             _grafo.AgregarVertice(verticeI);
             
 
-            _grafo.recorridoDFS(_grafo);       
+            _grafo.RecorridoDFS();       
 
             Assert.AreEqual(1, _grafo.CiclosGrafo.Tamanio);
 
@@ -122,7 +122,7 @@ namespace Test
             _grafo.AgregarVertice(verticeF);
          
 
-            _grafo.recorridoDFS(_grafo);
+            _grafo.RecorridoDFS();
 
             Assert.AreEqual(2, _grafo.CiclosGrafo.Tamanio);
 
@@ -195,7 +195,7 @@ namespace Test
             _grafo.AgregarVertice(verticeG);
             _grafo.AgregarVertice(verticeH);
 
-            _grafo.recorridoDFS(_grafo);
+            _grafo.RecorridoDFS();
 
             Assert.AreEqual(2, _grafo.CiclosGrafo.Tamanio);
 
