@@ -61,6 +61,11 @@ namespace Robustez
 		    }
             //close the file
 			sw.Close();
+            System.Console.Write(" " + System.Environment.NewLine);
+            System.Console.Write(" " + System.Environment.NewLine);
+            System.Console.Write("Proceso terminado." + System.Environment.NewLine);
+            System.Console.Write("Se ah creado el archivo de salida." + System.Environment.NewLine);
+            System.Console.Write("Presione una tecla para terminar." + System.Environment.NewLine);
 	    }
 
         private void EnlistarVerticesDiscontinuos(Grafo<string> Grafo)
@@ -95,6 +100,8 @@ namespace Robustez
             
             if (args.Length > 0)
             {
+                presentacion();
+
                 int robustezDeseada = Convert.ToInt32(args[0]);
                 StreamReader archivo = new StreamReader(args[1]);
 
@@ -112,6 +119,23 @@ namespace Robustez
                 Console.ReadKey();
             }
             
+        }
+
+        private static void presentacion()
+        {
+
+            System.Console.Write(" " + System.Environment.NewLine);
+            System.Console.Write("************************************************************************" + System.Environment.NewLine);
+            System.Console.Write("*********************** TRABAJO PRACTICO NRO.1 *************************" + System.Environment.NewLine);
+            System.Console.Write("************************************************************************" + System.Environment.NewLine);
+            System.Console.Write("*                                                                      *" + System.Environment.NewLine);
+            System.Console.Write("* INTEGRANTES:                                                         *" + System.Environment.NewLine);
+            System.Console.Write("*              SERGIO NICOLAS ORSIANI          85855                   *" + System.Environment.NewLine);
+            System.Console.Write("*              JULIAN ANDRES D’AMBROSIO        90252                   *" + System.Environment.NewLine);
+            System.Console.Write("*                                                                      *" + System.Environment.NewLine);
+            System.Console.Write("************************************************************************" + System.Environment.NewLine);
+            System.Console.Write("************************************************************************" + System.Environment.NewLine);
+
         }
 
     }
