@@ -39,8 +39,8 @@ namespace Robustez
         public void Ejecutar(int robustezDeseada, StreamReader archivo) 
         {
             Loader.cargar(archivo);
-            Grafo.recorridoDFS(Grafo);
-            EnlistarVerticesDiscontinuos(Grafo);
+            Grafo.RecorridoDFS();
+            Grafo.EnlistarVerticesDiscontinuos();
 		    Aumentador.Aumentar(Grafo.CiclosGrafo, robustezDeseada);
 
 
@@ -67,32 +67,7 @@ namespace Robustez
             System.Console.Write("Se ha creado el archivo de salida." + System.Environment.NewLine);
             System.Console.Write("Presione una tecla para terminar." + System.Environment.NewLine);
 	    }
-
-        private void EnlistarVerticesDiscontinuos(Grafo<string> Grafo)
-        {
-            ListaEnlazada<Vertice<string>> lista = Grafo.Vertices;
-            lista.ResetIterator();
-            ListaEnlazada<Vertice<string>>.IteradorListaEnlazada iter = lista.Iterador;
-            ListaCircular<Vertice<string>> _subset;
-
-            while (iter.HasNext())
-            {
-                Vertice<string> vActual = iter.Next();
-                if (vActual.LowLink == vActual.Index + 1 && !vActual.AgregadoEnListaCiclo) 
-                {
-                    Vertice<string> vAux = vActual.Padre;
-                    _subset = new ListaCircular<Vertice<string>>();
-                    _subset.Agregar(vActual);
-                    while (vAux != null)
-                    {
-                        _subset.Agregar(vAux);
-                        vAux = vAux.Padre;
-                    }
-
-                    Grafo.CiclosGrafo.Agregar(_subset);
-                }
-            }
-        }
+              
 
 
         static void Main(string[] args)

@@ -9,16 +9,10 @@ namespace Robustez
         private ListaEnlazada<Vertice<T>> _vertices;
         private ListaCircular<ListaCircular<Vertice<T>>> _ciclosGrafo;
         private ListaCircular<Vertice<T>> _subset;
-        private long _index;
-
-        private ListaEnlazada<Vertice<T>> _recorridoBFS;
+        private long _index;        
         private long _nroCreciente;
         private long _nroDecreciente;
-        public ListaEnlazada<Vertice<T>> RecorridoDFS
-        {
-            get { return _recorridoBFS; }
-            set { _recorridoBFS = value; }
-        }
+      
         public long NroCreciente
         {
             get { return _nroCreciente; }
@@ -61,8 +55,6 @@ namespace Robustez
             Vertices = new ListaEnlazada<Vertice<T>>();
             CiclosGrafo = new ListaCircular<ListaCircular<Vertice<T>>>();
             Subset = new ListaCircular<Vertice<T>>();            
-            RecorridoDFS = new ListaEnlazada<Vertice<T>>();
-
             NroCreciente = 0;
             NroDecreciente = 0;
         }
@@ -77,9 +69,9 @@ namespace Robustez
         }
 
 
-        public void recorridoDFS(Grafo<T> grafo)
+        public void RecorridoDFS()
         {
-            ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iterador = grafo.Vertices.Iterador;
+            ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iterador = Vertices.Iterador;
             while (iterador.HasNext())
             {
                 Vertice<T> v = iterador.Next();
@@ -89,8 +81,8 @@ namespace Robustez
 
             NroCreciente = 0;
 
-            grafo.Vertices.Iterador = new ListaEnlazada<Vertice<T>>.IteradorListaEnlazada(grafo.Vertices);
-            iterador = grafo.Vertices.Iterador;
+            Vertices.Iterador = new ListaEnlazada<Vertice<T>>.IteradorListaEnlazada(Vertices);
+            iterador = Vertices.Iterador;
             while (iterador.HasNext())
             {
                 Vertice<T> v = iterador.Next();
@@ -143,7 +135,32 @@ namespace Robustez
             _ciclosGrafo.Agregar(_subset);
         }
 
-       
+        public void EnlistarVerticesDiscontinuos()
+        {
+            ListaEnlazada<Vertice<T>> lista = this.Vertices;
+            lista.ResetIterator();
+            ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iter = lista.Iterador;
+            ListaCircular<Vertice<T>> _subset;
+
+            while (iter.HasNext())
+            {
+                Vertice<T> vActual = iter.Next();
+                if (vActual.LowLink == vActual.Index + 1 && !vActual.AgregadoEnListaCiclo)
+                {
+                    Vertice<T> vAux = vActual.Padre;
+                    _subset = new ListaCircular<Vertice<T>>();
+                    _subset.Agregar(vActual);
+                    while (vAux != null)
+                    {
+                        _subset.Agregar(vAux);
+                        vAux = vAux.Padre;
+                    }
+
+                    CiclosGrafo.Agregar(_subset);
+                }
+            }
+        }
+
 
         /// <summary>
         /// Agrega un nuevo vertice al grafo.

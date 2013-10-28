@@ -19,65 +19,76 @@ namespace Test
 
 
 
-        //[Test]
-        //public void TestAumentarRobustezGrafoTres()
-        //{
+        [Test]
+        public void TestAumentarRobustezGrafoTres()
+        {
 
-        //    Vertice<string> verticeA = new Vertice<string>("A");
-        //    Vertice<string> verticeB = new Vertice<string>("B");
-        //    Vertice<string> verticeC = new Vertice<string>("C");
-        //    Vertice<string> verticeD = new Vertice<string>("D");
-        //    Vertice<string> verticeE = new Vertice<string>("E");
-        //    Vertice<string> verticeF = new Vertice<string>("F");
-        //    Vertice<string> verticeG = new Vertice<string>("G");
-        //    Vertice<string> verticeH = new Vertice<string>("H");
-        //    Vertice<string> verticeI = new Vertice<string>("I");
-
-
-        //    //A: B, C
-        //    verticeA.Adyacentes.Agregar(verticeB);
-        //    verticeA.Adyacentes.Agregar(verticeC);
-        //    //B: A, C
-        //    verticeB.Adyacentes.Agregar(verticeA);
-        //    verticeB.Adyacentes.Agregar(verticeC);
-        //    //C: A, B
-        //    verticeC.Adyacentes.Agregar(verticeA);
-        //    verticeC.Adyacentes.Agregar(verticeB);
-        //    //D: E
-        //    verticeD.Adyacentes.Agregar(verticeE);
-
-        //    //E: D, G
-        //    verticeE.Adyacentes.Agregar(verticeD);
-        //    verticeE.Adyacentes.Agregar(verticeG);
-        //    //F: G            
-        //    verticeF.Adyacentes.Agregar(verticeG);
-        //    //G: E, F
-        //    verticeG.Adyacentes.Agregar(verticeE);
-        //    verticeG.Adyacentes.Agregar(verticeF);
-        //    //H:I            
-        //    verticeH.Adyacentes.Agregar(verticeI);
-        //    //I:H
-        //    verticeI.Adyacentes.Agregar(verticeH);
-
-        //    _grafo.AgregarVertice(verticeA);
-        //    _grafo.AgregarVertice(verticeB);
-        //    _grafo.AgregarVertice(verticeC);
-        //    _grafo.AgregarVertice(verticeD);
-        //    _grafo.AgregarVertice(verticeE);
-        //    _grafo.AgregarVertice(verticeF);
-        //    _grafo.AgregarVertice(verticeG);
-        //    _grafo.AgregarVertice(verticeH);
-        //    _grafo.AgregarVertice(verticeI);
+            Vertice<string> verticeA = new Vertice<string>("A");
+            Vertice<string> verticeB = new Vertice<string>("B");
+            Vertice<string> verticeC = new Vertice<string>("C");
+            Vertice<string> verticeD = new Vertice<string>("D");
+            Vertice<string> verticeE = new Vertice<string>("E");
+            Vertice<string> verticeF = new Vertice<string>("F");
+            Vertice<string> verticeG = new Vertice<string>("G");
+            Vertice<string> verticeH = new Vertice<string>("H");
+            Vertice<string> verticeI = new Vertice<string>("I");
+            Vertice<string> verticeJ = new Vertice<string>("J");
 
 
-        //    _grafo.EncontrarCiclos(verticeA);
-        //    Robustez<string> robustez = new Robustez<string>(_grafo);
-        //    robustez.Aumentar(_grafo.CiclosGrafo, 3);
+            //A: B, C
+            verticeA.Adyacentes.Agregar(verticeB);
+            verticeA.Adyacentes.Agregar(verticeC);
+            //B: A, C
+            verticeB.Adyacentes.Agregar(verticeA);
+            verticeB.Adyacentes.Agregar(verticeC);
+            //C: A, B
+            verticeC.Adyacentes.Agregar(verticeA);
+            verticeC.Adyacentes.Agregar(verticeB);
+            //D: E
+            verticeD.Adyacentes.Agregar(verticeE);
 
-        //    Assert.AreEqual(2,robustez.AristasAgregadas.Tamanio);
+            //E: D, G
+            verticeE.Adyacentes.Agregar(verticeD);
+            verticeE.Adyacentes.Agregar(verticeG);
+            //F: G            
+            verticeF.Adyacentes.Agregar(verticeG);
+            //G: E, F
+            verticeG.Adyacentes.Agregar(verticeE);
+            verticeG.Adyacentes.Agregar(verticeF);
+            //H:I            
+            verticeH.Adyacentes.Agregar(verticeI);
+            //I:H
+            verticeI.Adyacentes.Agregar(verticeH);
+
+            _grafo.AgregarVertice(verticeA);
+            _grafo.AgregarVertice(verticeB);
+            _grafo.AgregarVertice(verticeC);
+            _grafo.AgregarVertice(verticeD);
+            _grafo.AgregarVertice(verticeE);
+            _grafo.AgregarVertice(verticeF);
+            _grafo.AgregarVertice(verticeG);
+            _grafo.AgregarVertice(verticeH);
+            _grafo.AgregarVertice(verticeI);
+            _grafo.AgregarVertice(verticeJ);
+
+            _grafo.RecorridoDFS();
+            _grafo.EnlistarVerticesDiscontinuos();
+            Robustez<string> robustez = new Robustez<string>(_grafo);
+            robustez.Aumentar(_grafo.CiclosGrafo, 3);
+            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeC, verticeF)));
+            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeB, verticeF)));
+            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeA, verticeG)));
+            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeE, verticeI)));
+            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeD, verticeI)));
+            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeD, verticeH)));
+            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeH, verticeJ)));
+            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeJ, verticeC)));
+            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeJ, verticeB)));
 
 
-        //}
+
+            Assert.AreEqual(9, robustez.AristasAgregadas.Tamanio);
+        }
 
         [Test]
         public void TestAumentarRobustezGrafoDosRobustezTres()
@@ -120,7 +131,7 @@ namespace Test
             _grafo.AgregarVertice(verticeF);
 
 
-            _grafo.recorridoDFS(_grafo);
+            _grafo.RecorridoDFS();
             Robustez<string> robustez = new Robustez<string>(_grafo);
             robustez.Aumentar(_grafo.CiclosGrafo, 3);
             Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeC, verticeF)));
@@ -173,7 +184,7 @@ namespace Test
             _grafo.AgregarVertice(verticeE);
             _grafo.AgregarVertice(verticeF);
 
-            _grafo.recorridoDFS(_grafo);
+            _grafo.RecorridoDFS();
             Robustez<string> robustez = new Robustez<string>(_grafo);
             robustez.Aumentar(_grafo.CiclosGrafo, 4);
             Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeC,verticeF)));
@@ -238,7 +249,7 @@ namespace Test
             _grafo.AgregarVertice(verticeG);
             _grafo.AgregarVertice(verticeH);
 
-            _grafo.recorridoDFS(_grafo);
+            _grafo.RecorridoDFS();
             Robustez<string> robustez = new Robustez<string>(_grafo);
             robustez.Aumentar(_grafo.CiclosGrafo, 3);
 
