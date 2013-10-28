@@ -9,7 +9,6 @@ namespace Robustez
         private ListaEnlazada<Vertice<T>> _vertices;
         private ListaCircular<ListaCircular<Vertice<T>>> _ciclosGrafo;
         private ListaCircular<Vertice<T>> _subset;
-        private List<Vertice<T>> _visitados;
         private long _index;
 
         private ListaEnlazada<Vertice<T>> _recorridoBFS;
@@ -49,13 +48,7 @@ namespace Robustez
             get { return _subset; }
             set { _subset = value; }
         }
-
-        public List<Vertice<T>> Visitados
-        {
-            get { return _visitados; }
-            set { _visitados = value; }
-        }
-
+            
 
         public long Index
         {
@@ -67,8 +60,7 @@ namespace Robustez
         {
             Vertices = new ListaEnlazada<Vertice<T>>();
             CiclosGrafo = new ListaCircular<ListaCircular<Vertice<T>>>();
-            Subset = new ListaCircular<Vertice<T>>();
-            Visitados = new List<Vertice<T>>();
+            Subset = new ListaCircular<Vertice<T>>();            
             RecorridoDFS = new ListaEnlazada<Vertice<T>>();
 
             NroCreciente = 0;
@@ -151,87 +143,7 @@ namespace Robustez
             _ciclosGrafo.Agregar(_subset);
         }
 
-        //public void EncontrarCiclos(Vertice<T> vertice)
-        //{
-        //    vertice.Visitado = true;
-        //    NroCreciente++;
-        //    vertice.Index = NroCreciente;
-
-        //    ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iterAdyacente = vertice.Adyacentes.Iterador;
-        //    while (iterAdyacente.HasNext())
-        //    {
-        //        Vertice<T> vertAdy = iterAdyacente.Next();
-        //        if (!vertAdy.Visitado)
-        //        {
-        //            RecorridoDFS.Agregar(vertAdy);
-        //            EncontrarCiclos(vertAdy);
-        //        }
-
-        //        NroDecreciente++;
-        //        vertice.LowLink = NroDecreciente;
-        //    }
-        //    return;
-        //}
-
-
-        public void EncontrarCiclos(Vertice<T> vert)
-        {
-            if (!vert.Visitado)
-            {
-                vert.Visitado = true;
-                vert.Index = _index;
-                vert.LowLink = _index;
-                _index++;
-                Visitados.Add(vert);
-                // System.out.println(vert);
-
-                ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iterAdyacente = vert.Adyacentes.Iterador;
-
-                while (iterAdyacente.HasNext())
-                {
-                    Vertice<T> vertAdyacente = iterAdyacente.Next();
-
-                    if (!vertAdyacente.Visitado)
-                    {
-                        EncontrarCiclos(vertAdyacente);
-                        vert.LowLink = Math.Min(vert.LowLink,
-                                vertAdyacente.LowLink);
-                    }
-                    else if (Visitados.Contains(vertAdyacente))
-                    {
-                        vert.LowLink = Math.Min(vert.LowLink,
-                                vertAdyacente.Index);
-                    }
-                }
-            }
-
-            if (vert.LowLink == vert.Index)
-            { // Es el primero volviendo de la recursion
-                int count = 0;
-                Vertice<T> verticeAux = vert;
-                while (count < Visitados.Count)
-                {
-                    foreach (Vertice<T> ver in Visitados)
-                    {
-                        if (ver.LowLink == verticeAux.Index
-                                || ver.Index == verticeAux.Index)
-                        {
-                            _subset.Agregar(ver);
-                        }
-                        else
-                        {
-                            verticeAux = ver;
-                            _ciclosGrafo.Agregar(_subset);
-                            _subset = new ListaCircular<Vertice<T>>();
-                            _subset.Agregar(ver);
-                        }
-                        count++;
-                    }
-                    _ciclosGrafo.Agregar(_subset);
-
-                }
-            }
-        }
+       
 
         /// <summary>
         /// Agrega un nuevo vertice al grafo.

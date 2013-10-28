@@ -17,7 +17,7 @@ namespace Test
 
 
         [Test]
-        public void TestEncontrarCiclosGrafoTres()
+        public void TestRecorridoDFSGrafoTres()
         {
 
             Vertice<string> verticeA = new Vertice<string>("A");
@@ -67,22 +67,22 @@ namespace Test
             _grafo.AgregarVertice(verticeI);
             
 
-            _grafo.EncontrarCiclos(verticeA);
-
-            Assert.AreEqual(3, _grafo.Visitados.Count);
+            _grafo.recorridoDFS(_grafo);       
 
             Assert.AreEqual(1, _grafo.CiclosGrafo.Tamanio);
 
             Assert.AreEqual(3, _grafo.CiclosGrafo.Iterador.Next().Tamanio);
-            Assert.AreEqual(verticeA, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());
-            Assert.AreEqual(verticeB, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());
             Assert.AreEqual(verticeC, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());
+            Assert.AreEqual(verticeB, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());
+            Assert.AreEqual(verticeA, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());
+            
+            
     
 
         }
 
         [Test]
-        public void TestEncontrarCiclosGrafoDos()
+        public void TestRecorridoDFSGrafoDos()
         {
 
             Vertice<string> verticeA = new Vertice<string>("A");
@@ -122,23 +122,23 @@ namespace Test
             _grafo.AgregarVertice(verticeF);
          
 
-            _grafo.EncontrarCiclos(verticeA);
-
-            Assert.AreEqual(6, _grafo.Visitados.Count);
+            _grafo.recorridoDFS(_grafo);
 
             Assert.AreEqual(2, _grafo.CiclosGrafo.Tamanio);
 
             Assert.AreEqual(3, _grafo.CiclosGrafo.Iterador.Next().Tamanio);
-            Assert.AreEqual(verticeA, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());
-            Assert.AreEqual(verticeB, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());
+
             Assert.AreEqual(verticeC, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());
-         
+            Assert.AreEqual(verticeB, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());
+            Assert.AreEqual(verticeA, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());          
             
             Assert.AreEqual(3, _grafo.CiclosGrafo.Iterador.Next().Tamanio);
 
+            Assert.AreEqual(verticeF, _grafo.CiclosGrafo.Iterador.Lista.Ultimo().Iterador.Next());
+            Assert.AreEqual(verticeD, _grafo.CiclosGrafo.Iterador.Lista.Ultimo().Iterador.Next());        
             Assert.AreEqual(verticeE, _grafo.CiclosGrafo.Iterador.Lista.Ultimo().Iterador.Next());
-            Assert.AreEqual(verticeD, _grafo.CiclosGrafo.Iterador.Lista.Ultimo().Iterador.Next());            
-            Assert.AreEqual(verticeF, _grafo.CiclosGrafo.Iterador.Lista.Ultimo().Iterador.Next());        
+                
+            
 
 
 
@@ -146,7 +146,7 @@ namespace Test
         }
 
         [Test]
-        public void TestEncontrarCiclosGrafoUno()
+        public void TestRecorridoDFSGrafoUno()
         {
 
             Vertice<string> verticeA = new Vertice<string>("A");
@@ -195,24 +195,25 @@ namespace Test
             _grafo.AgregarVertice(verticeG);
             _grafo.AgregarVertice(verticeH);
 
-            _grafo.EncontrarCiclos(verticeA);
-
-            Assert.AreEqual(8, _grafo.Visitados.Count);
+            _grafo.recorridoDFS(_grafo);
 
             Assert.AreEqual(2, _grafo.CiclosGrafo.Tamanio);
 
             Assert.AreEqual(4, _grafo.CiclosGrafo.Iterador.Next().Tamanio);
-            Assert.AreEqual(verticeA, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());
-            Assert.AreEqual(verticeB, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());
-            Assert.AreEqual(verticeD, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());
             Assert.AreEqual(verticeC, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());
-
+            Assert.AreEqual(verticeD, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());
+            Assert.AreEqual(verticeB, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());
+            Assert.AreEqual(verticeA, _grafo.CiclosGrafo.Iterador.Lista.Primero().Iterador.Next());        
+          
             Assert.AreEqual(4, _grafo.CiclosGrafo.Iterador.Next().Tamanio);
 
-            Assert.AreEqual(verticeE, _grafo.CiclosGrafo.Iterador.Lista.Ultimo().Iterador.Next());
-            Assert.AreEqual(verticeF, _grafo.CiclosGrafo.Iterador.Lista.Ultimo().Iterador.Next());
-            Assert.AreEqual(verticeH, _grafo.CiclosGrafo.Iterador.Lista.Ultimo().Iterador.Next());
             Assert.AreEqual(verticeG, _grafo.CiclosGrafo.Iterador.Lista.Ultimo().Iterador.Next());
+            Assert.AreEqual(verticeH, _grafo.CiclosGrafo.Iterador.Lista.Ultimo().Iterador.Next());
+            Assert.AreEqual(verticeF, _grafo.CiclosGrafo.Iterador.Lista.Ultimo().Iterador.Next());
+            Assert.AreEqual(verticeE, _grafo.CiclosGrafo.Iterador.Lista.Ultimo().Iterador.Next());
+            
+            
+            
 
 
 

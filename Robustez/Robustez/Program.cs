@@ -64,7 +64,7 @@ namespace Robustez
             System.Console.Write(" " + System.Environment.NewLine);
             System.Console.Write(" " + System.Environment.NewLine);
             System.Console.Write("Proceso terminado." + System.Environment.NewLine);
-            System.Console.Write("Se ah creado el archivo de salida." + System.Environment.NewLine);
+            System.Console.Write("Se ha creado el archivo de salida." + System.Environment.NewLine);
             System.Console.Write("Presione una tecla para terminar." + System.Environment.NewLine);
 	    }
 

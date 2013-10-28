@@ -38,90 +38,93 @@ namespace Robustez
         public void Aumentar(ListaCircular<ListaCircular<Vertice<T>>> ciclos, int robustez)
         {
 
-            ListaCircular<ListaCircular<Vertice<T>>>.IteradorListaCircular listaDeCiclos = ciclos.Iterador;
-            
-            //Obtengo el primer ciclo.
-            ListaCircular<Vertice<T>> ciclo = listaDeCiclos.Next();
-            //Mientras haya ciclos disponibles.
-            for (int h = 0; h < ciclos.Tamanio; h++)
-            {              
-            
-                //Obtengo el segundo ciclo.
-                ListaCircular<Vertice<T>> siguienteCiclo = listaDeCiclos.Next();
-             
-                //Mantego su referencia para no perderlo.
-                ListaCircular<Vertice<T>> mantengoSiguienteCiclo = siguienteCiclo;
+            if (RobustezEsCompatibleConElGrafo(robustez))
+            {
+                ListaCircular<ListaCircular<Vertice<T>>>.IteradorListaCircular listaDeCiclos = ciclos.Iterador;
 
-
-                //Para cada vertice del primer ciclo.
-                for (int i = 0; i < ciclo.Tamanio; i++)
+                //Obtengo el primer ciclo.
+                ListaCircular<Vertice<T>> ciclo = listaDeCiclos.Next();
+                //Mientras haya ciclos disponibles.
+                for (int h = 0; h < ciclos.Tamanio; h++)
                 {
-                    siguienteCiclo = mantengoSiguienteCiclo;
-                    siguienteCiclo.Iterador = new ListaCircular<Vertice<T>>.IteradorListaCircular(siguienteCiclo);
 
-                    Vertice<T> verticeInicio = ciclo.Iterador.Next();
+                    //Obtengo el segundo ciclo.
+                    ListaCircular<Vertice<T>> siguienteCiclo = listaDeCiclos.Next();
 
-                    //Mientras no haya completado su grado.
-                    bool agregarSinImportarGrado = false;
-                    while (verticeInicio.GetGradoVertice() < robustez)
+                    //Mantego su referencia para no perderlo.
+                    ListaCircular<Vertice<T>> mantengoSiguienteCiclo = siguienteCiclo;
+
+
+                    //Para cada vertice del primer ciclo.
+                    for (int i = 0; i < ciclo.Tamanio; i++)
                     {
-                        //Variable que seteo si no encontre ningun vertice fin menor al grado de robustez.
-                        
+                        siguienteCiclo = mantengoSiguienteCiclo;
+                        siguienteCiclo.Iterador = new ListaCircular<Vertice<T>>.IteradorListaCircular(siguienteCiclo);
 
-                        if (siguienteCiclo == ciclos.Primero())
+                        Vertice<T> verticeInicio = ciclo.Iterador.Next();
+
+                        //Mientras no haya completado su grado.
+                        bool agregarSinImportarGrado = false;
+                        while (verticeInicio.GetGradoVertice() < robustez)
                         {
-                            agregarSinImportarGrado = true;
-                        }
+                            //Variable que seteo si no encontre ningun vertice fin menor al grado de robustez.
 
-                        //Para cada vertice del segundo ciclo.
-                        for (int j = 0; j < siguienteCiclo.Tamanio; j++)
-                        {
-                            Vertice<T> verticeFin = siguienteCiclo.Iterador.Next();
 
-                            //Si no encontre ningun vertice fin con grado menor al de robustez, 
-                            //lo uno siempre y cuando no haya sido agregado previamente.
-                            if (agregarSinImportarGrado)
+                            if (siguienteCiclo == ciclos.Primero())
                             {
-                                if (!verticeInicio.Adyacentes.Contiene(verticeFin) && !verticeInicio.Equals(verticeFin))
-                                {
-                                    //Uno los vertices.
-                                    verticeInicio.Adyacentes.Agregar(verticeFin);
-                                    verticeFin.Adyacentes.Agregar(verticeInicio);
-                                    //Agrego la arista, a mi resultado de aristas agregadas.
-                                    AristasAgregadas.Agregar(new Arista<T>(verticeInicio, verticeFin));
+                                agregarSinImportarGrado = true;
+                            }
 
-                                    //Si complete el grado, no sigo recorriendo, paso a otro vertice.
-                                    if (verticeInicio.GetGradoVertice() == robustez)
-                                        break;
+                            //Para cada vertice del segundo ciclo.
+                            for (int j = 0; j < siguienteCiclo.Tamanio; j++)
+                            {
+                                Vertice<T> verticeFin = siguienteCiclo.Iterador.Next();
+
+                                //Si no encontre ningun vertice fin con grado menor al de robustez, 
+                                //lo uno siempre y cuando no haya sido agregado previamente.
+                                if (agregarSinImportarGrado)
+                                {
+                                    if (!verticeInicio.Adyacentes.Contiene(verticeFin) && !verticeInicio.Equals(verticeFin))
+                                    {
+                                        //Uno los vertices.
+                                        verticeInicio.Adyacentes.Agregar(verticeFin);
+                                        verticeFin.Adyacentes.Agregar(verticeInicio);
+                                        //Agrego la arista, a mi resultado de aristas agregadas.
+                                        AristasAgregadas.Agregar(new Arista<T>(verticeInicio, verticeFin));
+
+                                        //Si complete el grado, no sigo recorriendo, paso a otro vertice.
+                                        if (verticeInicio.GetGradoVertice() == robustez)
+                                            break;
+                                    }
+
+                                }
+                                else
+                                {
+
+                                    if (!verticeInicio.Adyacentes.Contiene(verticeFin) && verticeFin.GetGradoVertice() < robustez)
+                                    {
+                                        verticeInicio.Adyacentes.Agregar(verticeFin);
+                                        verticeFin.Adyacentes.Agregar(verticeInicio);
+                                        //Agrego la arista, a mi resultado de aristas agregadas.
+                                        AristasAgregadas.Agregar(new Arista<T>(verticeInicio, verticeFin));
+                                        //Si complete el grado, no sigo recorriendo, paso a otro vertice.
+                                        if (verticeInicio.GetGradoVertice() == robustez)
+                                            break;
+                                    }
                                 }
 
                             }
-                            else
+                            if (verticeInicio.GetGradoVertice() < robustez)
                             {
+                                //Si recorri todo el segundo ciclo, paso al ciclo siguiente, hasta poder completarlo.
 
-                                if (!verticeInicio.Adyacentes.Contiene(verticeFin) && verticeFin.GetGradoVertice() < robustez)
-                                {
-                                    verticeInicio.Adyacentes.Agregar(verticeFin);
-                                    verticeFin.Adyacentes.Agregar(verticeInicio);
-                                    //Agrego la arista, a mi resultado de aristas agregadas.
-                                    AristasAgregadas.Agregar(new Arista<T>(verticeInicio, verticeFin));
-                                    //Si complete el grado, no sigo recorriendo, paso a otro vertice.
-                                    if (verticeInicio.GetGradoVertice() == robustez)
-                                        break;
-                                }
+                                siguienteCiclo = listaDeCiclos.Next();
                             }
-
-                        }
-                        if (verticeInicio.GetGradoVertice() < robustez)
-                        {
-                            //Si recorri todo el segundo ciclo, paso al ciclo siguiente, hasta poder completarlo.
-
-                            siguienteCiclo = listaDeCiclos.Next();                        
                         }
                     }
+                    ciclo = siguienteCiclo;
+
                 }
-                ciclo = siguienteCiclo;
-                
             }
         }
 
