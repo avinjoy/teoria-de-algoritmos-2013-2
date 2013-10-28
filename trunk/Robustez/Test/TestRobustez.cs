@@ -120,11 +120,12 @@ namespace Test
             _grafo.AgregarVertice(verticeF);
 
 
-            _grafo.EncontrarCiclos(verticeA);
+            _grafo.recorridoDFS(_grafo);
             Robustez<string> robustez = new Robustez<string>(_grafo);
             robustez.Aumentar(_grafo.CiclosGrafo, 3);
+            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeC, verticeF)));
             Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeA,verticeD)));
-            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeC,verticeF)));
+            
 
             Assert.AreEqual(2, robustez.AristasAgregadas.Tamanio);
 
@@ -133,7 +134,7 @@ namespace Test
         }
 
         [Test]
-        public void TestAumentarRobustezGrafoDosRobustezCuatroComienzoDeC()
+        public void TestAumentarRobustezGrafoDosRobustezCuatro()
         {
 
             Vertice<string> verticeA = new Vertice<string>("A");
@@ -172,72 +173,16 @@ namespace Test
             _grafo.AgregarVertice(verticeE);
             _grafo.AgregarVertice(verticeF);
 
-            _grafo.EncontrarCiclos(verticeC);
+            _grafo.recorridoDFS(_grafo);
             Robustez<string> robustez = new Robustez<string>(_grafo);
             robustez.Aumentar(_grafo.CiclosGrafo, 4);
-            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeC,verticeE)));
+            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeC,verticeF)));
             Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeC, verticeD)));
-            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeA, verticeD)));
-            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeA, verticeF)));
             Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeB, verticeF)));
+            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeA, verticeD)));
+            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeA, verticeE)));
 
             Assert.AreEqual(5, robustez.AristasAgregadas.Tamanio);
-
-
-
-        }
-
-        [Test]
-        public void TestAumentarRobustezGrafoDosRobustezCuatroComienzoDeA()
-        {
-
-            Vertice<string> verticeA = new Vertice<string>("A");
-            Vertice<string> verticeB = new Vertice<string>("B");
-            Vertice<string> verticeC = new Vertice<string>("C");
-            Vertice<string> verticeD = new Vertice<string>("D");
-            Vertice<string> verticeE = new Vertice<string>("E");
-            Vertice<string> verticeF = new Vertice<string>("F");
-
-            //A: B, C
-            verticeA.Adyacentes.Agregar(verticeB);
-            verticeA.Adyacentes.Agregar(verticeC);
-            //B: A, C, E
-            verticeB.Adyacentes.Agregar(verticeA);
-            verticeB.Adyacentes.Agregar(verticeC);
-            verticeB.Adyacentes.Agregar(verticeE);
-            //C: A, B
-            verticeC.Adyacentes.Agregar(verticeA);
-            verticeC.Adyacentes.Agregar(verticeB);
-            //D: E, F
-            verticeD.Adyacentes.Agregar(verticeE);
-            verticeD.Adyacentes.Agregar(verticeF);
-            //E: B, D, F
-            verticeE.Adyacentes.Agregar(verticeB);
-            verticeE.Adyacentes.Agregar(verticeD);
-            verticeE.Adyacentes.Agregar(verticeF);
-            //F: D, E
-            verticeF.Adyacentes.Agregar(verticeD);
-            verticeF.Adyacentes.Agregar(verticeE);
-
-
-            _grafo.AgregarVertice(verticeA);
-            _grafo.AgregarVertice(verticeB);
-            _grafo.AgregarVertice(verticeC);
-            _grafo.AgregarVertice(verticeD);
-            _grafo.AgregarVertice(verticeE);
-            _grafo.AgregarVertice(verticeF);
-
-            _grafo.EncontrarCiclos(verticeA);
-            Robustez<string> robustez = new Robustez<string>(_grafo);
-            robustez.Aumentar(_grafo.CiclosGrafo, 4);
-            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeA, verticeE)));
-            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeA, verticeD)));
-            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeB, verticeD)));
-            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeC, verticeF)));
-            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeC, verticeE)));
-            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeF, verticeA)));
-
-            Assert.AreEqual(6, robustez.AristasAgregadas.Tamanio);
 
 
 
@@ -293,13 +238,15 @@ namespace Test
             _grafo.AgregarVertice(verticeG);
             _grafo.AgregarVertice(verticeH);
 
-            _grafo.EncontrarCiclos(verticeA);
+            _grafo.recorridoDFS(_grafo);
             Robustez<string> robustez = new Robustez<string>(_grafo);
             robustez.Aumentar(_grafo.CiclosGrafo, 3);
 
-            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeA, verticeF)));
-            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeB, verticeH)));
             Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeC, verticeG)));
+            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeB, verticeH)));
+            Assert.IsTrue(robustez.AristasAgregadas.Iterador.Next().Equals(new Arista<string>(verticeA, verticeF)));
+            
+            
           
             Assert.AreEqual(3, robustez.AristasAgregadas.Tamanio);
 
