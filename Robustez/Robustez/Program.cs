@@ -39,33 +39,44 @@ namespace Robustez
         public void Ejecutar(int robustezDeseada, StreamReader archivo) 
         {
             Loader.cargar(archivo);
-            Grafo.RecorridoDFS();
-            Grafo.EnlistarVerticesDiscontinuos();
-		    Aumentador.Aumentar(Grafo.CiclosGrafo, robustezDeseada);
+            if (Grafo.Vertices.Tamanio <= robustezDeseada)
+            {
+                System.Console.Write(" " + System.Environment.NewLine);
+                System.Console.Write(" " + System.Environment.NewLine);
+                System.Console.Write("La cantidad de Vértices debe ser mayor al número de robustez deseado." + System.Environment.NewLine);
+                System.Console.Write("Presione una tecla para terminar." + System.Environment.NewLine);
+            }
+            else
+            {
+                Grafo.RecorridoDFS();
+                Grafo.EnlistarVerticesDiscontinuos();
+                Aumentador.Aumentar(Grafo.CiclosGrafo, robustezDeseada);
 
 
-            ListaEnlazada<Arista<string>> aristas = Aumentador.GetAristasAgregadas();
-		    int numeroArista = 0;
-		
-		    ListaEnlazada<Arista<string>>.IteradorListaEnlazada itAristas = aristas.Iterador;
-		    //Open the File
-		    StreamWriter sw = new StreamWriter("salida.txt", false, Encoding.ASCII);
+                ListaEnlazada<Arista<string>> aristas = Aumentador.GetAristasAgregadas();
+                int numeroArista = 0;
 
-		    while (itAristas.HasNext()) {
-			
-			    numeroArista++;
-			    Arista<string> arista = itAristas.Next();
-				
-                sw.Write("Arista " + numeroArista + ": " + arista + System.Environment.NewLine);
-			
-		    }
-            //close the file
-			sw.Close();
-            System.Console.Write(" " + System.Environment.NewLine);
-            System.Console.Write(" " + System.Environment.NewLine);
-            System.Console.Write("Proceso terminado." + System.Environment.NewLine);
-            System.Console.Write("Se ha creado el archivo de salida." + System.Environment.NewLine);
-            System.Console.Write("Presione una tecla para terminar." + System.Environment.NewLine);
+                ListaEnlazada<Arista<string>>.IteradorListaEnlazada itAristas = aristas.Iterador;
+                //Open the File
+                StreamWriter sw = new StreamWriter("salida.txt", false, Encoding.ASCII);
+
+                while (itAristas.HasNext())
+                {
+
+                    numeroArista++;
+                    Arista<string> arista = itAristas.Next();
+
+                    sw.Write("Arista " + numeroArista + ": " + arista + System.Environment.NewLine);
+
+                }
+                //close the file
+                sw.Close();
+                System.Console.Write(" " + System.Environment.NewLine);
+                System.Console.Write(" " + System.Environment.NewLine);
+                System.Console.Write("Proceso terminado." + System.Environment.NewLine);
+                System.Console.Write("Se ha creado el archivo de salida." + System.Environment.NewLine);
+                System.Console.Write("Presione una tecla para terminar." + System.Environment.NewLine);
+            }
 	    }
               
 
