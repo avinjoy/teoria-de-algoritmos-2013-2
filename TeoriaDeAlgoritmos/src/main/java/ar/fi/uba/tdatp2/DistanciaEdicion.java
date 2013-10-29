@@ -2,86 +2,257 @@ package ar.fi.uba.tdatp2;
 
 public class DistanciaEdicion {
 
-	private int[][] matrizDistancia;
-	private String str1;
-	private String str2;
+	private char[] strX;
+	private char[] strY;
+	private char[] strZ;
+	private int costoCopiar;
+	private int costoReemplazar;
+	private int costoBorrar;
+	private int costoInsertar;
+	private int costoIntercambiar;
+	private int costoTerminar;
+	private int distanciaCalculada;
+	private int i = 0;
+	private int j = 0;
 
 	public DistanciaEdicion() {
 		super();
 	}
 
-	public DistanciaEdicion(int long1, int long2) {
-		this.matrizDistancia = new int[long1][long2];
-
-	}
-	
-	public DistanciaEdicion(String str1, String str2) throws StringNoValidoException {
-		if (str1 != null && str2 != null && str1.length() > 0 && str2.length() > 0){
-			this.str1=str1;
-			this.str2=str2;
-			this.matrizDistancia = new int[str1.toCharArray().length][str1.toCharArray().length];
-		}
-			
-		else
-			throw new StringNoValidoException("Las cadenas ingresadas no son válidas");
-
+	public DistanciaEdicion(String strX, String strY, int costoCopiar,
+			int costoReemplazar, int costoBorrar, int costoInsertar,
+			int costoIntercambiar, int costoTerminar) {
+		super();
+		this.strX = strX.toCharArray();
+		this.strY = strY.toCharArray();
+		this.strZ = new char[1000];
+		this.costoCopiar = costoCopiar;
+		this.costoReemplazar = costoReemplazar;
+		this.costoBorrar = costoBorrar;
+		this.costoInsertar = costoInsertar;
+		this.costoIntercambiar = costoIntercambiar;
+		this.costoTerminar = costoTerminar;
 	}
 
-	public int[][] getMatrizDistancia() {
-		return matrizDistancia;
+	public char[] getStrX() {
+		return strX;
 	}
 
-	public void setMatrizDistancia(int[][] matrizDistancia) {
-		this.matrizDistancia = matrizDistancia;
+	public void setStrX(char[] strX) {
+		this.strX = strX;
+	}
+
+	public char[] getStrY() {
+		return strY;
+	}
+
+	public void setStrY(char[] strY) {
+		this.strY = strY;
+	}
+
+	public char[] getStrZ() {
+		return strZ;
+	}
+
+	public void setStrZ(char[] strZ) {
+		this.strZ = strZ;
+	}
+
+	public int getCostoCopiar() {
+		return costoCopiar;
+	}
+
+	public void setCostoCopiar(int costoCopiar) {
+		this.costoCopiar = costoCopiar;
+	}
+
+	public int getCostoReemplazar() {
+		return costoReemplazar;
+	}
+
+	public void setCostoReemplazar(int costoReemplazar) {
+		this.costoReemplazar = costoReemplazar;
+	}
+
+	public int getCostoBorrar() {
+		return costoBorrar;
+	}
+
+	public void setCostoBorrar(int costoBorrar) {
+		this.costoBorrar = costoBorrar;
+	}
+
+	public int getCostoInsertar() {
+		return costoInsertar;
+	}
+
+	public void setCostoInsertar(int costoInsertar) {
+		this.costoInsertar = costoInsertar;
+	}
+
+	public int getCostoIntercambiar() {
+		return costoIntercambiar;
+	}
+
+	public void setCostoIntercambiar(int costoIntercambiar) {
+		this.costoIntercambiar = costoIntercambiar;
+	}
+
+	public int getCostoTerminar() {
+		return costoTerminar;
+	}
+
+	public void setCostoTerminar(int costoTerminar) {
+		this.costoTerminar = costoTerminar;
+	}
+
+	public int getDistanciaCalculada() {
+		return distanciaCalculada;
+	}
+
+	public void setDistanciaCalculada(int distanciaCalculada) {
+		this.distanciaCalculada = distanciaCalculada;
 	}
 
 	public int calcularDistancia() {
-		return calcularDistanciaAux(str1.toCharArray(), str2.toCharArray());
+		calcularDistanciaAux();
+		return getDistanciaCalculada();
 	}
 
-	private int calcularDistanciaAux(char[] str1, char[] str2) {
+	private void calcularDistanciaAux() {
 
-		for (int i = 0; i < str1.length; i++) {
-			matrizDistancia[i][0] = i;
-		}
-		for (int j = 0; j < str2.length; j++) {
-			matrizDistancia[0][j] = j;
-		}
-		for (int i = 1; i < str1.length; i++) {
-			for (int j = 1; j < str2.length; j++) {
-				matrizDistancia[i][j] = minimo(matrizDistancia[i - 1][j] + 1,
-						matrizDistancia[i][j - 1] + 1,
-						matrizDistancia[i - 1][j - 1]
-								+ ((str1[i - 1] == str2[j - 1]) ? 0 : 1));
+		for (i = 0; i < strY.length;) {
+			// Si ya se acabo el string, sólo resta finalizar.
+			if (j == strY.length) {
+				endString(i);
+				continue;
+			}
+
+			// Si las dos cadenas son iguales, debo ver si conviene copiar o
+			// insertar.
+			try {
+				if (strX[i] == strY[i]) {
+
+					if (getCostoCopiar() <= getCostoInsertar()) {
+						copy(i, j);
+					} else {
+						insert(i, j);
+					}
+				} else {
+
+					try {
+
+						if (strX[i + 1] == strY[i]) {
+							if (strX[i] == strY[i + 1]) { // Si difieren en la
+															// posicion de debo
+															// intercambiarlos
+								change(i, j);
+
+							} else { // Sino tengo que ver que es lo que menos
+										// me cuesta
+								if (getCostoReemplazar() <= (getCostoBorrar() + getCostoCopiar())) {
+									replace(i, j);
+
+								} else {
+									erase(i, j);
+									copy(i, j);
+
+								}
+							}
+						} else {
+							replace(i, j);
+
+						}
+					} catch (ArrayIndexOutOfBoundsException e) {
+						replace(i, j);
+
+					}
+				}
+			} catch (ArrayIndexOutOfBoundsException e) {
+				copy(i, j);
+
 			}
 		}
-		return matrizDistancia[str1.length -1][str2.length - 1];
 
 	}
 
-	private int minimo(int a, int b, int c) {
-		if (a <= b && a <= c) {
-			return a;
-		}
-		if (b <= a && b <= c) {
-			return b;
-		}
-		return c;
+	/**
+	 * * Copia un carácter de x a z . Esto es: z[ j ]=x [i ].
+	 * 
+	 * @param i
+	 * @param j
+	 */
+
+	public void copy(int i, int j) {
+		strZ[j] = strX[i];
+		this.i++;
+		this.j++;
+		this.distanciaCalculada += this.costoCopiar;
 	}
 
-	public String getStr2() {
-		return str2;
+	/**
+	 * Reemplazar: reemplaza un carácter de x por otro carácter c . Esto es: z[
+	 * j ]=c
+	 * 
+	 * @param i
+	 * @param j
+	 */
+	public void replace(int i, int j) {
+		strZ[j] = strY[j];
+		this.i++;
+		this.j++;
+		this.distanciaCalculada += this.costoReemplazar;
 	}
 
-	public void setStr2(String str2) {
-		this.str2 = str2;
+	/**
+	 * Borrar: borra un carácter de x
+	 * 
+	 * @param i
+	 * @param j
+	 */
+	public void erase(int i, int j) {
+		this.i++;
+		this.distanciaCalculada += this.costoBorrar;
 	}
 
-	public String getStr1() {
-		return str1;
+	/**
+	 * Insertar: inserta un carácter c en z . Esto es: z[ j ]=c
+	 * 
+	 * @param i
+	 * @param j
+	 */
+	public void insert(int i, int j) {
+		strZ[j] = strY[j];
+		this.j++;
+		this.distanciaCalculada += this.costoInsertar;
 	}
 
-	public void setStr1(String str1) {
-		this.str1 = str1;
+	/**
+	 * Intercambiar: intercambia los próximos dos caracteres copiándolos de x a
+	 * z pero en orden inverso. Esto es: z[ j ]=x [i+1] y z[ j +1]=x [i].
+	 * 
+	 * @param i
+	 * @param j
+	 */
+	public void change(int i, int j) {
+		strZ[j] = strX[i + 1];
+		strZ[j + 1] = strX[i];
+		this.i += 2;
+		this.j += 2;
+		this.distanciaCalculada += this.costoIntercambiar;
 	}
+
+	/**
+	 * Terminar: elimina los caracteres restantes de x haciendo i=m+1 . Esta
+	 * operación descarta todos los caracteres de x que todavía no se
+	 * analizaron. Es la última operación se aplica si hace falta.
+	 * 
+	 * @param i
+	 * @return
+	 */
+	public void endString(int i) {
+		this.distanciaCalculada += this.costoTerminar;
+		this.i = strX.length + 1;
+	}
+
 }
