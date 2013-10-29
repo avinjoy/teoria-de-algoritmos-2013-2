@@ -16,7 +16,7 @@ public class DistanciaEdicionTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		distancia = new DistanciaEdicion("Algoritmo", "Altruista");
+		distancia = new DistanciaEdicion("Algoritmo", "Altruista",1,1,1,1,1,1);
 		
 	}
 
@@ -24,15 +24,15 @@ public class DistanciaEdicionTest {
 	public void tearDown() throws Exception {
 	}
 
+	
 	@Test
-	public void GetMatrizDistanciaNoNula() {
-		assertThat("La matriz no es nula", distancia.getMatrizDistancia(), notNullValue());
-	}
-
-	@Test
-	public void testCalcularLaDistancia() {
+	public void laDistanciaNoEsNulaTest() {
 		assertThat("La distancia de edicion no es nula ", distancia.calcularDistancia(), notNullValue());
-		assertThat("La distancia de edicion es ", distancia.calcularDistancia(), is(5));
+	}
+	
+	@Test
+	public void laDistanciaEsUnValorTest() {
+		assertThat("La distancia de edicion es ", distancia.calcularDistancia(), is(9));
 	}
 
 }
