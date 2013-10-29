@@ -7,12 +7,11 @@ namespace Robustez
     public class Vertice<T>
     {
         private T _contenido;
-        private bool _visitado;
         private ListaEnlazada<Vertice<T>> _adyacentes;
         private Color _color;
         private Vertice<T> _padre;
-        private long _index;
-        private long _lowLink;
+        private long _numeroCreciente;
+        private long _nroDecreciente;
         private bool _agregadoEnListaCiclo;
 
         public bool AgregadoEnListaCiclo
@@ -21,18 +20,16 @@ namespace Robustez
             set { _agregadoEnListaCiclo = value; }
         }
 
-        //public bool AgregadoEnListaCiclo { get; set; }
-
-        public long Index
+        public long NroCreciente
         {
-            get { return _index; }
-            set { _index = value; }
+            get { return _numeroCreciente; }
+            set { _numeroCreciente = value; }
         }
 
-        public long LowLink
+        public long NroDecreciente
         {
-            get { return _lowLink; }
-            set { _lowLink = value; }
+            get { return _nroDecreciente; }
+            set { _nroDecreciente = value; }
         }
 
         public Color Color
@@ -51,13 +48,6 @@ namespace Robustez
         {
             get { return _contenido; }
             set { _contenido = value; }
-        }
-
-
-        public bool Visitado
-        {
-            get { return _visitado; }
-            set { _visitado = value; }
         }
 
 
@@ -82,17 +72,6 @@ namespace Robustez
         public Int32 GetGradoVertice()
         {
             return _adyacentes.Tamanio;
-        }
-
-
-
-        public override int GetHashCode()
-        {
-            const int prime = 31;
-            int result = 1;
-            result = prime * result
-                    + ((Contenido == null) ? 0 : Contenido.GetHashCode());
-            return result;
         }
 
         /// <summary>
@@ -133,7 +112,7 @@ namespace Robustez
         /// <returns></returns>
         public override string ToString()
         {
-            return "Vertice: " + Contenido + " (i: " + Index + " , l: " + LowLink + ")";
+            return "Vertice: " + Contenido + " (i: " + NroCreciente + " , l: " + NroDecreciente + ")";
         }
 
     }
