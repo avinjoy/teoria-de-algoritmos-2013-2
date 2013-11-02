@@ -65,6 +65,21 @@ public class Robustez {
 		return new BufferedReader(new FileReader(rutaArchivo));
 	}
 
+	/**
+	 * Método principal del TP, se encarga de unir todas las piezas.
+	 * 
+	 * 1° Carga el grafo: O(|V| + |A|).
+	 * 2° Busca los ciclos: O(|V| x |V|).
+	 * 3° Aumenta la robustez del grafo O(|V|).
+	 * 4° Imprime los resultados O(k), siendo k la cantidad de aristas encontradas.
+	 *  
+	 * El orden total de este trabajo es O(|V| + |A| + |V| + (|V| x |V|) + k) =
+	 * O(2|V| + |A| + (|V| x |V|)) = O(|V| + |A| + (|V| x |V|)) 
+	 *  
+	 * @param robustezDeseada
+	 * @param archivo
+	 * @throws IOException
+	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void ejecutar(int robustezDeseada, BufferedReader archivo) throws IOException {
 
