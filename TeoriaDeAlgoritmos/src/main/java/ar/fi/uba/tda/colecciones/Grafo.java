@@ -3,6 +3,11 @@ package ar.fi.uba.tda.colecciones;
 import java.util.Iterator;
 import java.util.Vector;
 
+/**
+ * @author santiago
+ *
+ * @param <T>
+ */
 public class Grafo<T> {
 
 	private ListaEnlazada<Vertice<T>> vertices;
@@ -13,11 +18,11 @@ public class Grafo<T> {
 	private Vector<Vertice<T>> visitados;
 	private Long index;
 
-	public Grafo(ListaEnlazada<Vertice<T>> vertices) {
-		super();
-		this.vertices = vertices;
-	}
-
+	/**
+	 * Inicializa el grafo y las estructuras de datos auxiliares por el usadas.
+	 * 
+	 * El orden de esta operación es O(1).
+	 */
 	public Grafo() {
 		this.vertices = new ListaEnlazada<Vertice<T>>();
 		this.recorridoDFS = new ListaEnlazada<Vertice<T>>();
@@ -65,7 +70,13 @@ public class Grafo<T> {
 	}
 
 	/**
-	 * Agrega un v�rtice al grafo
+	 * Agrega un vértice al grafo solo si no se encuentra previamente agregado.
+	 * 
+	 * Tanto las operaciones de agregar como de verificar si un elemento está contenido o no
+	 * en la lista son constantes por lo que el costo de esta operación es O(1).
+	 * 
+	 * @see ListaEnlazada#contiene(Object)
+	 * @see ListaEnlazada#agregar(Object)
 	 * 
 	 * @param vert
 	 */
@@ -78,12 +89,17 @@ public class Grafo<T> {
 	}
 
 	/**
-	 * Crea un arco entre 2 v�rtices (no es grafo dirigido)
+	 * Crea un arco entre 2 vértices (no es grafo dirigido)
+	 * Si los vértices no pertenecen al grafo los agrega.
+	 * 
+	 * Las operaciones para obtener y agregar un vértice son O(1), este método
+	 * solo hace uso de esas operaciones por lo que el orden de este método es O(1).
 	 * 
 	 * @param inicio
 	 * @param fin
 	 */
 	public void agregarArco(Vertice<T> inicio, Vertice<T> fin) {
+		
 		Vertice<T> inicioEnGrafo = this.obtener(inicio);
 
 		if (inicioEnGrafo != null) {
@@ -104,18 +120,30 @@ public class Grafo<T> {
 
 	}
 
+	/**
+	 * Recupera una referencia a un vértice dado.
+	 * 
+	 * @see ListaEnlazada#obtener(Object)
+	 * 
+	 */
 	private Vertice<T> obtener(Vertice<T> buscado) {
 
 		return this.vertices.obtener(buscado);
 	}
 
+	/**
+	 * Verifica si un vértice está o no en el grafo.
+	 * 
+	 * @see ListaEnlazada#contiene(Object)
+	 */
 	public boolean contieneVertice(Vertice<T> verticeBuscado) {
 
 		return vertices.contiene(verticeBuscado);
 	}
 
 	/**
-	 * Recorrido en profundidad
+	 * Recorrido en profundidad del grafo. 
+	 * Su costo es O(|V|) pues recorre todos los vértices.
 	 */
 	public void recorridoDFS(ListaEnlazada<Vertice<T>> vertices) {
 
@@ -125,7 +153,6 @@ public class Grafo<T> {
 			Vertice<T> vert = iterador.next();
 			if (!vert.isVisitado()) {
 				vert.setVisitado(true);
-				// System.out.println(vert);
 				getRecorridoDFS().agregar(vert);
 				recorridoDFS(vert.getAdyacentes());
 			}
@@ -135,6 +162,8 @@ public class Grafo<T> {
 
 	/**
 	 * Recorrido en ancho
+	 * Su costo es O(|V|) pues recorre todos los vértices.
+	 * 
 	 */
 	public void recorridoBFS(ListaEnlazada<Vertice<T>> vertices) {
 
@@ -145,7 +174,6 @@ public class Grafo<T> {
 
 			if (!vert.isVisitado()) {
 				vert.setVisitado(true);
-				// System.out.println(vert);
 				getRecorridoBFS().agregar(vert);
 			}
 
@@ -154,7 +182,6 @@ public class Grafo<T> {
 				Vertice<T> vertAdy = iteVertice.next();
 				if (!vertAdy.isVisitado()) {
 					vertAdy.setVisitado(true);
-					// System.out.println(vertAdy);
 					getRecorridoBFS().agregar(vertAdy);
 				}
 			}
@@ -168,8 +195,23 @@ public class Grafo<T> {
 	 * Encuentra los ciclos en el grafo.
 	 * Utilizado para determinar sobre que vertices crear los arcos para
 	 * la robustez.
+	 * 
+	 * El método para encontrar ciclos en los grafos se basa en el algoritmo de
+		Tarjan (aunque no es el mismo) (http://en.wikipedia.org/wiki/Tarjan
+		%27s_strongly_connected_components_algorithm)
+		La idea básica de este algoritmo es la siguiente: Se parte de algún nodo del grafo y
+		se realiza un recorrido DFS, marcándolo con un índice y para mantener una
+		identificación de la rama desde donde ha venido se utiliza un indicador llamado
+		lowLink. Como cualquier recorrido DFS, cada nodo se visita sólo una vez ,
+		descartando la revisita del nodo ya explorado. Cada vez que se encuentre un ciclo
+		cerrado se guardará en una vector los nodos visitados, cada uno de ellos tendrá su
+		índice de visita y un lowLink que indica desde que rama se llamó.
+
+		En esta implementación el algoritmo se llama, como máximo 2 veces para cada
+		vértice por lo que el orden sería O (2|V|), pero al final nos encontramos con la parte
+		que carga los diferentes ciclos encontrados la cual itera utilizando dos ciclos por
+		todos los vétices, siendo su peor caso O (|V|x|V|).
 	 */
-	
 	public void encontrarCiclos(Vertice<T> vert) {
 
 		if (!vert.isVisitado()) {
@@ -178,7 +220,6 @@ public class Grafo<T> {
 			vert.setLowLink(index);
 			index++;
 			visitados.add(vert);
-			// System.out.println(vert);
 
 			Iterator<Vertice<T>> iterAdyacente = vert.getAdyacentes()
 					.iterador();
