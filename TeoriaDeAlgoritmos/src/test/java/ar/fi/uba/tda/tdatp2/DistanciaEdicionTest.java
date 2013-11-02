@@ -27,12 +27,12 @@ public class DistanciaEdicionTest {
 	
 	@Test
 	public void laDistanciaNoEsNulaTest() {
-		assertThat("La distancia de edicion no es nula ", distancia.calcularDistancia(), notNullValue());
+		assertThat("La distancia de edicion no es nula ", distancia.calcularDistanciaEdicion(), notNullValue());
 	}
 	
 	@Test
 	public void laDistanciaEsUnValorTest() {
-		assertThat("La distancia de edicion es ", distancia.calcularDistancia(), is(9));
+		assertThat("La distancia de edicion es ", distancia.calcularDistanciaEdicion(), is(9));
 	}
 
 }
