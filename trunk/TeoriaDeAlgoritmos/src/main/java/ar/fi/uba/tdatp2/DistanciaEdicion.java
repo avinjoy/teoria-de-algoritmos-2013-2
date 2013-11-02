@@ -102,6 +102,7 @@ public class DistanciaEdicion {
 	
 
 	public int calcularDistanciaEdicion() {
+		//Inicializamos con los costos a de filas y columnas.
 		for (int i = 0; i <= palabraInicio.length(); i++)
 			distance[i][0] = i * getEraseCost(); //Todo el costo de borrar la palabra de Inicio
 		for (int j = 0; j <= palabraFin.length(); j++)
