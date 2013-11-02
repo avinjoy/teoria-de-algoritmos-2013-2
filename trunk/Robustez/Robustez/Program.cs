@@ -51,11 +51,13 @@ namespace Robustez
                 Grafo.RecorridoDFS();
                 Grafo.EnlistarVerticesDiscontinuos();
                 Aumentador.Aumentar(Grafo.CiclosGrafo, robustezDeseada);
-
+                CompletarRobustezGrafo(Aumentador, robustezDeseada);
 
                 ListaEnlazada<Arista<string>> aristas = Aumentador.GetAristasAgregadas();
+
                 int numeroArista = 0;
 
+                aristas.ResetIterator();
                 ListaEnlazada<Arista<string>>.IteradorListaEnlazada itAristas = aristas.Iterador;
                 //Open the File
                 StreamWriter sw = new StreamWriter("salida.txt", false, Encoding.ASCII);
@@ -79,7 +81,61 @@ namespace Robustez
             }
 	    }
               
+        public void CompletarRobustezGrafo(Robustez<string> Aumentador, int robustezDeseada)
+        {
+            int[] vRobustez = new int[Grafo.CiclosGrafo.Tamanio+1];
 
+            /*
+            ListaEnlazada<Arista<string>> aristas = Aumentador.GetAristasAgregadas();
+            ListaEnlazada<Arista<string>>.IteradorListaEnlazada itAristas = aristas.Iterador;
+
+            while (itAristas.HasNext())
+            {
+                Arista<string> arista = itAristas.Next();
+
+                vRobustez[arista.Origen.NroComponenteConexa]++;
+                vRobustez[arista.Destino.NroComponenteConexa]++;
+            }
+            */
+
+            Grafo.Vertices.ResetIterator();
+            ListaEnlazada<Vertice<string>>.IteradorListaEnlazada itVertices = Grafo.Vertices.Iterador;
+            while (itVertices.HasNext())
+            {
+                Vertice<string> v = itVertices.Next();
+
+                v.Adyacentes.ResetIterator();
+                ListaEnlazada<Vertice<string>>.IteradorListaEnlazada itAdy = v.Adyacentes.Iterador;
+
+                while (itAdy.HasNext())
+                {
+                    Vertice<string> vAdy = itAdy.Next();
+
+                    if (v.NroComponenteConexa != vAdy.NroComponenteConexa) 
+                    {
+                        vRobustez[v.NroComponenteConexa]++;
+                    }
+                }
+            }
+
+            for (int i = 1; i <= Grafo.CiclosGrafo.Tamanio; i++)
+            {
+                while (vRobustez[i] <= robustezDeseada) 
+                {
+                    Arista<string> arista = Grafo.obtenerVertice(i);
+                    //Vertice<string> origen = Grafo.obtenerVertice(i, "origen");
+                    //Vertice<string> dest = Grafo.obtenerVertice(i, "destino");
+
+                    arista.Origen.Adyacentes.Agregar(arista.Destino);
+                    arista.Destino.Adyacentes.Agregar(arista.Origen);
+                    Aumentador.AristasAgregadas.Agregar(arista);
+
+                    vRobustez[arista.Origen.NroComponenteConexa]++;
+                    vRobustez[arista.Destino.NroComponenteConexa]++;
+                }
+                         
+            }
+        }
 
         static void Main(string[] args)
         {
