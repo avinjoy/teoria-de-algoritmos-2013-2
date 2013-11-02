@@ -48,6 +48,7 @@ namespace Robustez
 
         public void RecorridoDFS()
         {
+            Vertices.ResetIterator();
             ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iterador = Vertices.Iterador;
             while (iterador.HasNext())
             {
@@ -80,7 +81,7 @@ namespace Robustez
             while (iterAdyacente.HasNext())
             {
                 Vertice<T> vertAdy = iterAdyacente.Next();
-                if (vertAdy.Color == Color.gris && vertAdy != v.Padre)
+                if (vertAdy.Color == Color.gris && vertAdy != v.Padre && !vertAdy.AgregadoEnListaCiclo)
                     procesarCiclo(v, vertAdy);
                 if (vertAdy.Color == Color.blanco)
                 {
@@ -99,17 +100,20 @@ namespace Robustez
             Vertice<T> vAux = v1.Padre;
             ListaCircular<Vertice<T>>  cicloAux = new ListaCircular<Vertice<T>>();
             v1.AgregadoEnListaCiclo = true;
+            v1.NroComponenteConexa = CiclosGrafo.Tamanio + 1;
             cicloAux.Agregar(v1);
             while (vAux != v2) 
             {
                 vAux.AgregadoEnListaCiclo = true;
+                vAux.NroComponenteConexa = CiclosGrafo.Tamanio + 1;
                 cicloAux.Agregar(vAux);
                 vAux = vAux.Padre;
             }
             v2.AgregadoEnListaCiclo = true;
+            v2.NroComponenteConexa = CiclosGrafo.Tamanio + 1;
             cicloAux.Agregar(v2);
 
-            _ciclosGrafo.Agregar(cicloAux);
+            CiclosGrafo.Agregar(cicloAux);
         }
 
         public void EnlistarVerticesDiscontinuos()
@@ -126,9 +130,11 @@ namespace Robustez
                 {
                     Vertice<T> vAux = vActual.Padre;
                     cicloAux = new ListaCircular<Vertice<T>>();
+                    vActual.NroComponenteConexa = CiclosGrafo.Tamanio + 1;
                     cicloAux.Agregar(vActual);
                     while (vAux != null)
                     {
+                        vAux.NroComponenteConexa = CiclosGrafo.Tamanio + 1;
                         cicloAux.Agregar(vAux);
                         vAux = vAux.Padre;
                     }
@@ -189,7 +195,6 @@ namespace Robustez
         /// <returns></returns>
         private Vertice<T> ObtenerVertice(Vertice<T> verticeBuscado)
         {
-
             return Vertices.Obtener(verticeBuscado);
         }
 
@@ -200,8 +205,69 @@ namespace Robustez
         /// <returns></returns>
         public bool ContieneVertice(Vertice<T> verticeBuscado)
         {
-
             return Vertices.Contiene(verticeBuscado);
+        }
+
+        /*
+        public Vertice<T> obtenerVertice(int i, string tipo)
+        {
+            if (tipo == "origen")
+            {
+                this.Vertices.ResetIterator();
+                ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iterV = this.Vertices.Iterador;
+
+                while (iterV.HasNext())
+                {
+                    Vertice<T> v = iterV.Next();
+                    if (v.NroComponenteConexa == i)
+                        return v;
+                }
+            }
+            else 
+            {
+                if (i == this.CiclosGrafo.Tamanio) i--;
+                else i++;
+
+                this.Vertices.ResetIterator();
+                ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iterV = this.Vertices.Iterador;
+                while (iterV.HasNext())
+                {
+                    Vertice<T> v = iterV.Next();
+                    if (v.NroComponenteConexa == i)
+                        return v;
+                }
+            }
+
+            return null;
+        }
+        */
+
+        internal Arista<T> obtenerVertice(int i)
+        {
+            this.Vertices.ResetIterator();
+            ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iterV = this.Vertices.Iterador;
+            Vertice<T> origen = new Vertice<T>();
+            Vertice<T> destino = new Vertice<T>();
+
+            while (iterV.HasNext())
+            {
+                origen = iterV.Next();
+                if (origen.NroComponenteConexa == i)
+                    break;
+            }
+
+            this.Vertices.ResetIterator();
+            iterV = this.Vertices.Iterador;
+
+            while (iterV.HasNext())
+            {
+                destino = iterV.Next();
+                if (!origen.Adyacentes.Contiene(destino) && !origen.Equals(destino) && destino.NroComponenteConexa != i)
+                    break;
+            }
+
+            return new Arista<T>(origen, destino);
+
         }
     }
 }

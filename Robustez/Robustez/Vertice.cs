@@ -13,6 +13,7 @@ namespace Robustez
         private long _numeroCreciente;
         private long _nroDecreciente;
         private bool _agregadoEnListaCiclo;
+        private long _nroComponenteConexa;
 
         public bool AgregadoEnListaCiclo
         {
@@ -24,6 +25,12 @@ namespace Robustez
         {
             get { return _numeroCreciente; }
             set { _numeroCreciente = value; }
+        }
+
+        public long NroComponenteConexa
+        {
+            get { return _nroComponenteConexa; }
+            set { _nroComponenteConexa = value; }
         }
 
         public long NroDecreciente
