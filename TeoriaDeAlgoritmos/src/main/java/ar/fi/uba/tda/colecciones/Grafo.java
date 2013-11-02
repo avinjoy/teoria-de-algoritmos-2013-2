@@ -164,24 +164,13 @@ public class Grafo<T> {
 		return;
 	}
 
-	public void encontrarCiclos(ListaEnlazada<Vertice<T>> vertices){
-		encontrarCiclosWrapper(vertices);
-		cargarCiclos();
-	}
-	
-	
 	/**
 	 * Encuentra los ciclos en el grafo.
 	 * Utilizado para determinar sobre que vertices crear los arcos para
 	 * la robustez.
 	 */
 	
-	private void encontrarCiclosWrapper(ListaEnlazada<Vertice<T>> vertices) {
-
-		Iterator<Vertice<T>> iterador = vertices.iterador();
-
-		while (iterador.hasNext()) {
-			Vertice<T> vert = iterador.next();
+	public void encontrarCiclos(Vertice<T> vert) {
 
 		if (!vert.isVisitado()) {
 			vert.setVisitado(true);
@@ -198,7 +187,7 @@ public class Grafo<T> {
 				Vertice<T> vertAdyacente = iterAdyacente.next();
 
 				if (!vertAdyacente.isVisitado()) {
-					encontrarCiclosWrapper(vert.getAdyacentes());
+					encontrarCiclos(vertAdyacente);
 					vert.setLowLink(Math.min(vert.getLowLink(),
 							vertAdyacente.getLowLink()));
 				} else if (visitados.contains(vertAdyacente)) {
@@ -207,26 +196,28 @@ public class Grafo<T> {
 				}
 			}
 		}
-		}
-		return;
-	}
 
-	private void cargarCiclos(){
-				Vertice<T> verticeAux=visitados.get(0);
+		if (vert.getLowLink() == vert.getIndex()) { // Es el primero volviendo de la recursion
+			int count =0;
+			Vertice <T> verticeAux=vert;
+			while (count < visitados.size()) {
 				for (Vertice<T> ver : visitados) {
 					if (ver.getLowLink() == verticeAux.getIndex()
 							|| ver.getIndex() == verticeAux.getIndex()) {
 						subset.agregar(ver);
 					} else {
-						verticeAux=ver;
-						if (subset.tamanio() > 2)
-							ciclosGrafo.agregar(subset);
+						verticeAux = ver;
+						ciclosGrafo.agregar(subset);
 						subset=new ListaEnlazada<Vertice<T>>();
 						subset.agregar(ver);
 					}
+					count++;
 				}
-				if (subset.tamanio() > 2)
-					ciclosGrafo.agregar(subset);
+				ciclosGrafo.agregar(subset);
 
 			}
+			return;
+		}
+	}
+
 }

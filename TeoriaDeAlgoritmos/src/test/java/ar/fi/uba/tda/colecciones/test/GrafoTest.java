@@ -119,7 +119,7 @@ public class GrafoTest {
 	@Test
 	public void encontrarCiclosTest() {
 		crearGrafoEnunciado();
-		grafo.encontrarCiclos(this.grafo.getVertices());
+		grafo.encontrarCiclos(this.grafo.getVertices().primero());
 		assertThat("Hay 8 vertices", grafo.getCantidadDeNodosGrafo(), is(8));
 		assertThat("Hay 2 ciclos en el grafo", grafo.getCiclosGrafo().tamanio(), is(2));
 		assertThat("El primer ciclo es de 4 ", grafo.getCiclosGrafo().primero().tamanio(), is(4));
@@ -129,9 +129,9 @@ public class GrafoTest {
 	@Test
 	public void encontrarCiclosEnGrafoAciclicoTest() {
 		crearGrafoAciclico();
-		grafo.encontrarCiclos(this.grafo.getVertices());
+		grafo.encontrarCiclos(this.grafo.getVertices().primero());
 		assertThat("Hay 8 vertices", grafo.getCantidadDeNodosGrafo(), is(7));
-		assertThat("Hay 0 ciclos en el grafo", grafo.getCiclosGrafo().tamanio(), is((0)));
+		assertThat("Hay 4 ciclos en el grafo", grafo.getCiclosGrafo().tamanio(), is((grafo.getCantidadDeNodosGrafo()+1)/2));
 	}
 
 	private void crearGrafoEnunciado() {
