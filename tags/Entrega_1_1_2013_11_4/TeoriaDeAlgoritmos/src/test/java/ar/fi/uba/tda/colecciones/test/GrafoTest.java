@@ -4,6 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import ar.fi.uba.tda.colecciones.Grafo;
@@ -143,6 +144,21 @@ public class GrafoTest {
 		assertThat("el grado del vértice B", verticeB.getGradoVertice(), is(1));
 		
 	}
+	
+	@Test
+	@Ignore
+	public void elGrafoDelEnunciadoModificadoTiene2Ciclos() {
+		
+		crearGrafoEnunciado();
+		grafo.agregarArco(verticeB, verticeF);
+		grafo.agregarArco(verticeC, verticeG);
+		grafo.encontrarCiclos(this.grafo.getVertices());
+		assertThat("Hay 8 vertices", grafo.getCantidadDeNodosGrafo(), is(8));
+		assertThat("Hay 2 ciclos en el grafo", grafo.getCiclosGrafo().tamanio(), is(2));
+		assertThat("El primer ciclo es de 4 ", grafo.getCiclosGrafo().primero().tamanio(), is(4));
+		assertThat("El segundo ciclo es de 4 ", grafo.getCiclosGrafo().ultimo().tamanio(), is(4));
+	}
+	
 	private void crearGrafoEnunciado() {
 		verticeA = new Vertice<String>("A");
 		verticeB = new Vertice<String>("B");
