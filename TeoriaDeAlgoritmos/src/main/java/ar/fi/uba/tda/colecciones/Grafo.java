@@ -112,8 +112,13 @@ public class Grafo<T> {
 			fin = finEnGrafo;
 		}
 
-		inicio.getAdyacentes().agregar(fin);
-		fin.getAdyacentes().agregar(inicio);
+		if (!inicio.getAdyacentes().contiene(fin)) {
+			inicio.getAdyacentes().agregar(fin);
+		}
+		
+		if (!fin.getAdyacentes().contiene(inicio)) {
+			fin.getAdyacentes().agregar(inicio);
+		}
 
 		this.agregarVertice(inicio);
 		this.agregarVertice(fin);
