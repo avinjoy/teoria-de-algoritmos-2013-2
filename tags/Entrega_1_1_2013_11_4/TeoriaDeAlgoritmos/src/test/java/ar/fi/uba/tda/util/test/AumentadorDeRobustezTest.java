@@ -190,52 +190,7 @@ public class AumentadorDeRobustezTest {
 	
 	@Test
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void siRecibeDosGruposDeDosNodosYRobustez1AgregaUnaArista() {
-		
-		Grafo<String> grafo = new Grafo<String>();
-		Vertice<String> verticeA = new Vertice<String>("A");
-		Vertice<String> verticeB = new Vertice<String>("B");
-		Vertice<String> verticeC = new Vertice<String>("C");
-		Vertice<String> verticeD = new Vertice<String>("D");
-		
-		grafo.agregarVertice(verticeA);
-		grafo.agregarVertice(verticeB);
-		grafo.agregarVertice(verticeC);
-		grafo.agregarVertice(verticeD);
-		
-		grafo.agregarArco(verticeA, verticeB);
-		grafo.agregarArco(verticeC, verticeD);
-		
-		AumentadorDeRobustez aumentador = new AumentadorDeRobustez(grafo);
-		
-		ListaEnlazada<ListaEnlazada<Vertice>> ciclos = new ListaEnlazada<ListaEnlazada<Vertice>>();
-		
-		ListaEnlazada<Vertice> primerCiclo = new ListaEnlazada<Vertice>();
-		primerCiclo.agregar(verticeA);
-		primerCiclo.agregar(verticeB);
-		
-		ListaEnlazada<Vertice> segundoCiclo = new ListaEnlazada<Vertice>();
-		segundoCiclo.agregar(verticeC);
-		segundoCiclo.agregar(verticeD);
-		
-		ciclos.agregar(primerCiclo);
-		ciclos.agregar(segundoCiclo);
-		
-		int robustez = 1;
-		
-		aumentador.aumentar(ciclos, robustez);
-		
-		ListaEnlazada<Arista> aristasAgregadas = aumentador.getAristasAgregadas();
-		
-		MatcherAssert.assertThat("la cantidad de aristas agregadas", aristasAgregadas.tamanio(), Matchers.is(1));
-		MatcherAssert.assertThat("el origen de la primera arista", (Vertice<String>) aristasAgregadas.primero().getOrigen(), Matchers.is(verticeA));
-		MatcherAssert.assertThat("el destino de la primera arista", (Vertice<String>) aristasAgregadas.primero().getDestino(), Matchers.is(verticeC));
-		
-	}
-	
-	@Test
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void siRecibeTresGruposDeDosNodosYRobustez1AgregaDosAristas() {
+	public void siRecibeTresGruposDeDosNodosYRobustez2AgregaDosAristas() {
 		
 		Grafo<String> grafo = new Grafo<String>();
 		Vertice<String> verticeA = new Vertice<String>("A");
@@ -276,7 +231,7 @@ public class AumentadorDeRobustezTest {
 		ciclos.agregar(segundoCiclo);
 		ciclos.agregar(tercerCiclo);
 		
-		int robustez = 1;
+		int robustez = 2;
 		
 		aumentador.aumentar(ciclos, robustez);
 		
@@ -286,8 +241,8 @@ public class AumentadorDeRobustezTest {
 		MatcherAssert.assertThat("el origen de la primera arista", (Vertice<String>) aristasAgregadas.primero().getOrigen(), Matchers.is(verticeA));
 		MatcherAssert.assertThat("el destino de la primera arista", (Vertice<String>) aristasAgregadas.primero().getDestino(), Matchers.is(verticeC));
 		
-		MatcherAssert.assertThat("el origen de la segudna arista", (Vertice<String>) aristasAgregadas.ultimo().getOrigen(), Matchers.is(verticeC));
-		MatcherAssert.assertThat("el destino de la segunda arista", (Vertice<String>) aristasAgregadas.ultimo().getDestino(), Matchers.is(verticeE));
+		MatcherAssert.assertThat("el origen de la segudna arista", (Vertice<String>) aristasAgregadas.ultimo().getOrigen(), Matchers.is(verticeB));
+		MatcherAssert.assertThat("el destino de la segunda arista", (Vertice<String>) aristasAgregadas.ultimo().getDestino(), Matchers.is(verticeD));
 		
 	}
 	
@@ -318,5 +273,67 @@ public class AumentadorDeRobustezTest {
 		ListaEnlazada<Arista> aristasAgregadas = aumentador.getAristasAgregadas();
 		
 		MatcherAssert.assertThat("la cantidad de aristas agregadas", aristasAgregadas.tamanio(), Matchers.is(0));
+	}
+	
+	@Test
+	@SuppressWarnings({ "rawtypes" })
+	public void alGrafoDelEnunciadoConRobustez3LeAgrega3Aristas() {
+		
+		Grafo<String> grafo = new Grafo<String>();
+		Vertice<String> verticeA = new Vertice<String>("A");
+		Vertice<String> verticeB = new Vertice<String>("B");
+		Vertice<String> verticeC = new Vertice<String>("C");
+		Vertice<String> verticeD = new Vertice<String>("D");
+		Vertice<String> verticeE = new Vertice<String>("E");
+		Vertice<String> verticeF = new Vertice<String>("F");
+		Vertice<String> verticeG = new Vertice<String>("G");
+		Vertice<String> verticeH = new Vertice<String>("H");
+		
+		grafo.agregarVertice(verticeA);
+		grafo.agregarVertice(verticeB);
+		grafo.agregarVertice(verticeC);
+		grafo.agregarVertice(verticeD);
+		grafo.agregarVertice(verticeE);
+		grafo.agregarVertice(verticeF);
+		grafo.agregarVertice(verticeG);
+		grafo.agregarVertice(verticeH);
+		
+		grafo.agregarArco(verticeA, verticeB);
+		grafo.agregarArco(verticeA, verticeC);
+		grafo.agregarArco(verticeB, verticeD);
+		grafo.agregarArco(verticeC, verticeD);
+		grafo.agregarArco(verticeD, verticeE);
+		grafo.agregarArco(verticeE, verticeF);
+		grafo.agregarArco(verticeE, verticeG);
+		grafo.agregarArco(verticeF, verticeH);
+		grafo.agregarArco(verticeG, verticeH);
+		
+		AumentadorDeRobustez aumentador = new AumentadorDeRobustez(grafo);
+		
+		ListaEnlazada<ListaEnlazada<Vertice>> ciclos = new ListaEnlazada<ListaEnlazada<Vertice>>();
+		
+		ListaEnlazada<Vertice> primerCiclo = new ListaEnlazada<Vertice>();
+		primerCiclo.agregar(verticeA);
+		primerCiclo.agregar(verticeB);
+		primerCiclo.agregar(verticeC);
+		primerCiclo.agregar(verticeD);
+		
+		ListaEnlazada<Vertice> segundoCiclo = new ListaEnlazada<Vertice>();
+		segundoCiclo.agregar(verticeE);
+		segundoCiclo.agregar(verticeF);
+		segundoCiclo.agregar(verticeG);
+		segundoCiclo.agregar(verticeH);
+		
+		ciclos.agregar(primerCiclo);
+		ciclos.agregar(segundoCiclo);
+		
+		int robustez = 3;
+		
+		aumentador.aumentar(ciclos, robustez);
+		
+		ListaEnlazada<Arista> aristasAgregadas = aumentador.getAristasAgregadas();
+		
+		MatcherAssert.assertThat("la cantidad de aristas agregadas", aristasAgregadas.tamanio(), Matchers.is(3));
+		
 	}
 }

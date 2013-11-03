@@ -39,7 +39,7 @@ public class AumentadorDeRobustez {
 	 * @param ciclos
 	 * @param robustez
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void aumentar(ListaEnlazada<ListaEnlazada<Vertice>> ciclos, int robustez) {
 
 		if (laRobustezEsCompatibleConElGrafo(robustez)) {
@@ -53,24 +53,42 @@ public class AumentadorDeRobustez {
 				ListaEnlazada<Vertice> siguienteCiclo = obtenerSiguienteCiclo(ciclos, listaDeCiclos);
 				
 				Iterator<Vertice> verticesPrimerCiclo = ciclo.iterador();
-				Iterator<Vertice> verticesSegundoCiclo = siguienteCiclo.iterador();
 				
 				int robustezAlcanzada = 0;
 				
-				while (robustezAlcanzada < robustez && verticesPrimerCiclo.hasNext() && verticesSegundoCiclo.hasNext()) {
+				while (verticesPrimerCiclo.hasNext()) {
 					
 					Vertice verticeCicloUno = verticesPrimerCiclo.next();
-					Vertice verticeCicloDos = verticesSegundoCiclo.next();
+					Iterator<Vertice> verticesSegundoCiclo = siguienteCiclo.iterador();
 					
-					if (!verticeCicloUno.getAdyacentes().contiene(verticeCicloDos) && !verticeCicloUno.equals(verticeCicloDos)) {
-						aristasAgregadas.agregar(new Arista(verticeCicloUno, verticeCicloDos));
+					while (verticesSegundoCiclo.hasNext()) {
+						
+						Vertice verticeCicloDos = verticesSegundoCiclo.next();
+						
+						if (puedenEnlazarse(verticeCicloUno, verticeCicloDos, robustez)) {
+							
+							grafo.agregarArco(verticeCicloUno, verticeCicloDos);
+							aristasAgregadas.agregar(new Arista(verticeCicloUno, verticeCicloDos));
+						}
+						
+						robustezAlcanzada++;
 					}
-					
-					robustezAlcanzada++;
 				}
 				
 			}
 		}
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private boolean puedenEnlazarse(Vertice verticeoUno, Vertice verticeDos, int robustez) {
+		
+		int gradoVerticeUno = verticeoUno.getGradoVertice();
+		int gradoVerticeDos = verticeDos.getGradoVertice();
+		
+		return gradoVerticeUno < robustez && 
+		       gradoVerticeDos < robustez && 
+			   !verticeoUno.getAdyacentes().contiene(verticeDos) && 
+			   !verticeoUno.equals(verticeDos);
 	}
 
 	private boolean laRobustezEsCompatibleConElGrafo(int robustez) {
