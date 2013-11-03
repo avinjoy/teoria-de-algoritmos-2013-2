@@ -133,6 +133,16 @@ public class GrafoTest {
 		assertThat("Hay 0 ciclos en el grafo", grafo.getCiclosGrafo().tamanio(), is((0)));
 	}
 
+	@Test
+	public void elArcoABEsElMismoQueElBA() {
+		
+		grafo.agregarArco(verticeA, verticeB);
+		grafo.agregarArco(verticeB, verticeA);
+		
+		assertThat("el grado del vértice A", verticeA.getGradoVertice(), is(1));
+		assertThat("el grado del vértice B", verticeB.getGradoVertice(), is(1));
+		
+	}
 	private void crearGrafoEnunciado() {
 		verticeA = new Vertice<String>("A");
 		verticeB = new Vertice<String>("B");
