@@ -28,9 +28,9 @@ public class AumentadorDeRobustez {
 	 * tantos vértices como la robustez pedida, de esta forma aumentamos la robustez entre cada ciclo, al finalizar
 	 * habremos aumentado la robustez total del grafo.
 	 * 
-	 * Dado que recorremos todos los ciclos, y para cada ciclo todos los vértices que lo componen y que un vértice esta
-	 * en un único ciclo el costo de esta operación es O(|V|) (este algoritmo recorre dos veces el primer ciclo,
-	 * pero dado que es un número relativamente pequeño comparado con el total es despreciable).
+	 * Dado que recorremos todos los ciclos, y para cada ciclo todos los vértices que lo componen, que un vértice esta
+	 * en un único ciclo y que lo emparejamos con cada vértice del ciclo siguiente, nos encontramos con que visitamos cada
+	 * vértice 2 veces por lo que el costo de esta operación es O(2|V|) = O(|V|).
 	 *  
 	 * (*) A los efectos de este algoritmo consideramos la lista de ciclos como una lista circular por lo que 
 	 * "ciclo siguiente" puede ser el ciclo que le sigue al actual o el primero en caso de estar en el 
