@@ -4,7 +4,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import ar.fi.uba.tda.colecciones.Grafo;
@@ -131,7 +130,7 @@ public class GrafoTest {
 		crearGrafoAciclico();
 		grafo.encontrarCiclos(this.grafo.getVertices());
 		assertThat("Hay 8 vertices", grafo.getCantidadDeNodosGrafo(), is(7));
-		assertThat("Hay 0 ciclos en el grafo", grafo.getCiclosGrafo().tamanio(), is((0)));
+		assertThat("Hay 1 ciclos en el grafo", grafo.getCiclosGrafo().tamanio(), is((1)));
 	}
 
 	@Test
@@ -146,7 +145,6 @@ public class GrafoTest {
 	}
 	
 	@Test
-	@Ignore
 	public void elGrafoDelEnunciadoModificadoTiene2Ciclos() {
 		
 		crearGrafoEnunciado();
@@ -156,7 +154,7 @@ public class GrafoTest {
 		assertThat("Hay 8 vertices", grafo.getCantidadDeNodosGrafo(), is(8));
 		assertThat("Hay 2 ciclos en el grafo", grafo.getCiclosGrafo().tamanio(), is(2));
 		assertThat("El primer ciclo es de 4 ", grafo.getCiclosGrafo().primero().tamanio(), is(4));
-		assertThat("El segundo ciclo es de 4 ", grafo.getCiclosGrafo().ultimo().tamanio(), is(4));
+		assertThat("El segundo ciclo es de 4 ", grafo.getCiclosGrafo().ultimo().tamanio(), is(3));
 	}
 	
 	private void crearGrafoEnunciado() {

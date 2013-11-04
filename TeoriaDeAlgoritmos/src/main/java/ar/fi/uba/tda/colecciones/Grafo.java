@@ -208,7 +208,7 @@ public class Grafo<T> {
 	 * la robustez.
 	 * 
 	 * El método para encontrar ciclos en los grafos se basa en el algoritmo de
-		Tarjan (aunque no es el mismo) (http://en.wikipedia.org/wiki/Tarjan
+		Tarjan (aunque no es estrictamente el mismo) (http://en.wikipedia.org/wiki/Tarjan
 		%27s_strongly_connected_components_algorithm)
 		La idea básica de este algoritmo es la siguiente: Se parte de algún nodo del grafo y
 		se realiza un recorrido DFS, marcándolo con un índice y para mantener una
@@ -219,9 +219,7 @@ public class Grafo<T> {
 		índice de visita y un lowLink que indica desde que rama se llamó.
 
 		En esta implementación el algoritmo se llama, como máximo 2 veces para cada
-		vértice por lo que el orden sería O (2|V|), pero al final nos encontramos con la parte
-		que carga los diferentes ciclos encontrados la cual itera utilizando dos ciclos por
-		todos los vétices, siendo su peor caso O (|V|x|V|).
+		vértice por lo que el orden sería O (2|V|) que es equivalente a O(|V|).
 	 */
 	private void encontrarCiclosWrapper(ListaEnlazada<Vertice<T>> vertices) {
 
@@ -230,51 +228,62 @@ public class Grafo<T> {
 		while (iterador.hasNext()) {
 			Vertice<T> vert = iterador.next();
 
-		if (!vert.isVisitado()) {
-			vert.setVisitado(true);
-			vert.setIndex(index);
-			vert.setLowLink(index);
-			index++;
-			visitados.add(vert);
-			// System.out.println(vert);
-
-			Iterator<Vertice<T>> iterAdyacente = vert.getAdyacentes()
-					.iterador();
-
-			while (iterAdyacente.hasNext()) {
-				Vertice<T> vertAdyacente = iterAdyacente.next();
-
-				if (!vertAdyacente.isVisitado()) {
-					encontrarCiclosWrapper(vert.getAdyacentes());
-					vert.setLowLink(Math.min(vert.getLowLink(),
-							vertAdyacente.getLowLink()));
-				} else if (visitados.contains(vertAdyacente)) {
-					vert.setLowLink(Math.min(vert.getLowLink(),
-							vertAdyacente.getIndex()));
+			if (!vert.isVisitado()) {
+				vert.setVisitado(true);
+				vert.setIndex(index);
+				vert.setLowLink(index);
+				index++;
+				visitados.add(vert);
+	
+				Iterator<Vertice<T>> iterAdyacente = vert.getAdyacentes()
+						.iterador();
+	
+				while (iterAdyacente.hasNext()) {
+					Vertice<T> vertAdyacente = iterAdyacente.next();
+	
+					if (!vertAdyacente.isVisitado()) {
+						encontrarCiclosWrapper(vert.getAdyacentes());
+						vert.setLowLink(Math.min(vert.getLowLink(),
+								vertAdyacente.getLowLink()));
+					} else if (visitados.contains(vertAdyacente)) {
+						vert.setLowLink(Math.min(vert.getLowLink(),
+								vertAdyacente.getIndex()));
+					}
 				}
 			}
-		}
 		}
 		return;
 	}
 
 	private void cargarCiclos(){
-				Vertice<T> verticeAux=visitados.get(0);
-				for (Vertice<T> ver : visitados) {
-					if (ver.getLowLink() == verticeAux.getIndex()
-							|| ver.getIndex() == verticeAux.getIndex()) {
-						subset.agregar(ver);
-					} else {
-						verticeAux=ver;
-						if (subset.tamanio() > 2)
-							ciclosGrafo.agregar(subset);
-						subset=new ListaEnlazada<Vertice<T>>();
-						subset.agregar(ver);
-					}
-				}
-				if (subset.tamanio() > 2)
+		
+		ListaEnlazada<Vertice<T>> noUsados = new ListaEnlazada<Vertice<T>>();
+		
+		Vertice<T> verticeAux=visitados.get(0);
+		for (Vertice<T> ver : visitados) {
+			if (ver.getLowLink() == verticeAux.getIndex()
+					|| ver.getIndex() == verticeAux.getIndex()) {
+				subset.agregar(ver);
+			} else {
+				verticeAux=ver;
+				if (subset.tamanio() > 2) {
 					ciclosGrafo.agregar(subset);
-
+				} else {
+					noUsados.agregar(ver);
+				}
+				subset=new ListaEnlazada<Vertice<T>>();
+				subset.agregar(ver);
 			}
+		}
+		
+		if (subset.tamanio() > 2) {
+			ciclosGrafo.agregar(subset);
+		}
+		
+		if (noUsados.tamanio() > 0) {
+			ciclosGrafo.agregar(noUsados);
+		}
+
+	}
 }
 
