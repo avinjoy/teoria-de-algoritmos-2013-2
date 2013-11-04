@@ -16,8 +16,7 @@ public class DistanciaEdicionTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		distancia = new DistanciaEdicion("Algoritmo", "Altruista",1,1,1,1,1,1);
-		
+	
 	}
 
 	@After
@@ -27,12 +26,28 @@ public class DistanciaEdicionTest {
 	
 	@Test
 	public void laDistanciaNoEsNulaTest() {
+		distancia = new DistanciaEdicion("Algoritmo", "Altruista",1,1,1,1,1,1);
 		assertThat("La distancia de edicion no es nula ", distancia.calcularDistanciaEdicion(), notNullValue());
 	}
 	
 	@Test
 	public void laDistanciaEsUnValorTest() {
-		assertThat("La distancia de edicion es ", distancia.calcularDistanciaEdicion(), is(9));
+		distancia = new DistanciaEdicion("Algoritmo", "Altruista",40,1,40,1,1,1);
+		assertThat("La distancia de edicion es ", distancia.calcularDistanciaEdicion(), is(12));
+	}
+	
+	@Test
+	public void laDistanciaDevuelveElStringFinal() {
+		distancia = new DistanciaEdicion("Algoritmo", "Altruista",40,1,40,1,1,1);
+		distancia.calcularDistanciaEdicion();
+		assertThat("La palabra obtenida es: ", distancia.getResultadoAsString(), is(distancia.getPalabraFin()));
 	}
 
+	@Test
+	public void adnTest() {
+
+		//copyCost, replaceCost, insertCost, switchCost, endCost, eraseCost
+		distancia = new DistanciaEdicion("G ATTCG GCAT", "CAAT GTGAATC",40,-1,40,0,0,0);
+		assertThat("La distancia de edicion es ", distancia.calcularDistanciaEdicion(), is(10));
+	}
 }
