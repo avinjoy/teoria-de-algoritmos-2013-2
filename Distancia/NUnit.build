@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="UNIT" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+ 
+    <PropertyGroup>			
+		<TestResult>Log\Test-Result.xml</TestResult>
+		<TestPath>Test\bin\Debug\Test.dll</TestPath>		
+		<NUnitConsole>"NUnit\bin\nunit-console.exe"</NUnitConsole>
+	
+	</PropertyGroup>
+	
+	<Target Name="UNIT">
+		
+		<CallTarget Targets="CompileNunit" ContinueOnError="true"/>
+		
+		<!--Ejecuta las pruebas unitarias.-->
+		<Message Text="*** NUNIT ***" Importance="high"></Message>
+		<CallTarget Targets="NUnit" ContinueOnError="true"/>
+
+		
+	</Target>
+	
+	<Target Name="CompileNunit">
+		<MSBuild
+			Projects=".\Distancia.sln"
+			Properties="Configuration=Debug"
+			Targets="Rebuild"
+			ContinueOnError="false"
+			StopOnFirstFailure="true"/>
+	</Target>
+	
+	<!--NUNIT-->
+	<!--<Target Name="NUnit" DependsOnTargets="Compile">-->
+	
+	<Target Name="NUnit">
+	
+		<Exec WorkingDirectory ="." 
+					Command="$(NUnitConsole) $(TestPath) /result:$(TestResult)"></Exec>
+	</Target>
+
+</Project>
