@@ -85,19 +85,6 @@ namespace Robustez
         {
             int[] vRobustez = new int[Grafo.CiclosGrafo.Tamanio+1];
 
-            /*
-            ListaEnlazada<Arista<string>> aristas = Aumentador.GetAristasAgregadas();
-            ListaEnlazada<Arista<string>>.IteradorListaEnlazada itAristas = aristas.Iterador;
-
-            while (itAristas.HasNext())
-            {
-                Arista<string> arista = itAristas.Next();
-
-                vRobustez[arista.Origen.NroComponenteConexa]++;
-                vRobustez[arista.Destino.NroComponenteConexa]++;
-            }
-            */
-
             Grafo.Vertices.ResetIterator();
             ListaEnlazada<Vertice<string>>.IteradorListaEnlazada itVertices = Grafo.Vertices.Iterador;
             while (itVertices.HasNext())
@@ -120,11 +107,9 @@ namespace Robustez
 
             for (int i = 1; i <= Grafo.CiclosGrafo.Tamanio; i++)
             {
-                while (vRobustez[i] <= robustezDeseada) 
+                while (vRobustez[i] < robustezDeseada) 
                 {
-                    Arista<string> arista = Grafo.obtenerVertice(i);
-                    //Vertice<string> origen = Grafo.obtenerVertice(i, "origen");
-                    //Vertice<string> dest = Grafo.obtenerVertice(i, "destino");
+                    Arista<string> arista = Grafo.obtenerArista(i);
 
                     arista.Origen.Adyacentes.Agregar(arista.Destino);
                     arista.Destino.Adyacentes.Agregar(arista.Origen);
