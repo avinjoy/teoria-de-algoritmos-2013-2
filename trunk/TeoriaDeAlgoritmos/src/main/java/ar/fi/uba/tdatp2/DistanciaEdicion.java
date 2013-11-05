@@ -1,5 +1,8 @@
 package ar.fi.uba.tdatp2;
 
+import java.util.HashMap;
+
+
 public class DistanciaEdicion {
 
 	private int[][] distance;
@@ -15,69 +18,20 @@ public class DistanciaEdicion {
 	private int i = 0;
 	private int j = 0;
 
-	public DistanciaEdicion(String palabraInicio, String palabraFin,
-			int copyCost, int replaceCost, int insertCost, int switchCost,
-			int endCost, int eraseCost) {
+	public DistanciaEdicion(String palabraInicio, String palabraFin, HashMap<String, Integer> costos) {
 		this.distance = new int[palabraInicio.length()][palabraFin.length()];
 		this.palabraInicio = palabraInicio;
 		this.palabraFin = palabraFin;
-		this.copyCost = copyCost;
-		this.replaceCost = replaceCost;
-		this.insertCost = insertCost;
-		this.switchCost = switchCost;
-		this.endCost = endCost;
-		this.eraseCost = eraseCost;
+		this.copyCost = costos.get("Copiar");
+		this.replaceCost = costos.get("Reemplazar");
+		this.insertCost = costos.get("Insertar");
+		this.switchCost = costos.get("Intercambiar");
+		this.endCost = costos.get("Terminar");
+		this.eraseCost = costos.get("Borrar");
 		this.resultado = new char[(palabraInicio.length() < palabraFin.length()) ? palabraFin
 				.length() : palabraInicio.length()];
 	}
 
-	public int getCopyCost() {
-		return copyCost;
-	}
-
-	public void setCopyCost(int copyCost) {
-		this.copyCost = copyCost;
-	}
-
-	public int getReplaceCost() {
-		return replaceCost;
-	}
-
-	public void setReplaceCost(int replaceCost) {
-		this.replaceCost = replaceCost;
-	}
-
-	public int getInsertCost() {
-		return insertCost;
-	}
-
-	public void setInsertCost(int insertCost) {
-		this.insertCost = insertCost;
-	}
-
-	public int getSwitchCost() {
-		return switchCost;
-	}
-
-	public void setSwitchCost(int switchCost) {
-		this.switchCost = switchCost;
-	}
-
-	public int getEndCost() {
-		return endCost;
-	}
-
-	public void setEndCost(int endCost) {
-		this.endCost = endCost;
-	}
-
-	public int getEraseCost() {
-		return eraseCost;
-	}
-
-	public void setEraseCost(int eraseCost) {
-		this.eraseCost = eraseCost;
-	}
 
 	public int[][] getDistance() {
 		return distance;
