@@ -48,10 +48,10 @@ namespace TDATP2
                 _distancia[i, 0] = i * _eliminar.Costo;
             for (int j = 0; j <= _palabraFin.Length; j++)
                 _distancia[0, j] = j * _insertar.Costo;
-            for (int i = 1; i < _palabraInicio.Length; i++)
+            for (int i = 1; i <= _palabraInicio.Length; i++)
             {
                 int j;
-                for (j = 1; j < _palabraFin.Length; j++)
+                for (j = 1; j <= _palabraFin.Length; j++)
                 {
                     Operacion opAuxEliminar = new Operacion(_distancia[i - 1, j] + _eliminar.Costo, _eliminar.Id);
                     Operacion opAuxInsertar = new Operacion(_distancia[i, j - 1] + _insertar.Costo, _insertar.Id);
@@ -82,10 +82,10 @@ namespace TDATP2
                     _distancia[i, j] = opElegida.Costo;
 
                 }
-                //_distancia[i, j - 1] += _terminar.Costo;
+                _distancia[i, j - 1] += _terminar.Costo;
             }
 
-            return _distancia[_palabraInicio.Length - 1, _palabraFin.Length - 1];
+            return _distancia[_palabraInicio.Length, _palabraFin.Length];
         }
 
 
