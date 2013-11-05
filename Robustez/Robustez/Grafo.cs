@@ -208,41 +208,8 @@ namespace Robustez
             return Vertices.Contiene(verticeBuscado);
         }
 
-        /*
-        public Vertice<T> obtenerVertice(int i, string tipo)
-        {
-            if (tipo == "origen")
-            {
-                this.Vertices.ResetIterator();
-                ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iterV = this.Vertices.Iterador;
 
-                while (iterV.HasNext())
-                {
-                    Vertice<T> v = iterV.Next();
-                    if (v.NroComponenteConexa == i)
-                        return v;
-                }
-            }
-            else 
-            {
-                if (i == this.CiclosGrafo.Tamanio) i--;
-                else i++;
-
-                this.Vertices.ResetIterator();
-                ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iterV = this.Vertices.Iterador;
-                while (iterV.HasNext())
-                {
-                    Vertice<T> v = iterV.Next();
-                    if (v.NroComponenteConexa == i)
-                        return v;
-                }
-            }
-
-            return null;
-        }
-        */
-
-        internal Arista<T> obtenerVertice(int i)
+        public Arista<T> obtenerArista(int i)
         {
             this.Vertices.ResetIterator();
             ListaEnlazada<Vertice<T>>.IteradorListaEnlazada iterV = this.Vertices.Iterador;
