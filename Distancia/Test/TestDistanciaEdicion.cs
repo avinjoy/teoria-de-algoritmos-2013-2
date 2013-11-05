@@ -11,13 +11,53 @@ namespace Test
     {
        
         [Test]
-        public void TestObtenerDistanciaEdicionUno()
+        public void TestObtenerDistanciaEdicionEjemplo()
         {
-            String alicia = "ALICIA";
-            String escobas = "ESCOBAS";
+            const string palabraInicio = "ALGORITMO";
+            const string palabraFin = "ALTRUISTA";
 
-            DistanciaEdicion distanciaEdicion = new DistanciaEdicion(alicia, escobas, 1, 2, 3, 4, 5, 6);
-            Assert.AreEqual(21, distanciaEdicion.calcularDistanciaEdicion());
+            DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicio, palabraFin, 1, 2, 3, 4, 5, 6);
+
+            
+            Assert.AreEqual(20, distanciaEdicion.CalcularDistanciaEdicion());
+     
+        }
+
+        [Test]
+        public void TestObtenerDistanciaEdicionEjemplo2()
+        {
+            const string palabraInicio = "COSA";
+            const string palabraFin = "CASCO";
+
+            DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicio, palabraFin, 1, 2, 3, 4, 5, 6);
+
+
+            Assert.AreEqual(20, distanciaEdicion.CalcularDistanciaEdicion());
+
+        }
+        [Test]
+        public void TestObtenerDistanciaEdicionEjemplo3()
+        {
+            const string palabraInicio = "CASA";
+            const string palabraFin = "ACA";
+
+            DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicio, palabraFin, 1, 2, 3, 4, 5, 6);
+
+
+            Assert.AreEqual(20, distanciaEdicion.CalcularDistanciaEdicion());
+
+        }
+
+        [Test]
+        public void TestObtenerDistanciaEdicionEjemplo4()
+        {
+            const string palabraInicio = "JULIAN";
+            const string palabraFin = "NICOLAS";
+
+            DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicio, palabraFin, 1, 2, 3, 4, 5, 6);
+
+
+            Assert.AreEqual(20, distanciaEdicion.CalcularDistanciaEdicion());
 
         }
 
