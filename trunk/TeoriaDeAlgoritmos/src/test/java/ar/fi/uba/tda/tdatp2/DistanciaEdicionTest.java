@@ -20,21 +20,6 @@ public class DistanciaEdicionTest {
 	@Before
 	public void setUp() throws Exception {
 		costos = new HashMap<String, Integer>();
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
-
-	@Test
-	public void laDistanciaNoEsNulaTest() {
-		setCostos();
-		distancia = new DistanciaEdicion("Algoritmo", "Altruista", costos);
-		assertThat("La distancia de edicion no es nula ",
-				distancia.calcularDistanciaEdicion(), notNullValue());
-	}
-
-	private void setCostos() {
 		costos.put("Copiar", 40);
 		costos.put("Reemplazar", 1);
 		costos.put("Borrar", 1);
@@ -43,9 +28,19 @@ public class DistanciaEdicionTest {
 		costos.put("Terminar", 1);
 	}
 
+	@After
+	public void tearDown() throws Exception {
+	}
+
+	@Test
+	public void laDistanciaNoEsNulaTest() {
+		distancia = new DistanciaEdicion("Algoritmo", "Altruista", costos);
+		assertThat("La distancia de edicion no es nula ",
+				distancia.calcularDistanciaEdicion(), notNullValue());
+	}
+
 	@Test
 	public void laDistanciaEsUnValorTest() {
-		setCostos();
 		distancia = new DistanciaEdicion("Algoritmo", "Altruista", costos);
 		assertThat("La distancia de edicion es ",
 				distancia.calcularDistanciaEdicion(), is(2));
@@ -53,13 +48,28 @@ public class DistanciaEdicionTest {
 
 	@Test
 	public void laDistanciaDevuelveElStringFinal() {
-		setCostos();
 		distancia = new DistanciaEdicion("Algoritmo", "Altruista", costos);
 		distancia.calcularDistanciaEdicion();
 		assertThat("La palabra obtenida es: ",
 				distancia.getResultadoAsString(), is(distancia.getPalabraFin()));
 	}
+	
+	@Test
+	public void versionAlternativa() {
+		
+		distancia = new DistanciaEdicion("CA", "ABC", costos);
+		int distanciaEdicion = distancia.calcularDistanciaEdicion2();
+		assertThat("la distancia de edición", distanciaEdicion, is(3));
+	}
 
+	@Test
+	public void versionAlternativaConIntercambio() {
+		
+		distancia = new DistanciaEdicion("CA", "AC", costos);
+		int distanciaEdicion = distancia.calcularDistanciaEdicion2();
+		assertThat("la distancia de edición", distanciaEdicion, is(1));
+	}
+	
 	// @Test
 	// public void adnTest() {
 	//
