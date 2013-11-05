@@ -70,6 +70,14 @@ public class DistanciaEdicionTest {
 		assertThat("la distancia de edición", distanciaEdicion, is(1));
 	}
 	
+	@Test
+	public void versionAlternativaAlgoritmoAltruista() {
+		
+		distancia = new DistanciaEdicion("algoritmo", "altruista", costos);
+		int distanciaEdicion = distancia.calcularDistanciaEdicion2();
+		assertThat("la distancia de edición", distanciaEdicion, is(6));
+	}
+	
 	// @Test
 	// public void adnTest() {
 	//
