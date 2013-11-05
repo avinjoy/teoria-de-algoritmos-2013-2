@@ -7,303 +7,234 @@ namespace TDATP2
     public class DistanciaEdicion
     {
 
-        private int[,] distance;
-        private String palabraInicio;
-        private String palabraFin;
-        private char[] resultado;
-        private int copyCost;
-        private int replaceCost;
-        private int insertCost;
-        private int switchCost;
-        private int endCost;
-        private int eraseCost;
-        private int i = 0;
-        private int j = 0;
+        private readonly int[,] _distancia;
+        private readonly String _palabraInicio;
+        private readonly String _palabraFin;
+        private readonly char[] _resultado;
+        private Operacion _copiar;
+        private Operacion _reemplazar;
+        private Operacion _insertar;
+        private Operacion _intercambiar;
+        private Operacion _terminar;
+        private Operacion _eliminar;
+        private int _i;
+        private int _j;
 
-        public DistanciaEdicion(String palabraInicio, String palabraFin,
-                int copyCost, int replaceCost, int insertCost, int switchCost,
-                int endCost, int eraseCost) {
-		this.distance = new int[palabraInicio.Length,palabraFin.Length];
-		this.palabraInicio = palabraInicio;
-		this.palabraFin = palabraFin;
-		this.copyCost = copyCost;
-		this.replaceCost = replaceCost;
-		this.insertCost = insertCost;
-		this.switchCost = switchCost;
-		this.endCost = endCost;
-		this.eraseCost = eraseCost;
-		this.resultado = new char[(palabraInicio.Length < palabraFin.Length) ? palabraFin
-				.Length : palabraInicio.Length];
-	}
-
-        public int getCopyCost()
+        public DistanciaEdicion(string palabraInicio, string palabraFin,
+                int costoCopiar, int costoReemplazar, int costoIntercambiar, int costoEliminar, int costoInsertar,
+                int costoTerminar)
         {
-            return copyCost;
+            _distancia = new int[palabraInicio.Length + 1, palabraFin.Length + 1];
+            _palabraInicio = palabraInicio;
+            _palabraFin = palabraFin;
+            _copiar = new Operacion(costoCopiar, "1");
+            _reemplazar = new Operacion(costoReemplazar, "2");
+            _intercambiar = new Operacion(costoIntercambiar, "3");
+            _eliminar = new Operacion(costoEliminar, "4");
+            _insertar = new Operacion(costoInsertar, "5");
+            _terminar = new Operacion(costoTerminar, "6");
+            _i = 0;
+            _j = 0;
+
+            _resultado = new char[(palabraInicio.Length < palabraFin.Length) ? palabraFin
+                    .Length : palabraInicio.Length];
         }
 
-        public void setCopyCost(int copyCost)
-        {
-            this.copyCost = copyCost;
-        }
 
-        public int getReplaceCost()
+        public int CalcularDistanciaEdicion()
         {
-            return replaceCost;
-        }
 
-        public void setReplaceCost(int replaceCost)
-        {
-            this.replaceCost = replaceCost;
-        }
-
-        public int getInsertCost()
-        {
-            return insertCost;
-        }
-
-        public void setInsertCost(int insertCost)
-        {
-            this.insertCost = insertCost;
-        }
-
-        public int getSwitchCost()
-        {
-            return switchCost;
-        }
-
-        public void setSwitchCost(int switchCost)
-        {
-            this.switchCost = switchCost;
-        }
-
-        public int getEndCost()
-        {
-            return endCost;
-        }
-
-        public void setEndCost(int endCost)
-        {
-            this.endCost = endCost;
-        }
-
-        public int getEraseCost()
-        {
-            return eraseCost;
-        }
-
-        public void setEraseCost(int eraseCost)
-        {
-            this.eraseCost = eraseCost;
-        }
-
-        public int[,] getDistance()
-        {
-            return distance;
-        }
-
-        public void setDistance(int[,] distance)
-        {
-            this.distance = distance;
-        }
-
-        public String getPalabraInicio()
-        {
-            return palabraInicio;
-        }
-
-        public void setPalabraInicio(String palabraInicio)
-        {
-            this.palabraInicio = palabraInicio;
-        }
-
-        public String getPalabraFin()
-        {
-            return palabraFin;
-        }
-
-        public void setPalabraFin(String palabraFin)
-        {
-            this.palabraFin = palabraFin;
-        }
-
-        public char[] getResultado()
-        {
-            return resultado;
-        }
-
-        public String getResultadoAsString()
-        {
-            return new String(resultado);
-
-        }
-
-        public void setResultado(char[] resultado)
-        {
-            this.resultado = resultado;
-        }
-
-        public int calcularDistanciaEdicion()
-        {
-            // Casos base (si no viene la palabra inicial o la palabra final)
-            if (palabraInicio.Length == 0)
+            for (int i = 0; i <= _palabraInicio.Length; i++)
+                _distancia[i, 0] = i * _eliminar.Costo;
+            for (int j = 0; j <= _palabraFin.Length; j++)
+                _distancia[0, j] = j * _insertar.Costo;
+            for (int i = 1; i < _palabraInicio.Length; i++)
             {
-                resultado = palabraFin.ToCharArray();
-                return palabraFin.Length * insertCost; // Costo total de inserción
-                // de cada letra de la
-                // palabra final
-            }
-            if (palabraFin.Length == 0)
-            {
-                resultado = "".ToCharArray();
-                return palabraInicio.Length * eraseCost; // Costo total de
-                // borrado de cada
-                // letra de la palabra
-                // inicial
-            }
-
-            // si son distintas hay que ver el min entre reemplazar, borrar y copiar
-            // para el primer caracter
-            if (palabraInicio[0] != palabraFin[0])
-            {
-                distance[0,0] = Math.Min(replaceCost, eraseCost + insertCost);
-            }
-
-            // Inicializo la columna de la palabra final con todas las minimas
-            // distancias posibles
-            for (int i = 1; i < palabraInicio.Length; i++)
-            {
-
-                int costoBorrar = distance[i - 1,0] + eraseCost;
-                int costoInsertar = (i + 1) * eraseCost + insertCost;
-                int costoRestoOp = (i * eraseCost)
-                        + (palabraInicio[i] == palabraFin[0] ? 0
-                                : (copyCost <= replaceCost) ? copyCost
-                                        : replaceCost);
-                distance[i,0] = min(costoBorrar, costoInsertar, costoRestoOp);
-            }
-
-            // Inicializo la fila de la palabra inicial con todas las minimas
-            // distancias posibles
-            for (int j = 1; j < palabraFin.Length; j++)
-            {
-                int costoBorrar = distance[0,j - 1] + insertCost;
-                int costoInsertar = (j + 1) * insertCost + eraseCost;
-                int costoRestoOp = (j * insertCost)
-                                + (palabraInicio[0] == palabraFin[j] ? 0
-                                : (copyCost <= replaceCost) ? copyCost
-                                        : replaceCost);
-                distance[0,j] = min(costoBorrar, costoInsertar, costoRestoOp);
-            }
-
-            for (int i = 1; i < palabraInicio.Length; i++)
-            {
-                for (int h = 1; h < palabraFin.Length; h++)
+                int j;
+                for (j = 1; j < _palabraFin.Length; j++)
                 {
-                    int costoBorrar = distance[i - 1,h] + borrar();
-                    int costoInsertar = distance[i,h - 1] + insertar();
-                    int costoRestoOp = distance[i - 1,h - 1];
-                    costoRestoOp += getOperacionesPosibles(i, h, costoRestoOp);
-                    distance[i,h] = min(costoBorrar, costoInsertar, costoRestoOp);
+                    Operacion opAuxEliminar = new Operacion(_distancia[i - 1, j] + _eliminar.Costo, _eliminar.Id);
+                    Operacion opAuxInsertar = new Operacion(_distancia[i, j - 1] + _insertar.Costo, _insertar.Id);
+                    Operacion opAuxRestoDePosiblesOp = new Operacion(_distancia[i - 1, j - 1] + GetCostoOperacionesPosibles(i, j).Costo, GetCostoOperacionesPosibles(i, j).Id);
+                    Operacion opElegida = Min(opAuxEliminar, opAuxInsertar, opAuxRestoDePosiblesOp);
+
+                    switch (opElegida.Id)
+                    {
+                        case "1":
+                            Copiar();
+                            break;
+                        case "2":
+                            Reemplazar();
+                            break;
+                        case "3":
+                            Intercambiar();
+                            break;
+                        case "4":
+                            Eliminar();
+                            break;
+                        case "5":
+                            Insertar();
+                            break;
+                        case "6":
+                            Terminar();
+                            break;
+                    }
+                    _distancia[i, j] = opElegida.Costo;
+
                 }
-                distance[i,j - 1] += terminar();
+                _distancia[i, j - 1] += _terminar.Costo;
             }
-            return distance[palabraInicio.Length - 1,palabraFin.Length - 1];
+
+            return _distancia[_palabraInicio.Length - 1, _palabraFin.Length - 1];
         }
 
-        private int getOperacionesPosibles(int i, int j, int costoRestoOp)
+
+        private Operacion GetCostoOperacionesPosibles(int i, int j)
         {
-            if (palabraInicio[i] == palabraFin[j])
+            try
             {
-                costoRestoOp += (copyCost <= replaceCost) ? copiar() : reemplazar();
-            }
-            else
-            {
-                if (palabraInicio[i] != palabraFin[j])
+                if (_palabraInicio[_i] == _palabraFin[_j])
                 {
-                    if (esIntercambiable(i, j))
+                    return (_copiar.Costo <= _reemplazar.Costo) ? _copiar : _reemplazar;
+                }
+                else
+                {
+                    if (EsIntercambiable(_i, _j))
                     {
-                        costoRestoOp += intercambiar();
+                        return _intercambiar;
                     }
-                    else
-                    {
-                        costoRestoOp += (copyCost <= replaceCost) ? copiar()
-                                : reemplazar();
-                    }
+                    return (_insertar.Costo <= _reemplazar.Costo)
+                               ? _insertar
+                               : _reemplazar;
                 }
             }
-            return costoRestoOp;
+            catch (Exception)
+            {
+                if (_i >= _palabraInicio.Length)
+                {
+                    return _eliminar;
+
+                }
+                return _terminar;
+            }
         }
 
-        private int intercambiar() {
-		if (i > palabraInicio.Length || j > palabraFin.Length)
-			return 0;
-		resultado[j] = palabraInicio[i + 1];
-        resultado[j + 1] = palabraInicio[i];
-		System.Console.WriteLine("Intercambiando "+ resultado[j]+" con "+resultado[j + 1]);
-		i += 2;
-		j += 2;
-		return switchCost;
-	}
 
-        private int reemplazar() {
-		if (i >= palabraInicio.Length || j >= palabraFin.Length)
-			return 0;
-		resultado[j] = palabraFin[i];
-        System.Console.WriteLine("Reemplazando " + palabraFin[i] + " en el resultado");
-		i++;
-		j++;
-		return replaceCost;
-	}
-
-        private int copiar() {
-		if (i >= palabraInicio.Length || j >= palabraFin.Length)
-			return 0;
-		resultado[j] = palabraInicio[i];
-        System.Console.WriteLine("Copiando " + palabraInicio[i] + " al resultado");
-		i++;
-		j++;
-		
-		return copyCost;
-	}
-
-        private int insertar() {
-		if (j >= palabraFin.Length)
-			return 0;
-		resultado[j] = palabraFin[j];
-        System.Console.WriteLine("Insertando al " + palabraFin[j] + " al resultado ");
-		j++;
-		return 0;
-	}
-
-        private int borrar() {
-		if (i >= palabraInicio.Length || j >= palabraFin.Length)
-			return 0;
-        System.Console.WriteLine("Borrando de la palabra de inicio: " + palabraInicio[i]);
-		i++;
-		return eraseCost;
-	}
-
-        private int terminar()
+        private int Intercambiar()
         {
-            i = palabraInicio.Length + 1;
-            return endCost;
+            if (_i >= _palabraInicio.Length || _j >= _palabraFin.Length)
+                return 0;
+            _resultado[_j] = _palabraInicio[_i + 1];
+            _resultado[_j + 1] = _palabraInicio[_i];
+            Console.WriteLine("Intercambiando " + _resultado[_j] + " con " + _resultado[_j + 1]);
+            Console.WriteLine("Costo Intercambiar " + _intercambiar.Costo);
+            _i += 2;
+            _j += 2;
+            return _intercambiar.Costo;
         }
 
-        private bool esIntercambiable(int i, int j)
+        private int Reemplazar()
         {
-            return (i + 1) < palabraInicio.Length
-                    && (j + 1) < palabraFin.Length
-                    && palabraInicio[i + 1] == palabraFin[j]
-                    && palabraInicio[i] == palabraFin[j + 1];
+            if (_i >= _palabraInicio.Length || _j >= _palabraFin.Length)
+                return 0;
+            _resultado[_j] = _palabraFin[_j];
+            Console.WriteLine("Reemplazando " + _palabraFin[_j] + " en el resultado");
+            Console.WriteLine("Costo Reemplazar " + _reemplazar.Costo);
+            _i++;
+            _j++;
+            return _reemplazar.Costo;
         }
 
-        private int min(int a, int b, int c)
+        private int Copiar()
         {
-            if (a <= b && a <= c)
+            if (_i >= _palabraInicio.Length || _j >= _palabraFin.Length)
+                return 0;
+
+            _resultado[_j] = _palabraInicio[_i];
+            Console.WriteLine("Copiando " + _palabraInicio[_i] + " al resultado");
+            Console.WriteLine("Costo Copiar " + _copiar.Costo);
+            _i++;
+            _j++;
+
+            return _copiar.Costo;
+        }
+
+        private int Insertar()
+        {
+            if (_j >= _palabraFin.Length)
+                return 0;
+            _resultado[_j] = _palabraFin[_j];
+            Console.WriteLine("Insertando al " + _palabraFin[_j] + " al resultado ");
+            Console.WriteLine("Costo Insertar " + _insertar.Costo);
+            _j++;
+            return 0;
+        }
+
+        private int Eliminar()
+        {
+            if (_i >= _palabraInicio.Length || _j >= _palabraFin.Length)
+                return 0;
+            Console.WriteLine("Eliminando de la palabra de inicio: " + _palabraInicio[_i]);
+            Console.WriteLine("Costo Eliminar " + _eliminar.Costo);
+            _i++;
+            return _eliminar.Costo;
+        }
+
+        private int Terminar()
+        {
+            Console.WriteLine("Costo Terminar " + _terminar.Costo);
+
+            _i = _palabraInicio.Length + 1;
+
+            return _terminar.Costo;
+
+        }
+
+        private bool EsIntercambiable(int i, int j)
+        {
+            return (i + 1) < _palabraInicio.Length
+                    && (j + 1) < _palabraFin.Length
+                    && _palabraInicio[i + 1] == _palabraFin[j]
+                    && _palabraInicio[i] == _palabraFin[j + 1];
+        }
+
+        private static Operacion Min(Operacion a, Operacion b, Operacion c)
+        {
+            if (a.Costo <= b.Costo && a.Costo <= c.Costo)
                 return a;
-            if (b <= a && b <= c)
+            if (b.Costo <= a.Costo && b.Costo <= c.Costo)
                 return b;
             return c;
+        }
+
+        public class Operacion
+        {
+            private int _costo;
+            private string _id;
+
+            public Operacion()
+            {
+                _costo = 0;
+                _id = "";
+            }
+
+            public Operacion(int costo, string id)
+            {
+                _costo = costo;
+                _id = id;
+            }
+
+            public int Costo
+            {
+                get { return _costo; }
+                set { _costo = value; }
+            }
+
+            public string Id
+            {
+                get { return _id; }
+                set { _id = value; }
+            }
         }
 
     }
