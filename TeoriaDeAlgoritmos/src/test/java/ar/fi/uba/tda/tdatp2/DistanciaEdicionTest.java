@@ -2,7 +2,6 @@ package ar.fi.uba.tda.tdatp2;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
 
 import java.util.HashMap;
 
@@ -20,10 +19,10 @@ public class DistanciaEdicionTest {
 	@Before
 	public void setUp() throws Exception {
 		costos = new HashMap<String, Integer>();
-		costos.put("Copiar", 40);
+		costos.put("Copiar", 1);
 		costos.put("Reemplazar", 1);
 		costos.put("Borrar", 1);
-		costos.put("Insertar", 40);
+		costos.put("Insertar", 1);
 		costos.put("Intercambiar", 1);
 		costos.put("Terminar", 1);
 	}
@@ -32,27 +31,6 @@ public class DistanciaEdicionTest {
 	public void tearDown() throws Exception {
 	}
 
-	@Test
-	public void laDistanciaNoEsNulaTest() {
-		distancia = new DistanciaEdicion("Algoritmo", "Altruista", costos);
-		assertThat("La distancia de edicion no es nula ",
-				distancia.calcularDistanciaEdicion(), notNullValue());
-	}
-
-	@Test
-	public void laDistanciaEsUnValorTest() {
-		distancia = new DistanciaEdicion("Algoritmo", "Altruista", costos);
-		assertThat("La distancia de edicion es ",
-				distancia.calcularDistanciaEdicion(), is(2));
-	}
-
-	@Test
-	public void laDistanciaDevuelveElStringFinal() {
-		distancia = new DistanciaEdicion("Algoritmo", "Altruista", costos);
-		distancia.calcularDistanciaEdicion();
-		assertThat("La palabra obtenida es: ",
-				distancia.getResultadoAsString(), is(distancia.getPalabraFin()));
-	}
 	
 	@Test
 	public void versionAlternativa() {
@@ -75,7 +53,7 @@ public class DistanciaEdicionTest {
 		
 		distancia = new DistanciaEdicion("algoritmo", "altruista", costos);
 		int distanciaEdicion = distancia.calcularDistanciaEdicion2();
-		assertThat("la distancia de edición", distanciaEdicion, is(6));
+		assertThat("la distancia de edición", distanciaEdicion, is(9));
 	}
 	
 	// @Test
