@@ -19,7 +19,7 @@ namespace Test
             DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicio, palabraFin, 1, 2, 3, 4, 5, 6);
 
             
-            Assert.AreEqual(20, distanciaEdicion.CalcularDistanciaEdicion());
+            Assert.AreEqual(29, distanciaEdicion.CalcularDistanciaEdicion());
      
         }
 
@@ -32,7 +32,7 @@ namespace Test
             DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicio, palabraFin, 1, 2, 3, 4, 5, 6);
 
 
-            Assert.AreEqual(20, distanciaEdicion.CalcularDistanciaEdicion());
+            Assert.AreEqual(12, distanciaEdicion.CalcularDistanciaEdicion());
 
         }
         [Test]
@@ -44,7 +44,7 @@ namespace Test
             DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicio, palabraFin, 1, 2, 3, 4, 5, 6);
 
 
-            Assert.AreEqual(20, distanciaEdicion.CalcularDistanciaEdicion());
+            Assert.AreEqual(11, distanciaEdicion.CalcularDistanciaEdicion());
 
         }
 
@@ -57,7 +57,7 @@ namespace Test
             DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicio, palabraFin, 1, 2, 3, 4, 5, 6);
 
 
-            Assert.AreEqual(20, distanciaEdicion.CalcularDistanciaEdicion());
+            Assert.AreEqual(21, distanciaEdicion.CalcularDistanciaEdicion());
 
         }
 
