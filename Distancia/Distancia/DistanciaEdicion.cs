@@ -82,7 +82,7 @@ namespace TDATP2
                     _distancia[i, j] = opElegida.Costo;
 
                 }
-                _distancia[i, j - 1] += _terminar.Costo;
+                //_distancia[i, j - 1] += _terminar.Costo;
             }
 
             return _distancia[_palabraInicio.Length - 1, _palabraFin.Length - 1];
@@ -120,73 +120,70 @@ namespace TDATP2
         }
 
 
-        private int Intercambiar()
+        private void Intercambiar()
         {
-            if (_i >= _palabraInicio.Length || _j >= _palabraFin.Length)
-                return 0;
-            _resultado[_j] = _palabraInicio[_i + 1];
-            _resultado[_j + 1] = _palabraInicio[_i];
-            Console.WriteLine("Intercambiando " + _resultado[_j] + " con " + _resultado[_j + 1]);
-            Console.WriteLine("Costo Intercambiar " + _intercambiar.Costo);
-            _i += 2;
-            _j += 2;
-            return _intercambiar.Costo;
+            if (_i < _palabraInicio.Length && _j < _palabraFin.Length)
+            {
+                _resultado[_j] = _palabraInicio[_i + 1];
+                _resultado[_j + 1] = _palabraInicio[_i];
+                Console.WriteLine("Intercambiando " + _resultado[_j] + " con " + _resultado[_j + 1]);
+                Console.WriteLine("Costo Intercambiar " + _intercambiar.Costo);
+                _i += 2;
+                _j += 2;
+            }
+
         }
 
-        private int Reemplazar()
+        private void Reemplazar()
         {
-            if (_i >= _palabraInicio.Length || _j >= _palabraFin.Length)
-                return 0;
+            if (_i < _palabraInicio.Length && _j < _palabraFin.Length)
+            {
             _resultado[_j] = _palabraFin[_j];
             Console.WriteLine("Reemplazando " + _palabraFin[_j] + " en el resultado");
             Console.WriteLine("Costo Reemplazar " + _reemplazar.Costo);
             _i++;
             _j++;
-            return _reemplazar.Costo;
         }
+    }
 
-        private int Copiar()
+        private void Copiar()
         {
-            if (_i >= _palabraInicio.Length || _j >= _palabraFin.Length)
-                return 0;
-
-            _resultado[_j] = _palabraInicio[_i];
-            Console.WriteLine("Copiando " + _palabraInicio[_i] + " al resultado");
-            Console.WriteLine("Costo Copiar " + _copiar.Costo);
-            _i++;
-            _j++;
-
-            return _copiar.Costo;
+            if (_i < _palabraInicio.Length && _j < _palabraFin.Length)
+            {
+                _resultado[_j] = _palabraInicio[_i];
+                Console.WriteLine("Copiando " + _palabraInicio[_i] + " al resultado");
+                Console.WriteLine("Costo Copiar " + _copiar.Costo);
+                _i++;
+                _j++;
+            }
         }
 
-        private int Insertar()
+        private void Insertar()
         {
-            if (_j >= _palabraFin.Length)
-                return 0;
-            _resultado[_j] = _palabraFin[_j];
-            Console.WriteLine("Insertando al " + _palabraFin[_j] + " al resultado ");
-            Console.WriteLine("Costo Insertar " + _insertar.Costo);
-            _j++;
-            return 0;
+            if (_j < _palabraFin.Length)
+            {
+                _resultado[_j] = _palabraFin[_j];
+                Console.WriteLine("Insertando al " + _palabraFin[_j] + " al resultado ");
+                Console.WriteLine("Costo Insertar " + _insertar.Costo);
+                _j++;
+            }
         }
 
-        private int Eliminar()
+        private void Eliminar()
         {
-            if (_i >= _palabraInicio.Length || _j >= _palabraFin.Length)
-                return 0;
-            Console.WriteLine("Eliminando de la palabra de inicio: " + _palabraInicio[_i]);
-            Console.WriteLine("Costo Eliminar " + _eliminar.Costo);
-            _i++;
-            return _eliminar.Costo;
+            if (_i < _palabraInicio.Length && _j < _palabraFin.Length)
+            {
+                Console.WriteLine("Eliminando de la palabra de inicio: " + _palabraInicio[_i]);
+                Console.WriteLine("Costo Eliminar " + _eliminar.Costo);
+                _i++;
+            }
         }
 
-        private int Terminar()
+        private void Terminar()
         {
             Console.WriteLine("Costo Terminar " + _terminar.Costo);
 
             _i = _palabraInicio.Length + 1;
-
-            return _terminar.Costo;
 
         }
 
