@@ -74,7 +74,7 @@ public class DistanciaEdicion {
 		// Casos base (si no viene la palabra inicial o la palabra final)
 		if (palabraInicio.length() == 0) {
 			resultado = palabraFin.toCharArray();
-			return palabraFin.length() * insertCost; // Costo total de inserción
+			return palabraFin.length() * insertCost; // Costo total de inserciï¿½n
 														// de cada letra de la
 														// palabra final
 		}
@@ -213,6 +213,50 @@ public class DistanciaEdicion {
 		if (b <= a && b <= c)
 			return b;
 		return c;
+	}
+
+	/**
+	 * ImplementaciÃ³n de http://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance
+	 * @return
+	 */
+	public int calcularDistanciaEdicion2() {
+
+		int[][] distance = new int[palabraInicio.length() + 1][palabraFin.length() + 1];
+		
+		int i, j, costo = 0;
+		
+		for (int k = 0; k < distance.length; k++) {
+			distance[k][0] = k;
+		}
+		
+		for (int k = 0; k < distance[0].length; k++) {
+			distance[0][k] = k;
+		}
+		
+		for(i = 1; i < distance.length; i++) {
+			for (j = 1; j < distance[i].length; j++) {
+				
+				if (palabraInicio.charAt(i - 1) == palabraFin.charAt(j - 1)) {
+					costo = 0;
+				} else {
+					costo = 1;
+				}
+				
+				distance[i][j] = min(distance[i-1][j] + 1, // Borrar
+									 distance[i][j - 1] + 1, // Insertar
+									 distance[i - 1][j - 1] + costo); // Copiar
+				
+				if(i > 1 && j > 1 && 
+						palabraInicio.charAt(i - 1) == palabraFin.charAt(j - 2) && 
+						palabraInicio.charAt(i - 2) == palabraFin.charAt(j - 1)) {
+					
+					distance[i][j] = Math.min(distance[i][j],
+	            		   					  distance[i-2][j-2] + costo); // Intercambiar
+				}
+			}
+		}
+		
+		return distance[palabraInicio.length()][palabraFin.length()];
 	}
 
 }
