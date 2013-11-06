@@ -49,36 +49,5 @@ public class DistanciaTest {
 		verify(err).println("O solo las palabras inciales y finales");
 		verify(err).println("i.e.: java -jar Distancia.jar Algoritmo Altruista");
 	}
-	
-//	@Test
-//	@SuppressWarnings({ "unchecked", "rawtypes" })
-//	public void elProgramaCargaElGrafoBuscaCiclosYAumentaLaRobustez() throws IOException {
-//		
-//		Grafo grafo = mock(Grafo.class);
-//		CargadorDeGrafos cargador = mock(CargadorDeGrafos.class);
-//		AumentadorDeRobustez aumentador = mock(AumentadorDeRobustez.class);
-//		BufferedReader reader = mock(BufferedReader.class);
-//		ListaEnlazada<Vertice<String>> listaVertices = mock(ListaEnlazada.class);
-//		Vertice<String> vertice = mock(Vertice.class);
-//		
-//		ListaEnlazada<ListaEnlazada<Vertice>> listaCiclos = mock(ListaEnlazada.class);
-//		
-//		when(grafo.getVertices()).thenReturn(listaVertices);
-//		when(listaVertices.primero()).thenReturn(vertice);
-//		when(grafo.getCiclosGrafo()).thenReturn(listaCiclos);
-//		when(aumentador.getAristasAgregadas()).thenReturn(new ListaEnlazada<Arista>());
-//		
-//		Distancia robustez = new Distancia(grafo, cargador, aumentador);
-//		
-//		Distancia.ejecutar(3, reader);
-//		
-//		verify(cargador).cargar(reader);
-//		verify(grafo).encontrarCiclos(listaVertices);
-//		verify(grafo).getCiclosGrafo();
-//		verify(aumentador).aumentar(listaCiclos, 3);
-//	}
-//	
-
-
 
 }

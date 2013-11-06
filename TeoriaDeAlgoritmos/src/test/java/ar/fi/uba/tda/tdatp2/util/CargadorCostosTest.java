@@ -7,64 +7,54 @@ import static org.mockito.Mockito.when;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.HashMap;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import ar.fi.uba.tdatp2.CostoOperacion.TipoOperacion;
 import ar.fi.uba.tdatp2.util.CargadorCostos;
 
 public class CargadorCostosTest {
 
-	private HashMap<String, Integer> costos;
 	private CargadorCostos cargador;
+	private BufferedReader reader;
 
 	@Before
 	public void setup() {
 	
-		costos = new HashMap<String, Integer>();
-		cargador = new CargadorCostos(costos);
+		cargador = new CargadorCostos();
+		reader = mock(BufferedReader.class);
 	}
 	
 	@Test
 	public void cargoUnInsertarNoNulo() throws IOException {
 		
-		BufferedReader reader = mock(BufferedReader.class);
 		when(reader.readLine()).thenReturn("Insertar:23", (String)null);
 				
 		cargador.cargar(reader);
 		
-		
-		assertThat("la cantidad operaciones es 1", costos.keySet().size(), is(1));
-		assertThat("La operacion cargada es insertar ", costos.keySet().contains("Insertar"), is(true));
-		assertThat("La operacion Insertar tiene costo 23 ", costos.get("Insertar"), is(23));
-	}
-	
-	@Test
-	public void noAgregaOperacionesRepetidas() throws IOException {
-		
-		BufferedReader reader = mock(BufferedReader.class);
-		when(reader.readLine()).thenReturn("Insertar:23", (String)null);
-		when(reader.readLine()).thenReturn("Insertar:222", (String)null);
-		
-		cargador.cargar(reader);
-		
-		assertThat("La cantidad de operaciones es 1", costos.keySet().size(), is(1));
+		assertThat("La operacion Insertar tiene costo 23 ", TipoOperacion.INSERTAR.getCosto(), is(23));
 	}
 	
 	@Test
 	public void cargarDesdeArchivoOperaciones() throws IOException {
 		
-		BufferedReader reader = mock(BufferedReader.class);
-		
-		when(reader.readLine()).thenReturn("Copiar: 1","Reemplazar: 4","Borrar: 45","Intercambiar: 1","Insertar: 44","Terminar: 1", (String)null);
+		when(reader.readLine()).thenReturn( "Copiar: 1",
+											"Reemplazar: 4",
+											"Borrar: 45",
+											"Intercambiar: 1",
+											"Insertar: 44",
+											"Terminar: 1", 
+											(String)null);
 		
 		cargador.cargar(reader);
 		
-		assertThat("La cantidad de operaciones es 6", costos.keySet().size(), is(6));
-		assertThat("Insertar está en los costos", costos.keySet().contains("Insertar"), is(true));
-		assertThat("Borrar esta en los costos", costos.keySet().contains("Borrar"), is(true));
-		assertThat("Borrar tiene valor 45", costos.get("Borrar"), is(45));
+		assertThat("La operacion Copiar tiene costo 1 ", TipoOperacion.COPIAR.getCosto(), is(1));
+		assertThat("La operacion Reemplazar tiene costo 4 ", TipoOperacion.REEMPLAZAR.getCosto(), is(4));
+		assertThat("La operacion Borrar tiene costo 45 ", TipoOperacion.BORRAR.getCosto(), is(45));
+		assertThat("La operacion Intercambiar tiene costo 1 ", TipoOperacion.INTERCAMBIAR.getCosto(), is(1));
+		assertThat("La operacion Insertar tiene costo 44 ", TipoOperacion.INSERTAR.getCosto(), is(44));
+		assertThat("La operacion Terminar tiene costo 1 ", TipoOperacion.TERMINAR.getCosto(), is(1));
 	}
 	
 }

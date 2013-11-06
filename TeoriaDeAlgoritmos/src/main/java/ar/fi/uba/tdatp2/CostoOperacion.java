@@ -5,7 +5,7 @@ public class CostoOperacion {
 
 	public enum TipoOperacion{
 		
-		COPIAR {
+		COPIAR(1) {
 			@Override
 			public void ejecutar(String palabraInicio, String palabraFin,
 					StringBuilder palabraResultante, int i, int j) {
@@ -25,7 +25,7 @@ public class CostoOperacion {
 				return j + 1;
 			}
 		},
-		REEMPLAZAR {
+		REEMPLAZAR(1) {
 			@Override
 			public void ejecutar(String palabraInicio, String palabraFin,
 					StringBuilder palabraResultante, int i, int j) {
@@ -45,7 +45,7 @@ public class CostoOperacion {
 				return j + 1;
 			}
 		},
-		BORRAR {
+		BORRAR(1) {
 			@Override
 			public void ejecutar(String palabraInicio, String palabraFin, StringBuilder palabraResultante, int i, int j) {
 				
@@ -62,7 +62,7 @@ public class CostoOperacion {
 				return j;
 			}
 		},
-		INSERTAR {
+		INSERTAR(1) {
 			@Override
 			public void ejecutar(String palabraInicio, String palabraFin, StringBuilder palabraResultante, int i, int j) {
 				
@@ -81,7 +81,7 @@ public class CostoOperacion {
 				return j + 1;
 			}
 		},
-		TERMINAR {
+		TERMINAR(1) {
 			@Override
 			public void ejecutar(String palabraInicio, String palabraFin, StringBuilder palabraResultante, int i, int j) {
 				
@@ -98,7 +98,7 @@ public class CostoOperacion {
 				return j;
 			}
 		},
-		INTERCAMBIAR {
+		INTERCAMBIAR(1) {
 			@Override
 			public void ejecutar(String palabraInicio, String palabraFin, StringBuilder palabraResultante, int i, int j) {
 				
@@ -119,11 +119,24 @@ public class CostoOperacion {
 			}
 		};
 
+		private Integer costo;
+
+		private TipoOperacion(int costo) {
+			this.costo = costo;
+		}
 		public abstract void ejecutar(String palabraInicio, String palabraFin, StringBuilder palabraResultante, int i, int j);
 
 		public abstract int nuevoI(int i);
 		
 		public abstract int nuevoJ(int j);
+
+		public void setCosto(Integer costo) {
+			this.costo = costo;
+		}
+		
+		public int getCosto() {
+			return this.costo;
+		}
 	}
 	
 	private int costo;
