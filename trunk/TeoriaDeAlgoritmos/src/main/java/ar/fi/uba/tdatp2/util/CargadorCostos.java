@@ -11,6 +11,10 @@ public class CargadorCostos {
 	public CargadorCostos(HashMap<String, Integer> costos) {
 		this.costos = costos;
 	}
+	
+	public CargadorCostos() {
+		this.costos = new  HashMap<String, Integer>();
+	}
 
 	public void cargar(BufferedReader reader) throws IOException {
 		
@@ -25,6 +29,10 @@ public class CargadorCostos {
 			costos.put(operacion.trim(), Integer.valueOf(costo));			
 			linea = reader.readLine();
 		}
+	}
+
+	public HashMap<String, Integer> getCostos() {
+		return costos;
 	}
 	
 	

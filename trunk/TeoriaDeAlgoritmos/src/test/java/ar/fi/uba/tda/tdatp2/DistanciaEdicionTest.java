@@ -36,7 +36,7 @@ public class DistanciaEdicionTest {
 	public void versionAlternativa() {
 		
 		distancia = new DistanciaEdicion("CA", "ABC", costos);
-		int distanciaEdicion = distancia.calcularDistanciaEdicion2();
+		int distanciaEdicion = distancia.calcularDistanciaEdicion();
 		assertThat("la distancia de edición", distanciaEdicion, is(3));
 	}
 
@@ -44,7 +44,7 @@ public class DistanciaEdicionTest {
 	public void versionAlternativaConIntercambio() {
 		
 		distancia = new DistanciaEdicion("CA", "AC", costos);
-		int distanciaEdicion = distancia.calcularDistanciaEdicion2();
+		int distanciaEdicion = distancia.calcularDistanciaEdicion();
 		assertThat("la distancia de edición", distanciaEdicion, is(1));
 	}
 	
@@ -52,17 +52,24 @@ public class DistanciaEdicionTest {
 	public void versionAlternativaAlgoritmoAltruista() {
 		
 		distancia = new DistanciaEdicion("algoritmo", "altruista", costos);
-		int distanciaEdicion = distancia.calcularDistanciaEdicion2();
+		int distanciaEdicion = distancia.calcularDistanciaEdicion();
 		assertThat("la distancia de edición", distanciaEdicion, is(9));
+		assertThat("El resultado no es nulo", distancia.getResultado().size(), is(distancia.getPalabraFin().length()) );
 	}
 	
-	// @Test
-	// public void adnTest() {
-	//
-	// //copyCost, replaceCost, insertCost, switchCost, endCost, eraseCost
-	// distancia = new DistanciaEdicion("G ATTCG GCAT",
-	// "CAAT GTGAATC",40,-1,40,0,0,0);
-	// assertThat("La distancia de edicion es ",
-	// distancia.calcularDistanciaEdicion(), is(10));
-	// }
+	
+//	 @Test
+//	 public void adnTest() {
+//	
+//	 //copyCost, replaceCost, insertCost, switchCost, endCost, eraseCost
+//			costos = new HashMap<String, Integer>();
+//			costos.put("Copiar", 1);
+//			costos.put("Reemplazar", 1);
+//			costos.put("Borrar", 1);
+//			costos.put("Insertar", 1);
+//			costos.put("Intercambiar", 0);
+//			costos.put("Terminar", 0);
+//	 distancia = new DistanciaEdicion("G ATTCG GCAT", "CAAT GTGAATC",costos);
+//	 assertThat("La distancia de edicion es ", distancia.calcularDistanciaEdicion(), is(10));
+//	 }
 }

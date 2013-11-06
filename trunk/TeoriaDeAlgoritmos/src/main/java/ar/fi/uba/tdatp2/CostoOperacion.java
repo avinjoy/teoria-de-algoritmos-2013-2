@@ -9,6 +9,7 @@ public class CostoOperacion {
 		COPIAR,REEMPLAZAR,BORRAR,INSERTAR,TERMINAR,INTERCAMBIAR;
 	}
 	private TipoOperacion op;
+	private char letter;
 	public int getCosto() {
 		return costo;
 	}
@@ -34,6 +35,13 @@ public class CostoOperacion {
 		this.op = op;
 	}
 	
+	public char getLetter() {
+		return letter;
+	}
+	public void setLetter(char letter) {
+		this.letter = letter;
+	}
+	
 	public CostoOperacion(int filaAnterior, int colAnterior, int costo,
 			TipoOperacion op) {
 		super();
@@ -42,12 +50,24 @@ public class CostoOperacion {
 		this.colAnterior = colAnterior;
 		this.op = op;
 	}
+	
+	public CostoOperacion(int costo, int filaAnterior, int colAnterior,
+			TipoOperacion op, char letter) {
+		super();
+		this.costo = costo;
+		this.filaAnterior = filaAnterior;
+		this.colAnterior = colAnterior;
+		this.letter = letter;
+		this.op = op;
+	}
+	
 	@Override
 	public String toString() {
 		return "CostoOperacion [costo=" + costo + ", filaAnterior="
 				+ filaAnterior + ", colAnterior=" + colAnterior + ", op=" + op
-				+ "]";
+				+ ", letter=" + letter+"]";
 	}
+	
 	
 	
 

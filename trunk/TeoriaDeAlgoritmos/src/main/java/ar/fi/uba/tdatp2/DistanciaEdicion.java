@@ -1,6 +1,7 @@
 package ar.fi.uba.tdatp2;
 
 import java.util.HashMap;
+import java.util.Stack;
 
 import ar.fi.uba.tdatp2.CostoOperacion.TipoOperacion;
 
@@ -10,15 +11,13 @@ public class DistanciaEdicion {
 	private CostoOperacion[][] distance;
 	private String palabraInicio;
 	private String palabraFin;
-	private char[] resultado;
+	private Stack<CostoOperacion> resultado;
 	private int copyCost;
 	private int replaceCost;
 	private int insertCost;
 	private int switchCost;
 	private int endCost;
 	private int eraseCost;
-	private int i = 0;
-	private int j = 0;
 
 	public DistanciaEdicion(String palabraInicio, String palabraFin, HashMap<String, Integer> costos) {
 		this.distance = new CostoOperacion[palabraInicio.length() + 1][palabraFin.length() + 1];
@@ -30,8 +29,14 @@ public class DistanciaEdicion {
 		this.switchCost = costos.get("Intercambiar");
 		this.endCost = costos.get("Terminar");
 		this.eraseCost = costos.get("Borrar");
-		this.resultado = new char[(palabraInicio.length() < palabraFin.length()) ? palabraFin
-				.length() : palabraInicio.length()];
+		this.resultado = new Stack<CostoOperacion>();
+	}
+	
+	public DistanciaEdicion(String palabraInicio, String palabraFin) {
+		this.distance = new CostoOperacion[palabraInicio.length() + 1][palabraFin.length() + 1];
+		this.palabraInicio = palabraInicio;
+		this.palabraFin = palabraFin;
+		this.resultado = new Stack<CostoOperacion>();
 	}
 
 
@@ -53,7 +58,7 @@ public class DistanciaEdicion {
 	 * Implementación de http://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance
 	 * @return
 	 */
-	public int calcularDistanciaEdicion2() {
+	public int calcularDistanciaEdicion() {
 
 		distance = new CostoOperacion[palabraInicio.length() + 1][palabraFin.length() + 1];
 		CostoOperacion aux;
@@ -73,7 +78,17 @@ public class DistanciaEdicion {
 				if (palabraInicio.charAt(i - 1) == palabraFin.charAt(j - 1)) {
 					aux = new CostoOperacion(i-1,j-1,distance[i-1][j-1].getCosto()+copyCost,TipoOperacion.COPIAR);
 				} else {
-					aux = new CostoOperacion(i-1,j-1,distance[i-1][j-1].getCosto()+replaceCost,TipoOperacion.REEMPLAZAR);
+//					if (palabraInicio.charAt(i - 1) == ' ' && palabraFin.charAt(j - 1) != ' '){
+//						aux = new CostoOperacion(i-1,j-1,distance[i-1][j-1].getCosto()+((-2)*eraseCost),TipoOperacion.BORRAR);
+//					}else{
+//						if (palabraInicio.charAt(i - 1) != ' ' && palabraFin.charAt(j - 1) == ' '){
+//							aux = new CostoOperacion(i-1,j-1,distance[i-1][j-1].getCosto()+((-2)*insertCost),TipoOperacion.INSERTAR);
+//						}else {
+							aux = new CostoOperacion(i-1,j-1,distance[i-1][j-1].getCosto()+replaceCost,TipoOperacion.REEMPLAZAR);
+//						}
+//					}
+					
+					
 				}
 				
 				CostoOperacion eraseCost=new CostoOperacion(i-1,j,distance[i-1][j].getCosto()+this.eraseCost,TipoOperacion.BORRAR);
@@ -96,7 +111,46 @@ public class DistanciaEdicion {
 			}
 		}
 		
+		//Guardo el resultado de las operaciones en una pila antes de devolver el costo, recorridendo la matriz.
+		int fila=palabraInicio.length();
+		int col=palabraFin.length();
+		do {
+			CostoOperacion cOp= distance[fila][col];
+			resultado.push(cOp);
+			fila=cOp.getFilaAnterior();
+			col=cOp.getColAnterior();
+		}
+		while (fila > 0 || col > 0);
+		
 		return distance[palabraInicio.length()][palabraFin.length()].getCosto();
+		
 	}
+
+	public String getPalabraInicio() {
+		return palabraInicio;
+	}
+
+	public void setPalabraInicio(String palabraInicio) {
+		this.palabraInicio = palabraInicio;
+	}
+
+	public String getPalabraFin() {
+		return palabraFin;
+	}
+
+	public void setPalabraFin(String palabraFin) {
+		this.palabraFin = palabraFin;
+	}
+
+	public Stack<CostoOperacion> getResultado() {
+		return resultado;
+	}
+
+	public void setResultado(Stack<CostoOperacion> resultado) {
+		this.resultado = resultado;
+	}
+
+	
+	
 
 }
