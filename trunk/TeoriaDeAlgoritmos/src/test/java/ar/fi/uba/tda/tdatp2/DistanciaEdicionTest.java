@@ -54,7 +54,7 @@ public class DistanciaEdicionTest {
 		distancia = new DistanciaEdicion("algoritmo", "altruista", costos);
 		int distanciaEdicion = distancia.calcularDistanciaEdicion();
 		assertThat("la distancia de edición", distanciaEdicion, is(9));
-		assertThat("El resultado no es nulo", distancia.getResultado().size(), is(distancia.getPalabraFin().length()) );
+		assertThat("El resultado no es nulo", distancia.getCostoFinal(), is(9) );
 	}
 	
 	

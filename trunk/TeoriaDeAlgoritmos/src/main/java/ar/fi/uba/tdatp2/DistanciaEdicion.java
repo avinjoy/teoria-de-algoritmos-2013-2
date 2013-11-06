@@ -1,5 +1,6 @@
 package ar.fi.uba.tdatp2;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Stack;
 
@@ -18,6 +19,8 @@ public class DistanciaEdicion {
 	private int switchCost;
 	private int endCost;
 	private int eraseCost;
+	
+	private int costoFinal;
 
 	public DistanciaEdicion(String palabraInicio, String palabraFin, HashMap<String, Integer> costos) {
 		this.distance = new CostoOperacion[palabraInicio.length() + 1][palabraFin.length() + 1];
@@ -114,6 +117,7 @@ public class DistanciaEdicion {
 		//Guardo el resultado de las operaciones en una pila antes de devolver el costo, recorridendo la matriz.
 		int fila=palabraInicio.length();
 		int col=palabraFin.length();
+		
 		do {
 			CostoOperacion cOp= distance[fila][col];
 			resultado.push(cOp);
@@ -121,8 +125,26 @@ public class DistanciaEdicion {
 			col=cOp.getColAnterior();
 		}
 		while (fila > 0 || col > 0);
+
+		char[] chars = new char[palabraFin.length()];
+		Arrays.fill(chars, ' ');
 		
-		return distance[palabraInicio.length()][palabraFin.length()].getCosto();
+		StringBuilder palabraResultante = new StringBuilder(new String(chars));
+		
+		i = 0;
+		j = 0;
+		
+		while (!resultado.isEmpty()) {
+			
+			CostoOperacion operacion = resultado.pop();
+			TipoOperacion comando = operacion.getOp();
+			comando.ejecutar(palabraInicio, palabraFin, palabraResultante, i, j);
+			i = comando.nuevoI(i);
+			j = comando.nuevoJ(j);
+		}
+		
+		costoFinal = distance[palabraInicio.length()][palabraFin.length()].getCosto();
+		return costoFinal;
 		
 	}
 
@@ -148,6 +170,14 @@ public class DistanciaEdicion {
 
 	public void setResultado(Stack<CostoOperacion> resultado) {
 		this.resultado = resultado;
+	}
+
+	public void setCostoFinal(int costoFinal) {
+		this.costoFinal = costoFinal;
+	}
+
+	public int getCostoFinal() {
+		return costoFinal;
 	}
 
 	
