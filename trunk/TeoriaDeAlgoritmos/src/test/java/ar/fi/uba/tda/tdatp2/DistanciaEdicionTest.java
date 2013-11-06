@@ -3,28 +3,25 @@ package ar.fi.uba.tda.tdatp2;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-import java.util.HashMap;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import ar.fi.uba.tdatp2.CostoOperacion.TipoOperacion;
 import ar.fi.uba.tdatp2.DistanciaEdicion;
 
 public class DistanciaEdicionTest {
 
 	private DistanciaEdicion distancia;
-	private HashMap<String, Integer> costos;
 
 	@Before
 	public void setUp() throws Exception {
-		costos = new HashMap<String, Integer>();
-		costos.put("Copiar", 1);
-		costos.put("Reemplazar", 1);
-		costos.put("Borrar", 1);
-		costos.put("Insertar", 1);
-		costos.put("Intercambiar", 1);
-		costos.put("Terminar", 1);
+		TipoOperacion.COPIAR.setCosto(1);
+		TipoOperacion.REEMPLAZAR.setCosto(1);
+		TipoOperacion.BORRAR.setCosto(1);
+		TipoOperacion.INSERTAR.setCosto(1);
+		TipoOperacion.INTERCAMBIAR.setCosto(1);
+		TipoOperacion.TERMINAR.setCosto(1);
 	}
 
 	@After
@@ -35,58 +32,61 @@ public class DistanciaEdicionTest {
 	@Test
 	public void versionAlternativa() {
 		
-		distancia = new DistanciaEdicion("CA", "ABC", costos);
+		distancia = new DistanciaEdicion("CA", "ABC");
 		int distanciaEdicion = distancia.calcularDistanciaEdicion();
 		assertThat("la distancia de edición", distanciaEdicion, is(3));
+		assertThat("El resultado", distancia.getPalabraResultante(), is("ABC"));
 	}
 
 	@Test
 	public void versionAlternativaConIntercambio() {
 		
-		distancia = new DistanciaEdicion("CA", "AC", costos);
+		distancia = new DistanciaEdicion("CA", "AC");
 		int distanciaEdicion = distancia.calcularDistanciaEdicion();
 		assertThat("la distancia de edición", distanciaEdicion, is(1));
+		assertThat("El resultado", distancia.getPalabraResultante(), is("AC"));
 	}
 	
 	@Test
 	public void versionAlternativaAlgoritmoAltruista() {
 		
-		distancia = new DistanciaEdicion("algoritmo", "altruista", costos);
+		distancia = new DistanciaEdicion("algoritmo", "altruista");
 		int distanciaEdicion = distancia.calcularDistanciaEdicion();
 		assertThat("la distancia de edición", distanciaEdicion, is(9));
-		assertThat("El resultado no es nulo", distancia.getCostoFinal(), is(9) );
+		assertThat("El resultado", distancia.getPalabraResultante(), is("altruista"));
 	}
 	
 	@Test
 	public void versionAlternativaAlgoritmoAlga() {
 		
-		distancia = new DistanciaEdicion("algoritmo", "alga", costos);
+		distancia = new DistanciaEdicion("algoritmo", "alga");
 		int distanciaEdicion = distancia.calcularDistanciaEdicion();
 		assertThat("la distancia de edición", distanciaEdicion, is(5));
-		assertThat("El resultado no es nulo", distancia.getCostoFinal(), is(5) );
+		assertThat("El resultado", distancia.getPalabraResultante(), is("alga"));
 	}
 	
 	@Test
 	public void convertirAlgoritmoAlgaConPesoAltoEnTerminar() {
 		
-		costos.put("Terminar", 100);
-		distancia = new DistanciaEdicion("algoritmo", "alga", costos);
+		TipoOperacion.TERMINAR.setCosto(100);
+		distancia = new DistanciaEdicion("algoritmo", "alga");
 		int distanciaEdicion = distancia.calcularDistanciaEdicion();
 		assertThat("la distancia de edición", distanciaEdicion, is(9));
-		assertThat("El resultado no es nulo", distancia.getCostoFinal(), is(9) );
+		assertThat("El resultado", distancia.getPalabraResultante(), is("alga"));
 	}
 	
 	@Test
 	public void adnTest() {
 	
-		costos = new HashMap<String, Integer>();
-		costos.put("Copiar", -1);
-		costos.put("Reemplazar", 2);
-		costos.put("Borrar", 2);
-		costos.put("Insertar", 2);
-		costos.put("Intercambiar", 1000);
-		costos.put("Terminar", 1000);
-		distancia = new DistanciaEdicion("GATCGGCAT", "CAATGTGAATC",costos);
+		TipoOperacion.COPIAR.setCosto(-1);
+		TipoOperacion.REEMPLAZAR.setCosto(2);
+		TipoOperacion.BORRAR.setCosto(2);
+		TipoOperacion.INSERTAR.setCosto(2);
+		TipoOperacion.INTERCAMBIAR.setCosto(1000);
+		TipoOperacion.TERMINAR.setCosto(1000);
+		
+		distancia = new DistanciaEdicion("GATCGGCAT", "CAATGTGAATC");
 		assertThat("La distancia de edicion es ", distancia.calcularDistanciaEdicion(), is(6));
+		assertThat("El resultado", distancia.getPalabraResultante(), is("CAATGTGAATC"));
 	}
 }

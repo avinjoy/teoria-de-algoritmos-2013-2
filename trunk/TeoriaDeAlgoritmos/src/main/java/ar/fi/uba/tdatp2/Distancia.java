@@ -30,7 +30,7 @@ public class Distancia {
 			
 			CargadorCostos cargador = new CargadorCostos();
 			cargador.cargar(archivo);
-			DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicial,palabraFinal,cargador.getCostos());
+			DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicial,palabraFinal);
 			
 						
 			new Distancia(distanciaEdicion).ejecutar();
