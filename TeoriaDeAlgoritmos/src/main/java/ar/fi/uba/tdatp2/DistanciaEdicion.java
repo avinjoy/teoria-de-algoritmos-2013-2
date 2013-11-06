@@ -113,6 +113,8 @@ public class DistanciaEdicion {
 				}
 			}
 		}
+
+		costoFinal = distance[palabraInicio.length()][palabraFin.length()].getCosto();
 		
 		//Guardo el resultado de las operaciones en una pila antes de devolver el costo, recorridendo la matriz.
 		int fila=palabraInicio.length();
@@ -126,7 +128,14 @@ public class DistanciaEdicion {
 		}
 		while (fila > 0 || col > 0);
 
-		char[] chars = new char[palabraFin.length()];
+		char[] chars;
+		
+		if (palabraFin.length() >= palabraInicio.length()) {
+			chars = new char[palabraFin.length()];
+		} else {
+			chars = new char[palabraInicio.length()];
+		}
+		
 		Arrays.fill(chars, ' ');
 		
 		StringBuilder palabraResultante = new StringBuilder(new String(chars));
@@ -134,16 +143,36 @@ public class DistanciaEdicion {
 		i = 0;
 		j = 0;
 		
-		while (!resultado.isEmpty()) {
+		boolean terminado = false;
+		
+		while (!resultado.isEmpty() && !terminado) {
 			
 			CostoOperacion operacion = resultado.pop();
 			TipoOperacion comando = operacion.getOp();
 			comando.ejecutar(palabraInicio, palabraFin, palabraResultante, i, j);
 			i = comando.nuevoI(i);
 			j = comando.nuevoJ(j);
+			
+			if (palabraResultante.toString().trim().equals(palabraFin)) {
+				
+				int diferencia = palabraInicio.length() - palabraResultante.toString().trim().length();
+				
+				if (diferencia > 0) {
+					
+					int costoBorrar = diferencia * eraseCost;
+					
+					if (endCost <= costoBorrar) {
+						TipoOperacion.TERMINAR.ejecutar(palabraInicio, palabraFin, palabraResultante, i, j);
+		
+						costoFinal -= costoBorrar;
+						costoFinal += eraseCost;
+						
+						terminado = true;
+					}
+				}
+			}
 		}
 		
-		costoFinal = distance[palabraInicio.length()][palabraFin.length()].getCosto();
 		return costoFinal;
 		
 	}
