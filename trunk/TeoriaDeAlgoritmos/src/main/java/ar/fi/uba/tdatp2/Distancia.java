@@ -15,6 +15,12 @@ public class Distancia {
 		this.distanciaEd=distancia;
 	}
 
+	/**
+	 * Carga los costos O(L) y ejecuta el programa O(mxn + n)
+	 * 
+	 * @param args
+	 * @throws IOException
+	 */
 	public static void main(String[] args) throws IOException {
 		
 		System.out.println("Teoría de algoritmos - TP 2");
@@ -31,7 +37,6 @@ public class Distancia {
 			CargadorCostos cargador = new CargadorCostos();
 			cargador.cargar(archivo);
 			DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicial,palabraFinal);
-			
 						
 			new Distancia(distanciaEdicion).ejecutar();
 

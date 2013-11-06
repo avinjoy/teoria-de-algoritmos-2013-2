@@ -125,6 +125,11 @@ public class CostoOperacion {
 			this.costo = costo;
 		}
 		
+		/**
+		 * Aplica la operación sobre la palabra resultante tomando los datos de la palabra de inicio o de fin.
+		 * Realiza operaciones considerando los strings como arrays, dado que cuenta con los subíndices para 
+		 * acceder a cada posición de cada string el costo es O(1).
+		 */
 		public abstract void ejecutar(String palabraInicio, String palabraFin, StringBuilder palabraResultante, int i, int j);
 
 		public abstract int nuevoI(int i);

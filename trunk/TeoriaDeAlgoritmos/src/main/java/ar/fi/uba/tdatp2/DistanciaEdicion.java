@@ -28,7 +28,18 @@ public class DistanciaEdicion {
 	
 	/**
 	 * Implementación de http://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance
-	 * @return
+	 * 
+	 * Construye una matriz de mxn, siendo m la cantidad de letras de la palabra de inicio
+	 * y n la cantidad de letras de la palabra a la que se quiere llegar.
+	 * 
+	 * Luego itera por cada celda de la matriz decidiendo cual es la operación óptima, esta 
+	 * decisión tiene costo O(1), por lo que el costo de esta parte es O(mxn).
+	 * 
+	 * Por último debe aplicar las operaciones que detectó como óptimas, esto será tan costos
+	 * como la palabra resultante O(n).
+	 *
+	 * El costo total es O(mxn + n) 
+	 * 
 	 */
 	public int calcularDistanciaEdicion() {
 
@@ -36,7 +47,7 @@ public class DistanciaEdicion {
 		
 		int i, j;
 		
-		cargarPrimerColumna();
+		cargarPrimeraColumna();
 		
 		cargarPrimeraFila();
 		
@@ -70,7 +81,7 @@ public class DistanciaEdicion {
 		
 	}
 	
-	private void cargarPrimerColumna() {
+	private void cargarPrimeraColumna() {
 		for (int k = 0; k < distance.length; k++) {
 			distance[k][0] = new CostoOperacion((k-1 > 0)? k-1:0,0,(k-1 >= 0)? k*BORRAR.getCosto():0,BORRAR);
 		}
