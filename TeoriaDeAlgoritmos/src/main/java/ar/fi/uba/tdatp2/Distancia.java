@@ -9,20 +9,15 @@ import ar.fi.uba.tdatp2.util.CargadorCostos;
 
 public class Distancia {
 
-	private final CargadorCostos cargador;
 	private final DistanciaEdicion distanciaEd;
 	
-	@SuppressWarnings("rawtypes")
-	
-	public Distancia(CargadorCostos cargador, DistanciaEdicion distancia) {
-		this.cargador = cargador;
+	public Distancia(DistanciaEdicion distancia) {
 		this.distanciaEd=distancia;
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static void main(String[] args) throws IOException {
 		
-		System.out.println("Teoría de algoritmos - TP 2");
+		System.out.println("TeorÃ­a de algoritmos - TP 2");
 		System.out.println("Autores:");
 		System.out.println("Alejo Vinjoy - 83.989");
 		System.out.println("Santiago Nicolas Risaro Sesar - 84.623");
@@ -33,13 +28,12 @@ public class Distancia {
 			String palabraFinal = args[1];
 			BufferedReader archivo = leerArchivo(args);
 			
-			
 			CargadorCostos cargador = new CargadorCostos();
 			cargador.cargar(archivo);
 			DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicial,palabraFinal,cargador.getCostos());
 			
 						
-			new Distancia(cargador,distanciaEdicion).ejecutar();
+			new Distancia(distanciaEdicion).ejecutar();
 
 		} else {
 		
@@ -60,25 +54,12 @@ public class Distancia {
 		return new BufferedReader(new FileReader(rutaArchivo));
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void ejecutar() throws IOException {
 
-		int costo=distanciaEd.calcularDistanciaEdicion();
-		System.out.println("Operación\t\t\t\tX\t\t\t\tZ");
-		System.out.println("---------------------------------------------------------------------------");
-		System.out.println("Cadenas iniciales");
-		System.out.println("\t\t\t\t\t"+distanciaEd.getPalabraInicio());
-		while(!distanciaEd.getResultado().isEmpty()){
-			System.out.println(distanciaEd.getResultado().pop().getOp().toString()+"\t\t\t\t\t\t\t\t\t\t");
-		}
+		int costo = distanciaEd.calcularDistanciaEdicion();
+		
+		System.out.println();
 		System.out.println("Distancia de Edicion: "+costo);
-		
-		
-		
-		
-
-	
-		//System.out.println("FIN");
 		
 	}
 

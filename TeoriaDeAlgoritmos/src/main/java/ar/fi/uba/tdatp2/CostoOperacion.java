@@ -11,6 +11,7 @@ public class CostoOperacion {
 					StringBuilder palabraResultante, int i, int j) {
 				
 				palabraResultante.setCharAt(j, palabraInicio.charAt(i));
+				System.out.println("Copiar " + palabraInicio.charAt(i));
 				
 			}
 
@@ -30,6 +31,8 @@ public class CostoOperacion {
 					StringBuilder palabraResultante, int i, int j) {
 				
 				palabraResultante.setCharAt(j, palabraFin.charAt(j));
+				
+				System.out.println("Reemplazar " + palabraInicio.charAt(i) + " " + palabraFin.charAt(j));
 			}
 			
 			@Override
@@ -44,8 +47,9 @@ public class CostoOperacion {
 		},
 		BORRAR {
 			@Override
-			public void ejecutar(String palabraInicio, String palabraFin,
-					StringBuilder palabraResultante, int i, int j) {
+			public void ejecutar(String palabraInicio, String palabraFin, StringBuilder palabraResultante, int i, int j) {
+				
+				System.out.println("Borrar " + palabraInicio.charAt(i));
 			}
 			
 			@Override
@@ -60,9 +64,11 @@ public class CostoOperacion {
 		},
 		INSERTAR {
 			@Override
-			public void ejecutar(String palabraInicio, String palabraFin,
-					StringBuilder palabraResultante, int i, int j) {
+			public void ejecutar(String palabraInicio, String palabraFin, StringBuilder palabraResultante, int i, int j) {
+				
 				palabraResultante.setCharAt(j, palabraFin.charAt(j));
+				
+				System.out.println("Insertar " + palabraFin.charAt(j));
 			}
 			
 			@Override
@@ -77,13 +83,14 @@ public class CostoOperacion {
 		},
 		TERMINAR {
 			@Override
-			public void ejecutar(String palabraInicio, String palabraFin,
-					StringBuilder palabraResultante, int i, int j) {
+			public void ejecutar(String palabraInicio, String palabraFin, StringBuilder palabraResultante, int i, int j) {
+				
+				System.out.println("Terminar");
 			}
 			
 			@Override
 			public int nuevoI(int i) {
-				return i + 1; //TODO
+				return i + 1;
 			}
 
 			@Override
@@ -93,11 +100,12 @@ public class CostoOperacion {
 		},
 		INTERCAMBIAR {
 			@Override
-			public void ejecutar(String palabraInicio, String palabraFin,
-					StringBuilder palabraResultante, int i, int j) {
+			public void ejecutar(String palabraInicio, String palabraFin, StringBuilder palabraResultante, int i, int j) {
 				
 				palabraResultante.setCharAt(j, palabraInicio.charAt(i + 1));
 				palabraResultante.setCharAt(j + 1, palabraInicio.charAt(i));
+				
+				System.out.println("Intercambiar " + palabraInicio.charAt(i) + " " + palabraInicio.charAt(i + 1));
 			}
 			
 			@Override
