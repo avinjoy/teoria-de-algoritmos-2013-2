@@ -57,6 +57,14 @@ public class DistanciaEdicionTest {
 		assertThat("El resultado no es nulo", distancia.getCostoFinal(), is(9) );
 	}
 	
+	@Test
+	public void versionAlternativaAlgoritmoAlga() {
+		
+		distancia = new DistanciaEdicion("algoritmo", "alga", costos);
+		int distanciaEdicion = distancia.calcularDistanciaEdicion();
+		assertThat("la distancia de edición", distanciaEdicion, is(5));
+		assertThat("El resultado no es nulo", distancia.getCostoFinal(), is(5) );
+	}
 	
 //	 @Test
 //	 public void adnTest() {
