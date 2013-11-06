@@ -38,7 +38,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TestDistanciaEdicion.cs" />
-    <Compile Include="TestDistancia.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
