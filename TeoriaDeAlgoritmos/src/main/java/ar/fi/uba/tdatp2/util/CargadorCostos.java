@@ -7,6 +7,12 @@ import ar.fi.uba.tdatp2.CostoOperacion.TipoOperacion;
 
 public class CargadorCostos {
 
+	/**
+	 * Lee el archivo linea a linea y guarda en memoria el costo de cada operación
+	 * El costo de ejecutar esta operación es proporcional a la cantidad de lineas
+	 * del archivo O(L)
+	 * 
+	 */
 	public void cargar(BufferedReader reader) throws IOException {
 		
 		String linea = reader.readLine();
