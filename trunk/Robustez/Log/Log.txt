@@ -2,7 +2,7 @@ Microsoft (R) Build Engine Version 4.0.30319.1
 [Microsoft .NET Framework, Version 4.0.30319.225]
 Copyright (C) Microsoft Corporation 2007. All rights reserved.
 
-Build started 27/10/2013 10:34:31 p.m..
+Build started 05/11/2013 10:42:15 p.m..
 Project "C:\Documents and Settings\User\Escritorio\teoria-de-algoritmos-2013-2\Robustez\NUnit.build" on node 1 (default targets).
 Project "C:\Documents and Settings\User\Escritorio\teoria-de-algoritmos-2013-2\Robustez\NUnit.build" (1) is building "C:\Documents and Settings\User\Escritorio\teoria-de-algoritmos-2013-2\Robustez\Robustez.sln" (2) on node 1 (Rebuild target(s)).
 ValidateSolutionConfiguration:
@@ -19,6 +19,7 @@ ListaCircular.cs(187,32): warning CS0693: Type parameter 'T' has the same name a
 ListaEnlazada.cs(179,32): warning CS0693: Type parameter 'T' has the same name as the type parameter from outer type 'Robustez.ListaEnlazada<T>' [C:\Documents and Settings\User\Escritorio\teoria-de-algoritmos-2013-2\Robustez\Robustez\Robustez.csproj]
 ArchivoGrafoManager.cs(5,7): warning CS0105: The using directive for 'System.Text' appeared previously in this namespace [C:\Documents and Settings\User\Escritorio\teoria-de-algoritmos-2013-2\Robustez\Robustez\Robustez.csproj]
 Arista.cs(3,18): warning CS0659: 'Robustez.Arista<T>' overrides Object.Equals(object o) but does not override Object.GetHashCode() [C:\Documents and Settings\User\Escritorio\teoria-de-algoritmos-2013-2\Robustez\Robustez\Robustez.csproj]
+Vertice.cs(7,18): warning CS0659: 'Robustez.Vertice<T>' overrides Object.Equals(object o) but does not override Object.GetHashCode() [C:\Documents and Settings\User\Escritorio\teoria-de-algoritmos-2013-2\Robustez\Robustez\Robustez.csproj]
 CopyFilesToOutputDirectory:
   Copying file from "obj\Debug\tdatp1.exe" to "bin\Debug\tdatp1.exe".
   Robustez -> C:\Documents and Settings\User\Escritorio\teoria-de-algoritmos-2013-2\Robustez\Robustez\bin\Debug\tdatp1.exe
@@ -64,8 +65,8 @@ NUnit:
   
   ProcessModel: Default    DomainUsage: Single
   Execution Runtime: net-3.5
-  .....................
-  Tests run: 21, Errors: 0, Failures: 0, Inconclusive: 0, Time: 0,421875 seconds
+  ......................
+  Tests run: 22, Errors: 0, Failures: 0, Inconclusive: 0, Time: 0,234375 seconds
     Not run: 0, Invalid: 0, Ignored: 0, Skipped: 0
   
 Done Building Project "C:\Documents and Settings\User\Escritorio\teoria-de-algoritmos-2013-2\Robustez\NUnit.build" (default targets).
@@ -80,8 +81,9 @@ Build succeeded.
   ListaEnlazada.cs(179,32): warning CS0693: Type parameter 'T' has the same name as the type parameter from outer type 'Robustez.ListaEnlazada<T>' [C:\Documents and Settings\User\Escritorio\teoria-de-algoritmos-2013-2\Robustez\Robustez\Robustez.csproj]
   ArchivoGrafoManager.cs(5,7): warning CS0105: The using directive for 'System.Text' appeared previously in this namespace [C:\Documents and Settings\User\Escritorio\teoria-de-algoritmos-2013-2\Robustez\Robustez\Robustez.csproj]
   Arista.cs(3,18): warning CS0659: 'Robustez.Arista<T>' overrides Object.Equals(object o) but does not override Object.GetHashCode() [C:\Documents and Settings\User\Escritorio\teoria-de-algoritmos-2013-2\Robustez\Robustez\Robustez.csproj]
+  Vertice.cs(7,18): warning CS0659: 'Robustez.Vertice<T>' overrides Object.Equals(object o) but does not override Object.GetHashCode() [C:\Documents and Settings\User\Escritorio\teoria-de-algoritmos-2013-2\Robustez\Robustez\Robustez.csproj]
 
-    4 Warning(s)
+    5 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:03.50
+Time Elapsed 00:00:02.90

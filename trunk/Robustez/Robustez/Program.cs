@@ -129,14 +129,28 @@ namespace Robustez
             {
                 presentacion();
 
-                int robustezDeseada = Convert.ToInt32(args[0]);
-                StreamReader archivo = new StreamReader(args[1]);
+                int robustezDeseada = 0;
+                try
+                {
+                    robustezDeseada = Convert.ToInt32(args[0]);
+                }
+                catch (Exception)
+                {
+                     Console.WriteLine("El parametro robustez no es correcto, debe ser un numero entero positivo."); 
+                }
+                
+                try
+                {
+                   StreamReader archivo = new StreamReader(args[1]);
+                   Grafo<string> grafo = new Grafo<string>();
+                   ArchivoGrafoManager loader = new ArchivoGrafoManager(grafo);
+                   Robustez<string> aumentador = new Robustez<string>(grafo);
 
-                Grafo<string> grafo = new Grafo<string>();
-                ArchivoGrafoManager loader = new ArchivoGrafoManager(grafo);
-                Robustez<string> aumentador = new Robustez<string>(grafo);
+                   new Program(grafo, loader, aumentador).Ejecutar(robustezDeseada, archivo);
+                }
+                catch (Exception) { Console.WriteLine("No es posible leer el archivo asegurese que esta en el directorio actual"); }
 
-                new Program(grafo, loader, aumentador).Ejecutar(robustezDeseada, archivo);
+               
 
                 Console.ReadKey();
             }
