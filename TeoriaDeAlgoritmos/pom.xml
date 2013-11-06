@@ -8,10 +8,35 @@
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<finalName>tda</finalName>
+		<mainClass>ar.fi.uba.tda</mainClass>
 	</properties>
   
+	<profiles>
+		<profile>
+			<id>tp1</id>
+			<activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+            	<finalName>tdatp1</finalName>
+            	<mainClass>ar.fi.uba.tda.Robustez</mainClass>
+            </properties>
+		</profile>
+		<profile>
+			<id>tp2</id>
+			<activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+            	<finalName>tdatp2</finalName>
+            	<mainClass>ar.fi.uba.tdatp2.Distancia</mainClass>
+            </properties>
+		</profile>
+	</profiles>
+	
 	<build>
-		<finalName>tdatp1</finalName>
+		<finalName>${finalName}</finalName>
 		
 		<plugins>
 			<plugin>
@@ -38,7 +63,7 @@
 							<transformers>
 								<transformer
 									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>ar.fi.uba.tda.Robustez</mainClass>
+									<mainClass>${mainClass}</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>
