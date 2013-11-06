@@ -98,9 +98,7 @@ public class DistanciaEdicion {
 				CostoOperacion insertCost=new CostoOperacion(i,j-1,distance[i][j-1].getCosto()+this.insertCost,TipoOperacion.INSERTAR);
 				
 								
-				CostoOperacion menorCosto = min( eraseCost, // Borrar
-									  insertCost, // Insertar
-									  aux); // Copiar - Reemplazar
+				CostoOperacion menorCosto = min(insertCost, eraseCost, aux);
 										
 				distance[i][j]=menorCosto;
 							

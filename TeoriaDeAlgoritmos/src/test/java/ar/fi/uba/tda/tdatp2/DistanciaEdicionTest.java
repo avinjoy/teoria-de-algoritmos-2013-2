@@ -66,18 +66,27 @@ public class DistanciaEdicionTest {
 		assertThat("El resultado no es nulo", distancia.getCostoFinal(), is(5) );
 	}
 	
-//	 @Test
-//	 public void adnTest() {
-//	
-//	 //copyCost, replaceCost, insertCost, switchCost, endCost, eraseCost
-//			costos = new HashMap<String, Integer>();
-//			costos.put("Copiar", 1);
-//			costos.put("Reemplazar", 1);
-//			costos.put("Borrar", 1);
-//			costos.put("Insertar", 1);
-//			costos.put("Intercambiar", 0);
-//			costos.put("Terminar", 0);
-//	 distancia = new DistanciaEdicion("G ATTCG GCAT", "CAAT GTGAATC",costos);
-//	 assertThat("La distancia de edicion es ", distancia.calcularDistanciaEdicion(), is(10));
-//	 }
+	@Test
+	public void convertirAlgoritmoAlgaConPesoAltoEnTerminar() {
+		
+		costos.put("Terminar", 100);
+		distancia = new DistanciaEdicion("algoritmo", "alga", costos);
+		int distanciaEdicion = distancia.calcularDistanciaEdicion();
+		assertThat("la distancia de edición", distanciaEdicion, is(9));
+		assertThat("El resultado no es nulo", distancia.getCostoFinal(), is(9) );
+	}
+	
+	@Test
+	public void adnTest() {
+	
+		costos = new HashMap<String, Integer>();
+		costos.put("Copiar", -1);
+		costos.put("Reemplazar", 2);
+		costos.put("Borrar", 2);
+		costos.put("Insertar", 2);
+		costos.put("Intercambiar", 1000);
+		costos.put("Terminar", 1000);
+		distancia = new DistanciaEdicion("GATCGGCAT", "CAATGTGAATC",costos);
+		assertThat("La distancia de edicion es ", distancia.calcularDistanciaEdicion(), is(6));
+	}
 }
