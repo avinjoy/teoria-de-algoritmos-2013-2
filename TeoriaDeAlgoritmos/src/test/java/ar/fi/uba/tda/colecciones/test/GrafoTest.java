@@ -45,7 +45,6 @@ public class GrafoTest {
 		assertThat("Agrego un vertice", grafo.getCantidadDeNodosGrafo(), is(1));
 	}
 	
-	//TODO:Tenemos que ver si la lista acepta repetidos
 	@Test
 	public void agregoUnArcoTest() {
 		
@@ -131,9 +130,33 @@ public class GrafoTest {
 		crearGrafoAciclico();
 		grafo.encontrarCiclos(this.grafo.getVertices());
 		assertThat("Hay 8 vertices", grafo.getCantidadDeNodosGrafo(), is(7));
-		assertThat("Hay 0 ciclos en el grafo", grafo.getCiclosGrafo().tamanio(), is((0)));
+		assertThat("Hay 1 ciclos en el grafo", grafo.getCiclosGrafo().tamanio(), is((1)));
 	}
 
+	@Test
+	public void elArcoABEsElMismoQueElBA() {
+		
+		grafo.agregarArco(verticeA, verticeB);
+		grafo.agregarArco(verticeB, verticeA);
+		
+		assertThat("el grado del vértice A", verticeA.getGradoVertice(), is(1));
+		assertThat("el grado del vértice B", verticeB.getGradoVertice(), is(1));
+		
+	}
+	
+	@Test
+	public void elGrafoDelEnunciadoModificadoTiene2Ciclos() {
+		
+		crearGrafoEnunciado();
+		grafo.agregarArco(verticeB, verticeF);
+		grafo.agregarArco(verticeC, verticeG);
+		grafo.encontrarCiclos(this.grafo.getVertices());
+		assertThat("Hay 8 vertices", grafo.getCantidadDeNodosGrafo(), is(8));
+		assertThat("Hay 2 ciclos en el grafo", grafo.getCiclosGrafo().tamanio(), is(2));
+		assertThat("El primer ciclo es de 4 ", grafo.getCiclosGrafo().primero().tamanio(), is(4));
+		assertThat("El segundo ciclo es de 4 ", grafo.getCiclosGrafo().ultimo().tamanio(), is(3));
+	}
+	
 	private void crearGrafoEnunciado() {
 		verticeA = new Vertice<String>("A");
 		verticeB = new Vertice<String>("B");

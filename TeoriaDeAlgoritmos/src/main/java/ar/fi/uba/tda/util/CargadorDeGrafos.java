@@ -15,6 +15,14 @@ public class CargadorDeGrafos {
 		
 	}
 
+	/**
+	 * Método encargado de construir un grafo en base a la información obtenida de un archivo dado.
+	 * 
+	 * Este método recorre todas las lineas del archivo (vértices) y para cada una de ellas recorre
+	 * la lista de vértices adyacentes (arcos) por lo que el costo, en tiempo, de cargar un grafo es O(|V| + |A|)
+	 * @param reader
+	 * @throws IOException
+	 */
 	public void cargar(BufferedReader reader) throws IOException {
 		
 		String linea = reader.readLine();
