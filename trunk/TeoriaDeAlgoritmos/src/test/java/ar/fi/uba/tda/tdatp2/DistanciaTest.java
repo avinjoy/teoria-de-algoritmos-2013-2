@@ -50,13 +50,6 @@ public class DistanciaTest {
 		verify(err).println("i.e.: java -jar Distancia.jar Algoritmo Altruista");
 	}
 	
-	@Test
-	public void grafoGrandeRobustez3() throws IOException {
-		
-		Distancia.main(new String[]{"Algoritmo", "Altruista", "src/test/resources/costos.txt"});
-		verify(err, never()).println(anyString());
-	}
-	
 //	@Test
 //	@SuppressWarnings({ "unchecked", "rawtypes" })
 //	public void elProgramaCargaElGrafoBuscaCiclosYAumentaLaRobustez() throws IOException {
