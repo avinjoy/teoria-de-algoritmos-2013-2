@@ -140,5 +140,32 @@ namespace Test
 
 
         }
+
+
+        [Test]
+        public void TestADN()
+        {
+            char[] palabraInicio = "GATCGGCAT".ToCharArray();
+            char[] palabraFin = "CAATGTGAATC".ToCharArray();
+
+            DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicio, palabraFin, -5, 10, 500, 10, 10, 500);
+
+            Assert.AreEqual(30, distanciaEdicion.ObtenerDistanciaEdicion());
+            Assert.AreEqual(palabraFin, distanciaEdicion.Resultado);
+
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Reemplazar, distanciaEdicion.Operaciones[0].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[1].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Insertar, distanciaEdicion.Operaciones[2].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[3].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Borrar, distanciaEdicion.Operaciones[4].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[5].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Insertar, distanciaEdicion.Operaciones[6].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[7].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Reemplazar, distanciaEdicion.Operaciones[8].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[9].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[10].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Insertar, distanciaEdicion.Operaciones[11].Id);
+
+        }
     }
 }
