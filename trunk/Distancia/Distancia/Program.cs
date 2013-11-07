@@ -15,7 +15,7 @@ namespace TDATP2
                 presentacion();
                 char[] palabraInicio = null;
                 char[] palabraFin = null;
-                int costoCopiar, costoReemplazar, costoIntercambiar, costoEliminar, costoInsertar, costoTerminar;
+                int costoCopiar, costoReemplazar, costoIntercambiar, costoBorrar, costoInsertar, costoTerminar;
 
                 try
                 {
@@ -23,15 +23,16 @@ namespace TDATP2
                     palabraFin = args[1].ToCharArray();
                     StreamReader archivo = new StreamReader(args[2]);
 
-                    leerArchivo(archivo, out costoCopiar, out costoReemplazar, out costoIntercambiar, out costoEliminar, out costoInsertar, out costoTerminar);
-
-                    if (costoCopiar == 0 || costoReemplazar == 0 || costoIntercambiar == 0 || costoEliminar == 0 || costoInsertar == 0 || costoTerminar == 0)
+                    leerArchivo(archivo, out costoCopiar, out costoReemplazar, out costoIntercambiar, out costoBorrar, out costoInsertar, out costoTerminar);
+                    DistanciaEdicion distancia = new DistanciaEdicion(palabraInicio, palabraFin, costoCopiar, costoReemplazar, costoIntercambiar, costoBorrar, costoInsertar, costoTerminar);
+                    Console.WriteLine(distancia.ObtenerDistanciaEdicion());
+                    if (costoCopiar == 0 || costoReemplazar == 0 || costoIntercambiar == 0 || costoBorrar == 0 || costoInsertar == 0 || costoTerminar == 0)
                     {
                         Console.WriteLine("Error en el formato del archivo.");
                     }
                     else
                     {
-                        DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicio, palabraFin, costoCopiar, costoReemplazar, costoIntercambiar, costoEliminar, costoInsertar, costoTerminar);
+                        DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicio, palabraFin, costoCopiar, costoReemplazar, costoIntercambiar, costoBorrar, costoInsertar, costoTerminar);
                     }
                 }
                 catch (Exception) {
