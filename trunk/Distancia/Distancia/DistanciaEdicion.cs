@@ -7,119 +7,226 @@ namespace TDATP2
     public class DistanciaEdicion
     {
 
-        private readonly int[,] _distancia;
-        private readonly String _palabraInicio;
-        private readonly String _palabraFin;
+        private readonly Operacion[,] _distancia;
+        private readonly char[] _palabraInicio;
+        private readonly char[] _palabraFin;
         private readonly char[] _resultado;
+
         private Operacion _copiar;
         private Operacion _reemplazar;
         private Operacion _insertar;
         private Operacion _intercambiar;
         private Operacion _terminar;
-        private Operacion _eliminar;
+        private Operacion _borrar;
         private int _i;
         private int _j;
+        private List<Operacion> _operaciones;
 
-        public DistanciaEdicion(string palabraInicio, string palabraFin,
-                int costoCopiar, int costoReemplazar, int costoIntercambiar, int costoEliminar, int costoInsertar,
+        public List<Operacion> Operaciones
+        {
+            get { return _operaciones; }
+            set { _operaciones = value; }
+        }
+
+        public char[] Resultado
+        {
+            get { return _resultado; }
+        }
+
+        public DistanciaEdicion(char[] palabraInicio, char[] palabraFin,
+                int costoCopiar, int costoReemplazar, int costoIntercambiar, int costoBorrar, int costoInsertar,
                 int costoTerminar)
         {
-            _distancia = new int[palabraInicio.Length + 1, palabraFin.Length + 1];
+            _distancia = new Operacion[palabraInicio.Length + 1, palabraFin.Length + 1];
             _palabraInicio = palabraInicio;
             _palabraFin = palabraFin;
-            _copiar = new Operacion(costoCopiar, "1");
-            _reemplazar = new Operacion(costoReemplazar, "2");
-            _intercambiar = new Operacion(costoIntercambiar, "3");
-            _eliminar = new Operacion(costoEliminar, "4");
-            _insertar = new Operacion(costoInsertar, "5");
-            _terminar = new Operacion(costoTerminar, "6");
+            _copiar = new Operacion(costoCopiar, IdOperacion.Copiar);
+            _reemplazar = new Operacion(costoReemplazar, IdOperacion.Reemplazar);
+            _intercambiar = new Operacion(costoIntercambiar, IdOperacion.Intercambiar);
+            _borrar = new Operacion(costoBorrar, IdOperacion.Borrar);
+            _insertar = new Operacion(costoInsertar, IdOperacion.Insertar);
+            _terminar = new Operacion(costoTerminar, IdOperacion.Terminar);
             _i = 0;
             _j = 0;
-
-            _resultado = new char[(palabraInicio.Length < palabraFin.Length) ? palabraFin
-                    .Length : palabraInicio.Length];
+            _operaciones = new List<Operacion>();
+            _resultado = new char[palabraFin.Length];
         }
 
 
-        public int CalcularDistanciaEdicion()
+        /// <summary>
+        /// Devuelve la distancia de edición entre dos palabras teniendo en cuenta los costos de las operaciones.
+        /// </summary>
+        /// <returns></returns>
+        public int ObtenerDistanciaEdicion()
         {
 
             for (int i = 0; i <= _palabraInicio.Length; i++)
-                _distancia[i, 0] = i * _eliminar.Costo;
+                _distancia[i, 0] = new Operacion(i - 1 > 0 ? i - 1 : 0, 0, i * _borrar.Costo, _borrar.Id);
             for (int j = 0; j <= _palabraFin.Length; j++)
-                _distancia[0, j] = j * _insertar.Costo;
+                _distancia[0, j] = new Operacion(0, j - 1 > 0 ? j - 1 : 0, j * _insertar.Costo, _insertar.Id);
             for (int i = 1; i <= _palabraInicio.Length; i++)
             {
-                int j;
-                for (j = 1; j <= _palabraFin.Length; j++)
+                for (int j = 1; j <= _palabraFin.Length; j++)
                 {
-                    Operacion opAuxEliminar = new Operacion(_distancia[i - 1, j] + _eliminar.Costo, _eliminar.Id);
-                    Operacion opAuxInsertar = new Operacion(_distancia[i, j - 1] + _insertar.Costo, _insertar.Id);
-                    Operacion opAuxRestoDePosiblesOp = new Operacion(_distancia[i - 1, j - 1] + GetCostoOperacionesPosibles(i, j).Costo, GetCostoOperacionesPosibles(i, j).Id);
-                    Operacion opElegida = Min(opAuxEliminar, opAuxInsertar, opAuxRestoDePosiblesOp);
+                    Operacion opAuxBorrar = new Operacion(i - 1, j, _distancia[i - 1, j].Costo + _borrar.Costo, _borrar.Id);
+                    Operacion opAuxInsertar = new Operacion(i, j - 1, _distancia[i, j - 1].Costo + _insertar.Costo, _insertar.Id);
+                    Operacion opPosibles = GetCostoOperacionesPosibles(i - 1, j - 1);
+                    Operacion opQueCorresponde = new Operacion(i - 1, j - 1, _distancia[i - 1, j - 1].Costo + opPosibles.Costo, opPosibles.Id);
 
-                    switch (opElegida.Id)
+                    Operacion opElegida = ObtenerMinimaOperacion(opAuxBorrar, opAuxInsertar, opQueCorresponde);
+
+
+                    _distancia[i, j] = opElegida;
+                    if (opElegida.Id.Equals(IdOperacion.Intercambiar))
                     {
-                        case "1":
-                            Copiar();
-                            break;
-                        case "2":
-                            Reemplazar();
-                            break;
-                        case "3":
-                            Intercambiar();
-                            break;
-                        case "4":
-                            Eliminar();
-                            break;
-                        case "5":
-                            Insertar();
-                            break;
-                        case "6":
-                            Terminar();
-                            break;
+                        _distancia[i, j].Costo -= _distancia[i - 1, j - 1].Costo;
                     }
-                    _distancia[i, j] = opElegida.Costo;
 
                 }
-                _distancia[i, j - 1] += _terminar.Costo;
+
             }
 
-            return _distancia[_palabraInicio.Length, _palabraFin.Length];
+            RecuperarOperacionesMinimas();
+            AplicarOperaciones();
+
+            return _distancia[_palabraInicio.Length, _palabraFin.Length].Costo;
         }
 
+        /// <summary>
+        /// Recupera las operaciones a realizar para obtener la palabra fin con el menor costo.
+        /// </summary>
+        private void RecuperarOperacionesMinimas()
+        {
 
+            Operacion op = _distancia[_palabraInicio.Length, _palabraFin.Length];
+            Operacion opAnterior = op;
+            _operaciones.Add(op);
+
+            while (op.FilaAnterior > 0 && op.ColumnaAnterior > 0)
+            {
+                op = _distancia[op.FilaAnterior, op.ColumnaAnterior];
+
+                if (!opAnterior.Id.Equals(IdOperacion.Intercambiar))
+                {
+                    _operaciones.Insert(0, op);
+                }
+                opAnterior = op;
+
+            }
+
+
+        }
+
+        /// <summary>
+        /// Recorre las operaciones y las aplica para transformar la palabra inicio a la palabra fin.
+        /// </summary>        
+        private void AplicarOperaciones()
+        {
+            foreach (Operacion op in _operaciones)
+            {
+                switch (op.Id)
+                {
+                    case IdOperacion.Copiar: Copiar(); break;
+                    case IdOperacion.Reemplazar: Reemplazar(); break;
+                    case IdOperacion.Intercambiar: Intercambiar(); break;
+                    case IdOperacion.Borrar: Borrar(); break;
+                    case IdOperacion.Insertar: Insertar(); break;
+                    case IdOperacion.Terminar: Terminar(); break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Devuelve la operacion posible de realizar.
+        /// </summary>
         private Operacion GetCostoOperacionesPosibles(int i, int j)
         {
-            try
+
+            if (_palabraInicio[i] == _palabraFin[j])
             {
-                if (_palabraInicio[_i] == _palabraFin[_j])
+                return _copiar;
+            }
+            else
+            {
+                try
                 {
-                    return (_copiar.Costo <= _reemplazar.Costo) ? _copiar : _reemplazar;
-                }
-                else
-                {
-                    if (EsIntercambiable(_i, _j))
+                    if (EsIntercambiable(i, j))
                     {
                         return _intercambiar;
                     }
-                    return (_insertar.Costo <= _reemplazar.Costo)
-                               ? _insertar
-                               : _reemplazar;
+                    return _reemplazar;
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    return _reemplazar;
                 }
             }
-            catch (Exception)
-            {
-                if (_i >= _palabraInicio.Length)
-                {
-                    return _eliminar;
 
-                }
-                return _terminar;
+        }
+
+        /// <summary>
+        /// Copiar: copia un carácter de x a z . Esto es: z[ j ]=x [i ] e incrementa los índices i y j
+        /// </summary>
+        private void Copiar()
+        {
+            if (_i < _palabraInicio.Length && _j < _palabraFin.Length)
+            {
+                _resultado[_j] = _palabraInicio[_i];
+                Console.WriteLine("Copiando " + _palabraInicio[_i] + " al resultado");
+                Console.WriteLine("Costo Copiar " + _copiar.Costo);
+                _i++;
+                _j++;
             }
         }
 
+        /// <summary>
+        /// Reemplazar: reemplaza un carácter de x por otro carácter c . Esto es: z[ j ]=c e 
+        ///incrementa los índices i y j
+        /// </summary>
+        private void Reemplazar()
+        {
+            if (_i < _palabraInicio.Length && _j < _palabraFin.Length)
+            {
+                _resultado[_j] = _palabraFin[_j];
+                Console.WriteLine("Reemplazando " + _palabraFin[_j] + " en el resultado");
+                Console.WriteLine("Costo Reemplazar " + _reemplazar.Costo);
+                _i++;
+                _j++;
+            }
+        }
+                
 
+        //Borrar: borra un carácter de x incrementando i y sin mover j
+        private void Borrar()
+        {
+            if (_i < _palabraInicio.Length && _j < _palabraFin.Length)
+            {
+                Console.WriteLine("Eliminando de la palabra de inicio: " + _palabraInicio[_i]);
+                Console.WriteLine("Costo Borrar " + _borrar.Costo);
+                _i++;
+            }
+        }
+
+       
+        /// <summary>
+        /// Insertar: inserta un carácter c en z . Esto es: z[ j ]=c e incrementa j sin mover i
+        /// </summary>
+        private void Insertar()
+        {
+            if (_j < _palabraFin.Length)
+            {
+                _resultado[_j] = _palabraFin[_j];
+                Console.WriteLine("Insertando al " + _palabraFin[_j] + " al resultado ");
+                Console.WriteLine("Costo Insertar " + _insertar.Costo);
+                _j++;
+            }
+        }
+
+        /// <summary>
+        /// Intercambiar: intercambia los próximos dos caracteres copiándolos de x a z pero en 
+        ///orden inverso. Esto es: z[ j ]=x [i+1] y z[ j +1]=x [i] e incrementa los índices de la 
+        ///siguiente manera: i=i+2 y j= j+2
+        /// </summary>
         private void Intercambiar()
         {
             if (_i < _palabraInicio.Length && _j < _palabraFin.Length)
@@ -134,68 +241,31 @@ namespace TDATP2
 
         }
 
-        private void Reemplazar()
-        {
-            if (_i < _palabraInicio.Length && _j < _palabraFin.Length)
-            {
-            _resultado[_j] = _palabraFin[_j];
-            Console.WriteLine("Reemplazando " + _palabraFin[_j] + " en el resultado");
-            Console.WriteLine("Costo Reemplazar " + _reemplazar.Costo);
-            _i++;
-            _j++;
-        }
-    }
-
-        private void Copiar()
-        {
-            if (_i < _palabraInicio.Length && _j < _palabraFin.Length)
-            {
-                _resultado[_j] = _palabraInicio[_i];
-                Console.WriteLine("Copiando " + _palabraInicio[_i] + " al resultado");
-                Console.WriteLine("Costo Copiar " + _copiar.Costo);
-                _i++;
-                _j++;
-            }
-        }
-
-        private void Insertar()
-        {
-            if (_j < _palabraFin.Length)
-            {
-                _resultado[_j] = _palabraFin[_j];
-                Console.WriteLine("Insertando al " + _palabraFin[_j] + " al resultado ");
-                Console.WriteLine("Costo Insertar " + _insertar.Costo);
-                _j++;
-            }
-        }
-
-        private void Eliminar()
-        {
-            if (_i < _palabraInicio.Length && _j < _palabraFin.Length)
-            {
-                Console.WriteLine("Eliminando de la palabra de inicio: " + _palabraInicio[_i]);
-                Console.WriteLine("Costo Eliminar " + _eliminar.Costo);
-                _i++;
-            }
-        }
 
         private void Terminar()
         {
+            Console.WriteLine("Terminando: " + _palabraInicio[_i]);
             Console.WriteLine("Costo Terminar " + _terminar.Costo);
-
             _i = _palabraInicio.Length + 1;
 
         }
 
+        /// <summary>
+        /// Determina si las letras estan intercambiadas
+        /// </summary>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns></returns>
         private bool EsIntercambiable(int i, int j)
         {
-            return (i + 1) < _palabraInicio.Length
-                    && (j + 1) < _palabraFin.Length
-                    && _palabraInicio[i + 1] == _palabraFin[j]
-                    && _palabraInicio[i] == _palabraFin[j + 1];
+            return _palabraInicio[i] == _palabraFin[j - 1]
+                    && _palabraInicio[i - 1] == _palabraFin[j];
         }
 
-        private static Operacion Min(Operacion a, Operacion b, Operacion c)
+        /// <summary>
+        /// Devuelve la operacion de menor costo.
+        /// </summary>       
+        private Operacion ObtenerMinimaOperacion(Operacion a, Operacion b, Operacion c)
         {
             if (a.Costo <= b.Costo && a.Costo <= c.Costo)
                 return a;
@@ -204,19 +274,54 @@ namespace TDATP2
             return c;
         }
 
+
+        /// <summary>
+        /// Enum auxiliar para identificar las operaciones.
+        /// </summary>
+        public enum IdOperacion
+        {
+            NA = 0,
+            Copiar = 1,
+            Reemplazar = 2,
+            Intercambiar = 3,
+            Borrar = 4,
+            Insertar = 5,
+            Terminar = 6
+        }
+
+        /// <summary>
+        /// Clase para crear objetos de tipo op y guardar la informacion que necesito.
+        /// Id, costo, y como llegue a dicha operacion.
+        /// </summary>
         public class Operacion
         {
             private int _costo;
-            private string _id;
+            private IdOperacion _id;
+            private int _filaAnterior;
+            private int _columnaAnterior;
+
 
             public Operacion()
             {
                 _costo = 0;
-                _id = "";
+                _id = IdOperacion.NA;
+                _filaAnterior = 0;
+                _columnaAnterior = 0;
             }
 
-            public Operacion(int costo, string id)
+
+            public Operacion(int costo, IdOperacion id)
             {
+                _filaAnterior = 0;
+                _columnaAnterior = 0;
+                _costo = costo;
+                _id = id;
+            }
+
+            public Operacion(int filaAnterior, int columnaAnterior, int costo, IdOperacion id)
+            {
+                _filaAnterior = filaAnterior;
+                _columnaAnterior = columnaAnterior;
                 _costo = costo;
                 _id = id;
             }
@@ -227,11 +332,25 @@ namespace TDATP2
                 set { _costo = value; }
             }
 
-            public string Id
+            public IdOperacion Id
             {
                 get { return _id; }
                 set { _id = value; }
             }
+
+            public int FilaAnterior
+            {
+                get { return _filaAnterior; }
+                set { _filaAnterior = value; }
+            }
+
+
+            public int ColumnaAnterior
+            {
+                get { return _columnaAnterior; }
+                set { _columnaAnterior = value; }
+            }
+
         }
 
     }
