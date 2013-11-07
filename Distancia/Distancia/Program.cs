@@ -13,14 +13,14 @@ namespace TDATP2
             if (args.Length > 0)
             {
                 presentacion();
-                string palabraInicio = null;
-                string palabraFin = null;
+                char[] palabraInicio = null;
+                char[] palabraFin = null;
                 int costoCopiar, costoReemplazar, costoIntercambiar, costoEliminar, costoInsertar, costoTerminar;
 
                 try
                 {
-                    palabraInicio = args[0];
-                    palabraFin = args[1];
+                    palabraInicio = args[0].ToCharArray();
+                    palabraFin = args[1].ToCharArray();
                     StreamReader archivo = new StreamReader(args[2]);
 
                     leerArchivo(archivo, out costoCopiar, out costoReemplazar, out costoIntercambiar, out costoEliminar, out costoInsertar, out costoTerminar);
