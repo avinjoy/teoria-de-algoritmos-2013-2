@@ -57,7 +57,7 @@ namespace TDATP2
         /// Devuelve la distancia de edición entre dos palabras teniendo en cuenta los costos de las operaciones.
         /// </summary>
         /// <returns></returns>
-        public int ObtenerDistanciaEdicion()
+        public string ObtenerDistanciaEdicion()
         {
 
             for (int i = 0; i <= _palabraInicio.Length; i++)
@@ -89,7 +89,7 @@ namespace TDATP2
             RecuperarOperacionesMinimas();
             AplicarOperaciones();
             int costoFin = TerminarSiEsNecesario();
-            return _distancia[_palabraInicio.Length, _palabraFin.Length].Costo + costoFin;
+            return System.Environment.NewLine + "Costo total: " + (_distancia[_palabraInicio.Length, _palabraFin.Length].Costo + costoFin);
         }
 
         /// <summary>
