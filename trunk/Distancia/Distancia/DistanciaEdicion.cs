@@ -172,7 +172,7 @@ namespace TDATP2
             if (_i < _palabraInicio.Length && _j < _palabraFin.Length)
             {
                 _resultado[_j] = _palabraInicio[_i];
-                Console.WriteLine("Copiando " + _palabraInicio[_i] + " al resultado");
+                Console.WriteLine("Copiar " + _palabraInicio[_i]);
                 Console.WriteLine("Costo Copiar " + _copiar.Costo);
                 _i++;
                 _j++;
@@ -188,7 +188,7 @@ namespace TDATP2
             if (_i < _palabraInicio.Length && _j < _palabraFin.Length)
             {
                 _resultado[_j] = _palabraFin[_j];
-                Console.WriteLine("Reemplazando " + _palabraFin[_j] + " en el resultado");
+                Console.WriteLine("Reemplazar " + _palabraFin[_j]);
                 Console.WriteLine("Costo Reemplazar " + _reemplazar.Costo);
                 _i++;
                 _j++;
@@ -201,7 +201,7 @@ namespace TDATP2
         {
             if (_i < _palabraInicio.Length && _j < _palabraFin.Length)
             {
-                Console.WriteLine("Eliminando de la palabra de inicio: " + _palabraInicio[_i]);
+                Console.WriteLine("Eliminar " + _palabraInicio[_i]);
                 Console.WriteLine("Costo Borrar " + _borrar.Costo);
                 _i++;
             }
@@ -216,7 +216,7 @@ namespace TDATP2
             if (_j < _palabraFin.Length)
             {
                 _resultado[_j] = _palabraFin[_j];
-                Console.WriteLine("Insertando al " + _palabraFin[_j] + " al resultado ");
+                Console.WriteLine("Insertar " + _palabraFin[_j]);
                 Console.WriteLine("Costo Insertar " + _insertar.Costo);
                 _j++;
             }
@@ -233,7 +233,7 @@ namespace TDATP2
             {
                 _resultado[_j] = _palabraInicio[_i + 1];
                 _resultado[_j + 1] = _palabraInicio[_i];
-                Console.WriteLine("Intercambiando " + _resultado[_j] + " con " + _resultado[_j + 1]);
+                Console.WriteLine("Intercambiar " + _resultado[_j] + " con " + _resultado[_j + 1]);
                 Console.WriteLine("Costo Intercambiar " + _intercambiar.Costo);
                 _i += 2;
                 _j += 2;
@@ -241,10 +241,14 @@ namespace TDATP2
 
         }
 
-
+        /// <summary>
+        /// Terminar: elimina los caracteres restantes de x haciendo i=m+1 . Esta operación 
+        ///descarta todos los caracteres de x que todavía no se analizaron. Es la última operación 
+        ///se aplica si hace falta.
+        /// </summary>
         private void Terminar()
         {
-            Console.WriteLine("Terminando: " + _palabraInicio[_i]);
+            Console.WriteLine("Terminar: " + _palabraInicio[_i]);
             Console.WriteLine("Costo Terminar " + _terminar.Costo);
             _i = _palabraInicio.Length + 1;
 
