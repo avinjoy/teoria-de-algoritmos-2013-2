@@ -24,15 +24,19 @@ namespace TDATP2
                     StreamReader archivo = new StreamReader(args[2]);
 
                     leerArchivo(archivo, out costoCopiar, out costoReemplazar, out costoIntercambiar, out costoBorrar, out costoInsertar, out costoTerminar);
-                    DistanciaEdicion distancia = new DistanciaEdicion(palabraInicio, palabraFin, costoCopiar, costoReemplazar, costoIntercambiar, costoBorrar, costoInsertar, costoTerminar);
-                    Console.WriteLine(distancia.ObtenerDistanciaEdicion());
+                    
                     if (costoCopiar == 0 || costoReemplazar == 0 || costoIntercambiar == 0 || costoBorrar == 0 || costoInsertar == 0 || costoTerminar == 0)
                     {
                         Console.WriteLine("Error en el formato del archivo.");
                     }
                     else
                     {
+                        System.Console.Write("Palabra inicial: " + args[0] + System.Environment.NewLine);
+                        System.Console.Write("Palabra final: " + args[1] + System.Environment.NewLine);
+                        System.Console.Write(System.Environment.NewLine);
+
                         DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicio, palabraFin, costoCopiar, costoReemplazar, costoIntercambiar, costoBorrar, costoInsertar, costoTerminar);
+                        Console.WriteLine(distanciaEdicion.ObtenerDistanciaEdicion());
                     }
                 }
                 catch (Exception) {
