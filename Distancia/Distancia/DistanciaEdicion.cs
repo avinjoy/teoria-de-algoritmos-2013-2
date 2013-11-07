@@ -88,8 +88,47 @@ namespace TDATP2
 
             RecuperarOperacionesMinimas();
             AplicarOperaciones();
+            int costoFin = TerminarSiEsNecesario();
+            return _distancia[_palabraInicio.Length, _palabraFin.Length].Costo + costoFin;
+        }
 
-            return _distancia[_palabraInicio.Length, _palabraFin.Length].Costo;
+        /// <summary>
+        /// Termina si es necesario o utiliza borrar en caso de que sea menos costoso.
+        /// </summary>
+        /// <returns></returns>
+        private int TerminarSiEsNecesario()
+        {
+            if (_i < _palabraInicio.Length)
+            {
+                if (_resultado.ToString().Trim().Equals(_palabraFin.ToString().Trim()))
+                {
+
+                    int diferencia = _i- _resultado.Length;
+
+                    if (diferencia > 0)
+                    {
+                        int costoBorrar = diferencia * _borrar.Costo;
+
+                        if (_terminar.Costo <= costoBorrar)
+                        {
+                            Terminar();
+                            return _terminar.Costo;
+
+
+                        }
+                        else
+                        {
+                            for (int i = 0; i < diferencia; i++)
+                            {
+                                Borrar();
+                            }
+                            return costoBorrar;
+                        }
+
+                    }
+                } return 0;
+            }
+            return 0;
         }
 
         /// <summary>
@@ -133,7 +172,9 @@ namespace TDATP2
                     case IdOperacion.Insertar: Insertar(); break;
                     case IdOperacion.Terminar: Terminar(); break;
                 }
-            }
+            }         
+
+
         }
 
         /// <summary>
@@ -173,7 +214,7 @@ namespace TDATP2
             {
                 _resultado[_j] = _palabraInicio[_i];
                 Console.WriteLine("Copiar " + _palabraInicio[_i]);
-                Console.WriteLine("Costo Copiar " + _copiar.Costo);
+                //Console.WriteLine("Costo Copiar " + _copiar.Costo);
                 _i++;
                 _j++;
             }
@@ -189,25 +230,25 @@ namespace TDATP2
             {
                 _resultado[_j] = _palabraFin[_j];
                 Console.WriteLine("Reemplazar " + _palabraFin[_j]);
-                Console.WriteLine("Costo Reemplazar " + _reemplazar.Costo);
+                //Console.WriteLine("Costo Reemplazar " + _reemplazar.Costo);
                 _i++;
                 _j++;
             }
         }
-                
+
 
         //Borrar: borra un carácter de x incrementando i y sin mover j
         private void Borrar()
         {
-            if (_i < _palabraInicio.Length && _j < _palabraFin.Length)
+            if (_i < _palabraInicio.Length && _j <= _palabraFin.Length)
             {
-                Console.WriteLine("Eliminar " + _palabraInicio[_i]);
-                Console.WriteLine("Costo Borrar " + _borrar.Costo);
+                Console.WriteLine("Borrar " + _palabraInicio[_i]);
+                //Console.WriteLine("Costo Borrar " + _borrar.Costo);
                 _i++;
             }
         }
 
-       
+
         /// <summary>
         /// Insertar: inserta un carácter c en z . Esto es: z[ j ]=c e incrementa j sin mover i
         /// </summary>
@@ -217,7 +258,7 @@ namespace TDATP2
             {
                 _resultado[_j] = _palabraFin[_j];
                 Console.WriteLine("Insertar " + _palabraFin[_j]);
-                Console.WriteLine("Costo Insertar " + _insertar.Costo);
+               // Console.WriteLine("Costo Insertar " + _insertar.Costo);
                 _j++;
             }
         }
@@ -234,7 +275,7 @@ namespace TDATP2
                 _resultado[_j] = _palabraInicio[_i + 1];
                 _resultado[_j + 1] = _palabraInicio[_i];
                 Console.WriteLine("Intercambiar " + _resultado[_j] + " con " + _resultado[_j + 1]);
-                Console.WriteLine("Costo Intercambiar " + _intercambiar.Costo);
+                //Console.WriteLine("Costo Intercambiar " + _intercambiar.Costo);
                 _i += 2;
                 _j += 2;
             }
@@ -248,8 +289,8 @@ namespace TDATP2
         /// </summary>
         private void Terminar()
         {
-            Console.WriteLine("Terminar: " + _palabraInicio[_i]);
-            Console.WriteLine("Costo Terminar " + _terminar.Costo);
+            Console.WriteLine("Terminar");
+            //Console.WriteLine("Costo Terminar " + _terminar.Costo);
             _i = _palabraInicio.Length + 1;
 
         }
