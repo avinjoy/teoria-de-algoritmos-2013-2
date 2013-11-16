@@ -104,4 +104,49 @@ public class DistanciaEdicionTest {
 		assertThat("La distancia de edicion es ", distancia.calcularDistanciaEdicion(), is(4));
 		assertThat("El resultado", distancia.getPalabraResultante(), is("minessossi"));
 	}
+	
+	@Test
+	public void casoDePrueba2() {
+	
+		TipoOperacion.COPIAR.setCosto(0);
+		TipoOperacion.REEMPLAZAR.setCosto(2);
+		TipoOperacion.BORRAR.setCosto(3);
+		TipoOperacion.INSERTAR.setCosto(3);
+		TipoOperacion.INTERCAMBIAR.setCosto(1);
+		TipoOperacion.TERMINAR.setCosto(1);
+		
+		distancia = new DistanciaEdicion("mississipi", "minessossi");
+		assertThat("La distancia de edicion es ", distancia.calcularDistanciaEdicion(), is(9));
+		assertThat("El resultado", distancia.getPalabraResultante(), is("minessossi"));
+	}
+	
+	@Test
+	public void casoDePrueba3() {
+	
+		TipoOperacion.COPIAR.setCosto(0);
+		TipoOperacion.REEMPLAZAR.setCosto(5);
+		TipoOperacion.BORRAR.setCosto(3);
+		TipoOperacion.INSERTAR.setCosto(3);
+		TipoOperacion.INTERCAMBIAR.setCosto(1);
+		TipoOperacion.TERMINAR.setCosto(1);
+		
+		distancia = new DistanciaEdicion("mississipi", "minessossi");
+		assertThat("La distancia de edicion es ", distancia.calcularDistanciaEdicion(), is(12));
+		assertThat("El resultado", distancia.getPalabraResultante(), is("minessossi"));
+	}
+	
+	@Test
+	public void casoDePrueba4() {
+	
+		TipoOperacion.COPIAR.setCosto(-1);
+		TipoOperacion.REEMPLAZAR.setCosto(1);
+		TipoOperacion.BORRAR.setCosto(1);
+		TipoOperacion.INSERTAR.setCosto(2);
+		TipoOperacion.INTERCAMBIAR.setCosto(1000000);
+		TipoOperacion.TERMINAR.setCosto(1000000);
+		
+		distancia = new DistanciaEdicion("mississipi", "minessossi");
+		assertThat("La distancia de edicion es ", distancia.calcularDistanciaEdicion(), is(2));
+		assertThat("El resultado", distancia.getPalabraResultante(), is("minessossi"));
+	}
 }
