@@ -78,15 +78,15 @@ public class DistanciaEdicionTest {
 	@Test
 	public void adnTest() {
 	
-		TipoOperacion.COPIAR.setCosto(-1);
-		TipoOperacion.REEMPLAZAR.setCosto(2);
+		TipoOperacion.COPIAR.setCosto(0);
+		TipoOperacion.REEMPLAZAR.setCosto(-1);
 		TipoOperacion.BORRAR.setCosto(2);
 		TipoOperacion.INSERTAR.setCosto(2);
 		TipoOperacion.INTERCAMBIAR.setCosto(1000);
 		TipoOperacion.TERMINAR.setCosto(1000);
 		
 		distancia = new DistanciaEdicion("GATCGGCAT", "CAATGTGAATC");
-		assertThat("La distancia de edicion es ", distancia.calcularDistanciaEdicion(), is(6));
+		assertThat("La distancia de edicion es ", distancia.calcularDistanciaEdicion(), is(-4));
 		assertThat("El resultado", distancia.getPalabraResultante(), is("CAATGTGAATC"));
 	}
 	
