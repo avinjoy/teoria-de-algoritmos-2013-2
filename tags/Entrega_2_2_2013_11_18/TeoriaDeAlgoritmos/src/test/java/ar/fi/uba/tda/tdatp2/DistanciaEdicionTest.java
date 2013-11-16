@@ -140,7 +140,7 @@ public class DistanciaEdicionTest {
 	
 		TipoOperacion.COPIAR.setCosto(-1);
 		TipoOperacion.REEMPLAZAR.setCosto(1);
-		TipoOperacion.BORRAR.setCosto(1);
+		TipoOperacion.BORRAR.setCosto(2);
 		TipoOperacion.INSERTAR.setCosto(2);
 		TipoOperacion.INTERCAMBIAR.setCosto(1000000);
 		TipoOperacion.TERMINAR.setCosto(1000000);
