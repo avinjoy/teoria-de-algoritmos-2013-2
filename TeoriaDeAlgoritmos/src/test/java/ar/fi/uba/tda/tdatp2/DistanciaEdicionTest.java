@@ -89,4 +89,19 @@ public class DistanciaEdicionTest {
 		assertThat("La distancia de edicion es ", distancia.calcularDistanciaEdicion(), is(6));
 		assertThat("El resultado", distancia.getPalabraResultante(), is("CAATGTGAATC"));
 	}
+	
+	@Test
+	public void casoDePrueba1() {
+	
+		TipoOperacion.COPIAR.setCosto(0);
+		TipoOperacion.REEMPLAZAR.setCosto(1);
+		TipoOperacion.BORRAR.setCosto(1);
+		TipoOperacion.INSERTAR.setCosto(1);
+		TipoOperacion.INTERCAMBIAR.setCosto(1);
+		TipoOperacion.TERMINAR.setCosto(1);
+		
+		distancia = new DistanciaEdicion("mississipi", "minessossi");
+		assertThat("La distancia de edicion es ", distancia.calcularDistanciaEdicion(), is(4));
+		assertThat("El resultado", distancia.getPalabraResultante(), is("minessossi"));
+	}
 }
