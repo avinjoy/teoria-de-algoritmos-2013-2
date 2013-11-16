@@ -189,7 +189,7 @@ public class DistanciaEdicion {
 		
 		if (palabraResultante.toString().trim().equals(palabraFin)) {
 			
-			int diferencia = palabraInicio.length() - palabraResultante.toString().trim().length();
+			int diferencia = (palabraInicio.length()) - i;
 			
 			if (diferencia > 0) {
 				
@@ -200,7 +200,7 @@ public class DistanciaEdicion {
 					TERMINAR.ejecutar(palabraInicio, palabraFin, palabraResultante, i, j);
 
 					costoFinal -= costoBorrar;
-					costoFinal += BORRAR.getCosto();
+					costoFinal += TERMINAR.getCosto();
 					
 					terminado = true;
 				}
