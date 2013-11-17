@@ -133,8 +133,9 @@ public class DistanciaEdicion {
 	 * Guardo el resultado de las operaciones en una pila antes de devolver el costo, recorridendo la matriz. 
 	 */
 	private void recolectarOperaciones() {
-		int fila=palabraInicio.length();
-		int col=palabraFin.length();
+		
+		int col = palabraFin.length();
+		int fila = obtenerFila(col);
 		
 		do {
 			CostoOperacion cOp= distance[fila][col];
@@ -143,6 +144,22 @@ public class DistanciaEdicion {
 			col=cOp.getColAnterior();
 		}
 		while (fila > 0 || col > 0);
+	}
+
+	private int obtenerFila(int col) {
+		
+		int fila = palabraInicio.length();
+		int costoCol = distance[fila][col].getCosto();
+		
+		for (int i = fila - 1; i >= 0; i--) {
+			
+			if (costoCol > distance[i][col].getCosto() + TERMINAR.getCosto()) {
+				costoCol = distance[i][col].getCosto() + TERMINAR.getCosto();
+				fila = i;
+			}
+		}
+		
+		return fila;
 	}
 	
 	private void aplicarOperaciones() {
@@ -154,6 +171,8 @@ public class DistanciaEdicion {
 		
 		boolean terminado = false;
 		
+		this.costoFinal = 0;
+		
 		while (!resultado.isEmpty() && !terminado) {
 			
 			CostoOperacion operacion = resultado.pop();
@@ -162,8 +181,10 @@ public class DistanciaEdicion {
 			i = comando.nuevoI(i);
 			j = comando.nuevoJ(j);
 			
+			costoFinal = costoFinal + comando.getCosto();
 			terminado = verificarSiTermina(i, j, palabraResultante);
-		}
+			
+		} 
 		
 		this.palabraResultante = palabraResultante.toString().trim();
 	}
@@ -199,8 +220,7 @@ public class DistanciaEdicion {
 					
 					TERMINAR.ejecutar(palabraInicio, palabraFin, palabraResultante, i, j);
 
-					costoFinal -= costoBorrar;
-					costoFinal += TERMINAR.getCosto();
+					costoFinal = costoFinal + TERMINAR.getCosto();
 					
 					terminado = true;
 				}
