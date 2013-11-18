@@ -25,19 +25,13 @@ namespace TDATP2
 
                     leerArchivo(archivo, out costoCopiar, out costoReemplazar, out costoIntercambiar, out costoBorrar, out costoInsertar, out costoTerminar);
                     
-                    if (costoCopiar == 0 || costoReemplazar == 0 || costoIntercambiar == 0 || costoBorrar == 0 || costoInsertar == 0 || costoTerminar == 0)
-                    {
-                        Console.WriteLine("Error en el formato del archivo.");
-                    }
-                    else
-                    {
-                        System.Console.Write("Palabra inicial: " + args[0] + System.Environment.NewLine);
-                        System.Console.Write("Palabra final: " + args[1] + System.Environment.NewLine);
-                        System.Console.Write(System.Environment.NewLine);
+                    System.Console.Write("Palabra inicial: " + args[0] + System.Environment.NewLine);
+                    System.Console.Write("Palabra final: " + args[1] + System.Environment.NewLine);
+                    System.Console.Write(System.Environment.NewLine);
 
-                        DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicio, palabraFin, costoCopiar, costoReemplazar, costoIntercambiar, costoBorrar, costoInsertar, costoTerminar);
-                        Console.WriteLine(distanciaEdicion.ObtenerDistanciaEdicion());
-                    }
+                    DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicio, palabraFin, costoCopiar, costoReemplazar, costoIntercambiar, costoBorrar, costoInsertar, costoTerminar);
+                    Console.WriteLine(distanciaEdicion.ObtenerDistanciaEdicion());
+
                 }
                 catch (Exception) {
 
@@ -81,12 +75,12 @@ namespace TDATP2
             string line = reader.ReadLine();
             char[] delimiterstring = { ':' };
 
-            costoCopiar = 0;
-            costoEliminar = 0;
-            costoInsertar = 0;
-            costoIntercambiar = 0;
-            costoReemplazar = 0;
-            costoTerminar = 0;
+            costoCopiar = 1000;
+            costoEliminar = 1000;
+            costoInsertar = 1000;
+            costoIntercambiar = 1000;
+            costoReemplazar = 1000;
+            costoTerminar = 1000;
 
             while (line != null)
             {
