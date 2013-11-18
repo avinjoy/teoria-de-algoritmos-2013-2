@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace TDATP2
@@ -57,7 +58,7 @@ namespace TDATP2
         /// Devuelve la distancia de edición entre dos palabras teniendo en cuenta los costos de las operaciones.
         /// </summary>
         /// <returns></returns>
-        public string ObtenerDistanciaEdicion()
+        public int ObtenerDistanciaEdicion()
         {
 
             for (int i = 0; i <= _palabraInicio.Length; i++)
@@ -86,60 +87,68 @@ namespace TDATP2
 
             }
 
-            RecuperarOperacionesMinimas();
+            
+            StreamWriter archivo = new StreamWriter("Costos.csv");
+            string linea=null;
+            for (int i = 0; i <= _palabraInicio.Length; i++)
+            {
+                linea = null;
+                for (int j = 0; j <= _palabraFin.Length; j++)
+                {
+                    linea = linea + _distancia[i, j].Costo+",";
+                    //Console.WriteLine("{0}-{1}:{2}",i,j,_distancia[i,j].Costo);
+                }
+                archivo.WriteLine(linea);
+                //Console.WriteLine("\n");
+            }
+            archivo.Close();
+             
+
+            Operacion op = TerminarSiEsNecesario();
+            RecuperarOperacionesMinimas(op);
             AplicarOperaciones();
-            int costoFin = TerminarSiEsNecesario();
-            return System.Environment.NewLine + "Costo total: " + (_distancia[_palabraInicio.Length, _palabraFin.Length].Costo + costoFin);
+            return op.Costo;
         }
 
         /// <summary>
         /// Termina si es necesario o utiliza borrar en caso de que sea menos costoso.
         /// </summary>
         /// <returns></returns>
-        private int TerminarSiEsNecesario()
+        private Operacion TerminarSiEsNecesario()
         {
-            if (_i < _palabraInicio.Length)
+            int costoMinimo = int.MaxValue;
+            int index = 0;
+            for (int i = 0; i <= _palabraInicio.Length; i++)
             {
-                if (_resultado.ToString().Trim().Equals(_palabraFin.ToString().Trim()))
+               
+                if (_distancia[i, _palabraFin.Length].Costo + _terminar.Costo <
+                    _distancia[_palabraInicio.Length, _palabraFin.Length].Costo && _distancia[i, _palabraFin.Length].Costo <= costoMinimo)
                 {
-
-                    int diferencia = _i- _resultado.Length;
-
-                    if (diferencia > 0)
-                    {
-                        int costoBorrar = diferencia * _borrar.Costo;
-
-                        if (_terminar.Costo <= costoBorrar)
-                        {
-                            Terminar();
-                            return _terminar.Costo;
-
-
-                        }
-                        else
-                        {
-                            for (int i = 0; i < diferencia; i++)
-                            {
-                                Borrar();
-                            }
-                            return costoBorrar;
-                        }
-
-                    }
-                } return 0;
+                    costoMinimo = _distancia[i, _palabraFin.Length].Costo;
+                    index = i;
+                }
+               
+              
             }
-            return 0;
+            if(index>0)
+            {
+                _operaciones.Add(new Operacion(_terminar.Costo, IdOperacion.Terminar));
+
+                _distancia[index, _palabraFin.Length].Costo += _terminar.Costo;
+                return _distancia[index, _palabraFin.Length];
+            }
+            return _distancia[_palabraInicio.Length, _palabraFin.Length];
+
+
         }
 
         /// <summary>
         /// Recupera las operaciones a realizar para obtener la palabra fin con el menor costo.
         /// </summary>
-        private void RecuperarOperacionesMinimas()
+        private void RecuperarOperacionesMinimas(Operacion op)
         {
-
-            Operacion op = _distancia[_palabraInicio.Length, _palabraFin.Length];
             Operacion opAnterior = op;
-            _operaciones.Add(op);
+            _operaciones.Insert(0, op);
 
             while (op.FilaAnterior > 0 && op.ColumnaAnterior > 0)
             {
@@ -172,7 +181,7 @@ namespace TDATP2
                     case IdOperacion.Insertar: Insertar(); break;
                     case IdOperacion.Terminar: Terminar(); break;
                 }
-            }         
+            }
 
 
         }
@@ -182,27 +191,34 @@ namespace TDATP2
         /// </summary>
         private Operacion GetCostoOperacionesPosibles(int i, int j)
         {
-
             if (_palabraInicio[i] == _palabraFin[j])
-            {
-                return _copiar;
-            }
-            else
             {
                 try
                 {
                     if (EsIntercambiable(i, j))
                     {
-                        return _intercambiar;
+                        return _copiar.Costo <= _intercambiar.Costo ? _copiar : _intercambiar;
                     }
-                    return _reemplazar;
+                    return _copiar;
                 }
                 catch (IndexOutOfRangeException)
                 {
-                    return _reemplazar;
+                    return _copiar;
                 }
-            }
 
+            }
+            try
+            {
+                if (EsIntercambiable(i, j))
+                {
+                    return _reemplazar.Costo <= _intercambiar.Costo ? _reemplazar : _intercambiar;
+                }
+                return _reemplazar;
+            }
+            catch (IndexOutOfRangeException)
+            {
+                return _reemplazar;
+            }
         }
 
         /// <summary>
@@ -258,7 +274,7 @@ namespace TDATP2
             {
                 _resultado[_j] = _palabraFin[_j];
                 Console.WriteLine("Insertar " + _palabraFin[_j]);
-               // Console.WriteLine("Costo Insertar " + _insertar.Costo);
+                // Console.WriteLine("Costo Insertar " + _insertar.Costo);
                 _j++;
             }
         }

@@ -51,26 +51,9 @@ namespace Test
             Assert.AreEqual(DistanciaEdicion.IdOperacion.Insertar, distanciaEdicion.Operaciones[4].Id);
 
         }
+
         [Test]
         public void TestObtenerDistanciaEdicionEjemplo3()
-        {
-            char[] palabraInicio = "CASA".ToCharArray();
-            char[] palabraFin = "ACA".ToCharArray();
-
-            DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicio, palabraFin, 1, 2, 3, 4, 5, 6);
-
-
-            Assert.AreEqual(8, distanciaEdicion.ObtenerDistanciaEdicion());
-            Assert.AreEqual(palabraFin, distanciaEdicion.Resultado);
-
-            Assert.AreEqual(DistanciaEdicion.IdOperacion.Intercambiar, distanciaEdicion.Operaciones[0].Id);
-            Assert.AreEqual(DistanciaEdicion.IdOperacion.Borrar, distanciaEdicion.Operaciones[1].Id);
-            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[2].Id);
-
-        }
-
-        [Test]
-        public void TestObtenerDistanciaEdicionEjemplo4()
         {
             char[] palabraInicio = "JULIAN".ToCharArray();
             char[] palabraFin = "NICOLAS".ToCharArray();
@@ -92,14 +75,14 @@ namespace Test
         }
 
         [Test]
-        public void TestObtenerDistanciaEdicionEjemplo5()
+        public void TestObtenerDistanciaEdicionEjemplo4()
         {
             char[] palabraInicio = "ANALISIS".ToCharArray();
             char[] palabraFin = "TEORIA".ToCharArray();
 
             DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicio, palabraFin, 1, 2, 3, 4, 5, 6);
 
-            Assert.AreEqual(19, distanciaEdicion.ObtenerDistanciaEdicion());
+            Assert.AreEqual(17, distanciaEdicion.ObtenerDistanciaEdicion());
             Assert.AreEqual(palabraFin, distanciaEdicion.Resultado);
 
             Assert.AreEqual(DistanciaEdicion.IdOperacion.Reemplazar, distanciaEdicion.Operaciones[0].Id);
@@ -108,8 +91,8 @@ namespace Test
             Assert.AreEqual(DistanciaEdicion.IdOperacion.Reemplazar, distanciaEdicion.Operaciones[3].Id);
             Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[4].Id);
             Assert.AreEqual(DistanciaEdicion.IdOperacion.Reemplazar, distanciaEdicion.Operaciones[5].Id);
-            Assert.AreEqual(DistanciaEdicion.IdOperacion.Borrar, distanciaEdicion.Operaciones[6].Id);
-            Assert.AreEqual(DistanciaEdicion.IdOperacion.Borrar, distanciaEdicion.Operaciones[7].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Terminar, distanciaEdicion.Operaciones[6].Id);
+            
 
 
         }
@@ -122,21 +105,18 @@ namespace Test
 
             DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicio, palabraFin, 1, 2, 3, 4, 5, 6);
 
-            Assert.AreEqual(31, distanciaEdicion.ObtenerDistanciaEdicion());
+            Assert.AreEqual(19, distanciaEdicion.ObtenerDistanciaEdicion());
             Assert.AreEqual(palabraFin, distanciaEdicion.Resultado);
 
             Assert.AreEqual(DistanciaEdicion.IdOperacion.Reemplazar, distanciaEdicion.Operaciones[0].Id);
             Assert.AreEqual(DistanciaEdicion.IdOperacion.Reemplazar, distanciaEdicion.Operaciones[1].Id);
             Assert.AreEqual(DistanciaEdicion.IdOperacion.Reemplazar, distanciaEdicion.Operaciones[2].Id);
-            Assert.AreEqual(DistanciaEdicion.IdOperacion.Borrar, distanciaEdicion.Operaciones[3].Id);
-            Assert.AreEqual(DistanciaEdicion.IdOperacion.Borrar, distanciaEdicion.Operaciones[4].Id);
-            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[5].Id);
-            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[6].Id);
-            Assert.AreEqual(DistanciaEdicion.IdOperacion.Reemplazar, distanciaEdicion.Operaciones[7].Id);
-            Assert.AreEqual(DistanciaEdicion.IdOperacion.Borrar, distanciaEdicion.Operaciones[8].Id);
-            Assert.AreEqual(DistanciaEdicion.IdOperacion.Borrar, distanciaEdicion.Operaciones[9].Id);
-            Assert.AreEqual(DistanciaEdicion.IdOperacion.Borrar, distanciaEdicion.Operaciones[10].Id);
-            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[11].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Reemplazar, distanciaEdicion.Operaciones[3].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[4].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Reemplazar, distanciaEdicion.Operaciones[5].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Reemplazar, distanciaEdicion.Operaciones[6].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Terminar, distanciaEdicion.Operaciones[7].Id);
+            
 
 
         }
@@ -148,24 +128,167 @@ namespace Test
             char[] palabraInicio = "GATCGGCAT".ToCharArray();
             char[] palabraFin = "CAATGTGAATC".ToCharArray();
 
-            DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicio, palabraFin, -5, 10, 500, 10, 10, 500);
 
-            Assert.AreEqual(30, distanciaEdicion.ObtenerDistanciaEdicion());
+            const int copiar = -1;
+            const int reemplazar = 1;
+            const int borrar = 2;
+            const int insertar = 2;
+            const int intercambiar = 100;
+            const int terminar = 100;
+
+            DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicio, palabraFin, copiar, reemplazar, intercambiar, borrar, insertar, terminar);
+
+            Assert.AreEqual(3, distanciaEdicion.ObtenerDistanciaEdicion());
             Assert.AreEqual(palabraFin, distanciaEdicion.Resultado);
 
             Assert.AreEqual(DistanciaEdicion.IdOperacion.Reemplazar, distanciaEdicion.Operaciones[0].Id);
             Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[1].Id);
-            Assert.AreEqual(DistanciaEdicion.IdOperacion.Insertar, distanciaEdicion.Operaciones[2].Id);
-            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[3].Id);
-            Assert.AreEqual(DistanciaEdicion.IdOperacion.Borrar, distanciaEdicion.Operaciones[4].Id);
-            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[5].Id);
-            Assert.AreEqual(DistanciaEdicion.IdOperacion.Insertar, distanciaEdicion.Operaciones[6].Id);
-            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[7].Id);
-            Assert.AreEqual(DistanciaEdicion.IdOperacion.Reemplazar, distanciaEdicion.Operaciones[8].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Reemplazar, distanciaEdicion.Operaciones[2].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Reemplazar, distanciaEdicion.Operaciones[3].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[4].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Insertar, distanciaEdicion.Operaciones[5].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[6].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Reemplazar, distanciaEdicion.Operaciones[7].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[8].Id);
             Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[9].Id);
-            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[10].Id);
-            Assert.AreEqual(DistanciaEdicion.IdOperacion.Insertar, distanciaEdicion.Operaciones[11].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Insertar, distanciaEdicion.Operaciones[10].Id);
+            
 
         }
+
+        [Test]
+        public void Test1()
+        {
+
+            char[] palabraInicio = "mississipi".ToCharArray();
+            char[] palabraFin = "minessossi".ToCharArray();
+
+            const int copiar = 0;
+            const int reemplazar = 1;
+            const int borrar = 1;
+            const int insertar = 1;
+            const int intercambiar = 1;
+            const int terminar = 1;
+            DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicio, palabraFin,copiar,reemplazar,intercambiar,borrar,insertar,terminar);
+
+            Assert.AreEqual(4, distanciaEdicion.ObtenerDistanciaEdicion());
+            Assert.AreEqual(palabraFin, distanciaEdicion.Resultado);
+
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[0].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[1].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Insertar, distanciaEdicion.Operaciones[2].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Insertar, distanciaEdicion.Operaciones[3].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[4].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[5].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Reemplazar, distanciaEdicion.Operaciones[6].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[7].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[8].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[9].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Terminar, distanciaEdicion.Operaciones[10].Id);
+
+        }
+
+
+         [Test]
+        public void Test2()
+        {
+
+            char[] palabraInicio = "mississipi".ToCharArray();
+            char[] palabraFin = "minessossi".ToCharArray();
+
+            const int copiar = 0;
+            const int reemplazar = 2;
+            const int borrar = 3;
+            const int insertar = 3;
+            const int intercambiar = 1;
+            const int terminar = 1;
+            DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicio, palabraFin,copiar,reemplazar,intercambiar,borrar,insertar,terminar);
+
+            Assert.AreEqual(9, distanciaEdicion.ObtenerDistanciaEdicion());
+            Assert.AreEqual(palabraFin, distanciaEdicion.Resultado);
+
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[0].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[1].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Insertar, distanciaEdicion.Operaciones[2].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Insertar, distanciaEdicion.Operaciones[3].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[4].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[5].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Reemplazar, distanciaEdicion.Operaciones[6].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[7].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[8].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[9].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Terminar, distanciaEdicion.Operaciones[10].Id);
+
+        }
+
+        [Test]
+        public void Test3()
+        {
+
+            char[] palabraInicio = "mississipi".ToCharArray();
+            char[] palabraFin = "minessossi".ToCharArray();
+
+            const int copiar = 0;
+            const int reemplazar = 5;
+            const int borrar = 3;
+            const int insertar = 3;
+            const int intercambiar = 1;
+            const int terminar = 1;
+            DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicio, palabraFin, copiar, reemplazar, intercambiar, borrar, insertar, terminar);
+
+            Assert.AreEqual(12, distanciaEdicion.ObtenerDistanciaEdicion());
+
+            Assert.AreEqual(palabraFin, distanciaEdicion.Resultado);
+
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[0].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[1].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Insertar, distanciaEdicion.Operaciones[2].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Insertar, distanciaEdicion.Operaciones[3].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[4].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[5].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Reemplazar, distanciaEdicion.Operaciones[6].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[7].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[8].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[9].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Terminar, distanciaEdicion.Operaciones[10].Id);
+
+        }
+
+        [Test]
+        public void Test4()
+        {
+
+            char[] palabraInicio = "mississipi".ToCharArray();
+            char[] palabraFin = "minessossi".ToCharArray();
+
+            const int copiar = -1;
+            const int reemplazar = 1;
+            const int borrar = 2;
+            const int insertar = 2;
+            const int intercambiar = 1000;
+            const int terminar = 1000;
+            DistanciaEdicion distanciaEdicion = new DistanciaEdicion(palabraInicio, palabraFin, copiar, reemplazar, intercambiar, borrar, insertar, terminar);
+
+            Assert.AreEqual(2, distanciaEdicion.ObtenerDistanciaEdicion());
+            Assert.AreEqual(palabraFin, distanciaEdicion.Resultado);
+
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[0].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[1].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Insertar, distanciaEdicion.Operaciones[2].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Insertar, distanciaEdicion.Operaciones[3].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[4].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[5].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Reemplazar, distanciaEdicion.Operaciones[6].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[7].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[8].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Copiar, distanciaEdicion.Operaciones[9].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Borrar, distanciaEdicion.Operaciones[10].Id);
+            Assert.AreEqual(DistanciaEdicion.IdOperacion.Borrar, distanciaEdicion.Operaciones[11].Id);
+
+        }
+
+
+
+
     }
 }
