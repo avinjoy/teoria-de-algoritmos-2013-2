@@ -87,7 +87,7 @@ namespace TDATP2
 
             }
 
-            
+            /*
             StreamWriter archivo = new StreamWriter("Costos.csv");
             string linea=null;
             for (int i = 0; i <= _palabraInicio.Length; i++)
@@ -102,7 +102,7 @@ namespace TDATP2
                 //Console.WriteLine("\n");
             }
             archivo.Close();
-             
+            */
 
             Operacion op = TerminarSiEsNecesario();
             RecuperarOperacionesMinimas(op);
