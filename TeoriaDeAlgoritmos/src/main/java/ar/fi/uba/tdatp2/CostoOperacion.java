@@ -4,7 +4,7 @@ public class CostoOperacion {
 
 	public enum TipoOperacion{
 		
-		COPIAR(1) {
+		COPIAR {
 			@Override
 			public void ejecutar(String palabraInicio, String palabraFin,
 					StringBuilder palabraResultante, int i, int j) {
@@ -24,7 +24,7 @@ public class CostoOperacion {
 				return j + 1;
 			}
 		},
-		REEMPLAZAR(1) {
+		REEMPLAZAR {
 			@Override
 			public void ejecutar(String palabraInicio, String palabraFin,
 					StringBuilder palabraResultante, int i, int j) {
@@ -44,7 +44,7 @@ public class CostoOperacion {
 				return j + 1;
 			}
 		},
-		BORRAR(1) {
+		BORRAR {
 			@Override
 			public void ejecutar(String palabraInicio, String palabraFin, StringBuilder palabraResultante, int i, int j) {
 				
@@ -61,7 +61,7 @@ public class CostoOperacion {
 				return j;
 			}
 		},
-		INSERTAR(1) {
+		INSERTAR {
 			@Override
 			public void ejecutar(String palabraInicio, String palabraFin, StringBuilder palabraResultante, int i, int j) {
 				
@@ -80,7 +80,7 @@ public class CostoOperacion {
 				return j + 1;
 			}
 		},
-		TERMINAR(1) {
+		TERMINAR {
 			@Override
 			public void ejecutar(String palabraInicio, String palabraFin, StringBuilder palabraResultante, int i, int j) {
 				
@@ -98,7 +98,7 @@ public class CostoOperacion {
 			}
 		},
 
-		INTERCAMBIAR(1) {
+		INTERCAMBIAR {
 			@Override
 			public void ejecutar(String palabraInicio, String palabraFin, StringBuilder palabraResultante, int i, int j) {
 				
@@ -119,12 +119,8 @@ public class CostoOperacion {
 			}
 		};
 
-		private Integer costo;
+		private Integer costo = 1000000;
 
-		private TipoOperacion(int costo) {
-			this.costo = costo;
-		}
-		
 		/**
 		 * Aplica la operación sobre la palabra resultante tomando los datos de la palabra de inicio o de fin.
 		 * Realiza operaciones considerando los strings como arrays, dado que cuenta con los subíndices para 
