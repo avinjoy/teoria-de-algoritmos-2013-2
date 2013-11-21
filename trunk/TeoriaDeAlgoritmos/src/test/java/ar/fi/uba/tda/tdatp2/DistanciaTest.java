@@ -49,5 +49,13 @@ public class DistanciaTest {
 		verify(err).println("O solo las palabras inciales y finales");
 		verify(err).println("i.e.: java -jar Distancia.jar Algoritmo Altruista");
 	}
+	
+	@Test
+	public void elProgramaTomaComoEntradaLasCadenasADNYElArchivoDeCostos() throws IOException {
+		
+		Distancia.main(new String[]{"GATCGGCAT", "CAATGTGAATC", "src/test/resources/costosADN.txt"});
+		
+		verify(err, never()).println(anyString());
+	}
 
 }
