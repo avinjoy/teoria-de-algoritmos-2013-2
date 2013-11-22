@@ -4,76 +4,58 @@ using System.Text;
 
 namespace EmpaquetadoSolExacta
 {
-    class BackTracking
+    public class BackTracking
     {
-        private Elemento[] almacen;
+        private float[] itemSize;
+        private float[] bagFreeSpace;
+        private bool[,] doesBagContainItem; 
 
-        private List<Elemento> tmpEnvase;
-        private List<Elemento> Envase;
-
-        private List<List<Elemento>> Solucion;
-        float valorMaximo;
-
-        public BackTracking()
+        public BackTracking(float[] itemSize)
         {
-            this.tmpEnvase = new List<Elemento>();
-            this.Envase = new List<Elemento>();
-        }
+            this.itemSize = itemSize;
+            this.bagFreeSpace = new float[itemSize.Length];
 
-        // Solución por backtracking
-        public void resolverProblemaBT(int posicion)
-        {
-            float valorEnvase = getValor(tmpEnvase);     // valor de la solucion temporal
-
-            if (posicion >= almacen.GetLength(1))        // si ya se tuvieron en cuenta todos los elementos
-            {   
-                
-                if (valorEnvase > valorMaximo)           // si el valor es mayor que el máximo anterior
-                {  
-                    valorMaximo = valorEnvase;           // se actualiza el valor mayor
-                    Envase.Clear();
-                    Envase.AddRange(tmpEnvase);
-                }
-                return;
-            }
-
-            Elemento e = almacen[posicion];
-            // Si el elemento se puede agregar, se envía a la mochila temporal
-            if (valorEnvase + e.Valor <= valorMaximo)
+            for (int i = 1; i < itemSize.Length; i++)
             {
-                tmpEnvase.Add(e);                       // Se agrega a la mochila temporal
-                resolverProblemaBT(posicion + 1);       // se revisa para el siguiente elemento
-                tmpEnvase.Remove(e);                    // Se retira el elemento
+                this.bagFreeSpace[i] = 1;
             }
-            // Si no se pudo agregar, o ya se agregó y se retiró, se revisa para el siguiente
-            resolverProblemaBT(posicion + 1);
+
+            this.doesBagContainItem = new bool[this.bagFreeSpace.Length, this.itemSize.Length];
         }
 
+        public bool pack(int item)
+        {
+            // output the solution if we're done
+            if (item == itemSize.Length)
+            {
+                for (int i = 0; i < bagFreeSpace.Length; i++)
+                {
+                    Console.WriteLine("bag" + i);
+                    for (int j = 0; j < itemSize.Length; j++)
+                        if (doesBagContainItem[i, j])
+                            Console.Write("item" + j + "(" + itemSize[j] + ") ");
+                    Console.WriteLine();
+                }
+                return true;
+            }
 
-        float getValor(List<Elemento> tmp) {
-            float respuesta=0;
-            foreach(Elemento e in tmp) respuesta+=e.Valor;
-                return respuesta;
+            // otherwise, keep traversing the state tree
+            for (int i = 0; i < bagFreeSpace.Length; i++)
+            {
+                if (bagFreeSpace[i] >= itemSize[item])
+                {
+                    doesBagContainItem[i, item] = true; // put item into bag
+                    bagFreeSpace[i] -= itemSize[item];
+                    if (pack(item + 1))                 // explore subtree
+                        return true;
+                    bagFreeSpace[i] += itemSize[item];  // take item out of the bag
+                    doesBagContainItem[i, item] = false;
+                }
+            }
+
+            return false;
         }
 
     }
 
-    public class Elemento
-    {
-        private float _valor;
-        private float p;
-
-        public Elemento(){}
-
-        public Elemento(float valor)
-        {
-            this._valor = valor;
-        }
-
-        public float Valor
-        {
-            get { return _valor; }
-            set { _valor = value; }
-        }
-    }
 }
