@@ -10,7 +10,7 @@ namespace EmpaquetadoSolExacta
         static void Main(string[] args)
         {
             string tipoSolucion;
-            List<Elemento> datos = new List<Elemento>();
+            float[] datos = null;
 
             if (args.Length > 0)
             {
@@ -22,7 +22,7 @@ namespace EmpaquetadoSolExacta
 
                     leerArchivo(archivo, out datos);
 
-                    if (datos.Count == 0)
+                    if (datos.Length == 0)
                     {
                         Console.WriteLine("Error en el formato del archivo.");
                     }
@@ -31,6 +31,9 @@ namespace EmpaquetadoSolExacta
                         System.Console.Write(System.Environment.NewLine);
 
                         //ACA SE LLAMA AL BACKTRACKING
+                        BackTracking binPack = new BackTracking(datos);
+                        if (!binPack.pack(0))
+                            Console.WriteLine("No existe solucion");
                     }
                 }
                 catch (Exception)
@@ -69,11 +72,12 @@ namespace EmpaquetadoSolExacta
         }
 
 
-        private static void leerArchivo(StreamReader reader, out List<Elemento> datos)
+        private static void leerArchivo(StreamReader reader, out float[] datos)
         {
             int i = 1;
+            int idx = 0;
             string line = reader.ReadLine();
-            datos = new List<Elemento>();
+            datos = null;
 
             while (line != null)
             {
@@ -81,11 +85,13 @@ namespace EmpaquetadoSolExacta
                 {
                     if ((float)Convert.ToSingle(line) > 0 && (float)Convert.ToSingle(line) <= 1)
                     {
-                        Elemento newElem = new Elemento((float)Convert.ToSingle(line));
+                        datos[idx] = ((float)Convert.ToSingle(line));
 
-                        datos.Add(newElem);
+                        idx++;
                     }
                 }
+                else
+                    datos = new float[Convert.ToInt32(line)];
 
                 i++;
                 line = reader.ReadLine();
