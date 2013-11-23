@@ -1,0 +1,10 @@
+C:\Documents and Settings\User\Mis documentos\Visual Studio 2005\Projects\tdatp3\tdatp3\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\User\Mis documentos\Visual Studio 2005\Projects\tdatp3\tdatp3\bin\Debug\tdatp3.exe
+C:\Documents and Settings\User\Mis documentos\Visual Studio 2005\Projects\tdatp3\tdatp3\bin\Debug\tdatp3.pdb
+C:\Documents and Settings\User\Mis documentos\Visual Studio 2005\Projects\tdatp3\tdatp3\obj\Debug\tdatp3.exe
+C:\Documents and Settings\User\Mis documentos\Visual Studio 2005\Projects\tdatp3\tdatp3\obj\Debug\tdatp3.pdb
+C:\Documents and Settings\User\Escritorio\teoria-de-algoritmos-2013-2\Empaquetado\V2005\tdatp3\tdatp3\obj\Debug\tdatp3.exe
+C:\Documents and Settings\User\Escritorio\teoria-de-algoritmos-2013-2\Empaquetado\V2005\tdatp3\tdatp3\obj\Debug\tdatp3.pdb
+C:\Documents and Settings\User\Escritorio\teoria-de-algoritmos-2013-2\Empaquetado\V2005\tdatp3\tdatp3\bin\Debug\tdatp3.exe
+C:\Documents and Settings\User\Escritorio\teoria-de-algoritmos-2013-2\Empaquetado\V2005\tdatp3\tdatp3\bin\Debug\tdatp3.pdb
+C:\Documents and Settings\User\Escritorio\teoria-de-algoritmos-2013-2\Empaquetado\V2005\tdatp3\tdatp3\obj\Debug\ResolveAssemblyReference.cache
