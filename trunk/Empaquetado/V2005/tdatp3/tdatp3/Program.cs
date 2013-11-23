@@ -10,7 +10,7 @@ namespace tdatp3
         static void Main(string[] args)
         {
             string tipoSolucion;
-            float[] datos = null;
+            decimal[] datos = null;
 
             if (args.Length > 0)
             {
@@ -30,10 +30,10 @@ namespace tdatp3
                     {
                         System.Console.Write(System.Environment.NewLine);
 
-                        //ACA SE LLAMA AL BACKTRACKING
                         BackTracking binPack = new BackTracking(datos);
                         if (!binPack.pack(0))
                             Console.WriteLine("No existe solucion");
+
                     }
                 }
                 catch (Exception)
@@ -72,7 +72,7 @@ namespace tdatp3
         }
 
 
-        private static void leerArchivo(StreamReader reader, out float[] datos)
+        private static void leerArchivo(StreamReader reader, out decimal[] datos)
         {
             int i = 1;
             int idx = 0;
@@ -83,15 +83,15 @@ namespace tdatp3
             {
                 if (i != 1 && !String.IsNullOrEmpty(line))
                 {
-                    if ((float)Convert.ToSingle(line) > 0 && (float)Convert.ToSingle(line) <= 1)
+                    if ((decimal)Convert.ToSingle(line) > 0 && (decimal)Convert.ToSingle(line) <= 1)
                     {
-                        datos[idx] = ((float)Convert.ToSingle(line));
+                        datos[idx] = ((decimal)Convert.ToSingle(line));
 
                         idx++;
                     }
                 }
                 else
-                    datos = new float[Convert.ToInt32(line)];
+                    datos = new decimal[Convert.ToInt32(line)];
 
                 i++;
                 line = reader.ReadLine();
