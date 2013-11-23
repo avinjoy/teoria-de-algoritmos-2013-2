@@ -5,6 +5,8 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 
+import org.hamcrest.Matcher;
+import org.hamcrest.core.AnyOf;
 import org.junit.Test;
 
 public class GeneradorDeCasosRandomTest {
@@ -18,10 +20,10 @@ public class GeneradorDeCasosRandomTest {
 		
 		assertThat("la cantidad de elementos", elementos, hasSize(1));
 		
-		assertThat("el elemento", elementos, everyItem(allOf(greaterThan(0.0F), lessThanOrEqualTo(1.0F))));
+		chequearElementosEntreLimites(elementos);
 		
 	}
-	
+
 	@Test
 	public void alGeneradorLePidoDosElementosEntre0y1() {
 		
@@ -31,7 +33,7 @@ public class GeneradorDeCasosRandomTest {
 		
 		assertThat("la cantidad de elementos", elementos, hasSize(2));
 		
-		assertThat("el elemento", elementos, everyItem(allOf(greaterThan(0.0F), lessThanOrEqualTo(1.0F))));
+		chequearElementosEntreLimites(elementos);
 		
 	}
 	
@@ -44,7 +46,7 @@ public class GeneradorDeCasosRandomTest {
 		
 		assertThat("la cantidad de elementos", elementos, hasSize(10));
 		
-		assertThat("el elemento", elementos, everyItem(allOf(greaterThan(0.0F), lessThanOrEqualTo(1.0F))));
+		chequearElementosEntreLimites(elementos);
 		
 	}
 	
@@ -57,11 +59,10 @@ public class GeneradorDeCasosRandomTest {
 		
 		assertThat("la cantidad de elementos", elementos, hasSize(100));
 		
-		assertThat("el elemento", elementos, everyItem(allOf(greaterThan(0.0F), lessThanOrEqualTo(1.0F))));
+		chequearElementosEntreLimites(elementos);
 		
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Test
 	public void alGeneradorLePidoMilElementosEntre0y1() {
 		
@@ -71,14 +72,12 @@ public class GeneradorDeCasosRandomTest {
 		
 		assertThat("la cantidad de elementos", elementos, hasSize(1000));
 		
-		assertThat("el elemento", elementos, everyItem(allOf(greaterThan(0.0F), lessThanOrEqualTo(1.0F))));
+		chequearElementosEntreLimites(elementos);
 		
-		assertThat("el elemento", elementos, hasItem(anyOf(is(0.1F), is(0.2F), is(0.3F), is(0.4F), is(0.5F), 
-														   is(0.6F), is(0.7F), is(0.8F), is(0.9F), is(1.0F))));
+		chequearSicontieneTodosLosValores(elementos);
 		
 	}
-	
-	@SuppressWarnings("unchecked")
+
 	@Test
 	public void alGeneradorLePidoDiezMilElementosEntre0y1() {
 		
@@ -88,10 +87,25 @@ public class GeneradorDeCasosRandomTest {
 		
 		assertThat("la cantidad de elementos", elementos, hasSize(10000));
 		
-		assertThat("el elemento", elementos, everyItem(allOf(greaterThan(0.0F), lessThanOrEqualTo(1.0F))));
+		chequearElementosEntreLimites(elementos);
 		
-		assertThat("el elemento", elementos, hasItem(anyOf(is(0.1F), is(0.2F), is(0.3F), is(0.4F), is(0.5F), 
-														   is(0.6F), is(0.7F), is(0.8F), is(0.9F), is(1.0F))));
+		chequearSicontieneTodosLosValores(elementos);
 		
+	}
+	
+	private void chequearElementosEntreLimites(List<Float> elementos) {
+		Matcher<Float> limites = allOf(greaterThan(0.0F), lessThanOrEqualTo(1.0F));
+		Matcher<Iterable<Float>> cadaElemento = everyItem(limites);
+		assertThat("el elemento", elementos, cadaElemento);
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void chequearSicontieneTodosLosValores(List<Float> elementos) {
+		
+		AnyOf<Float> cualquiera = anyOf(is(0.1F), is(0.2F), is(0.3F), is(0.4F), is(0.5F), 
+														   is(0.6F), is(0.7F), is(0.8F), is(0.9F), is(1.0F));
+		Matcher<Iterable<? super Float>> contiene = hasItem(cualquiera);
+		
+		assertThat("el elemento", elementos, contiene);
 	}
 }
