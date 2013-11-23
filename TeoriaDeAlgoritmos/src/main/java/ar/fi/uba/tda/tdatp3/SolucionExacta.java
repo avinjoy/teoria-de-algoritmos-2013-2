@@ -1,5 +1,7 @@
 package ar.fi.uba.tda.tdatp3;
 
+import java.math.BigDecimal;
+
 class SolucionExacta {
 
 	private double[] itemSize;
@@ -10,8 +12,8 @@ class SolucionExacta {
 		this.itemSize = itemSize;
 		this.bagFreeSpace = new double[itemSize.length];
 
-		for (int i = 1; i < itemSize.length; i++) {
-			this.bagFreeSpace[i] = 1;
+		for (int i = 0; i < itemSize.length; i++) {
+			this.bagFreeSpace[i] = 1.0F;
 		}
 
 		this.doesBagContainItem = new boolean[this.bagFreeSpace.length][this.itemSize.length];
@@ -23,7 +25,7 @@ class SolucionExacta {
 			for (int i = 0; i < bagFreeSpace.length; i++) {
 				System.out.println("bag" + i);
 				for (int j = 0; j < itemSize.length; j++)
-					if (doesBagContainItem[i][j])
+					if (doesBagContainItem[i][j] == true)
 						System.out.println("item" + j + "(" + itemSize[j]
 								+ ") ");
 			}
@@ -32,17 +34,27 @@ class SolucionExacta {
 
 		// otherwise, keep traversing the state tree
 		for (int i = 0; i < bagFreeSpace.length; i++) {
-			if (bagFreeSpace[i] >= itemSize[item]) {
+			if (round(bagFreeSpace[i],2) >= round(itemSize[item],2)) {
 				doesBagContainItem[i][item] = true; // put item into bag
-				bagFreeSpace[i] -= itemSize[item];
-				if (pack(item + 1)) // explore subtree
+				bagFreeSpace[i]=round(bagFreeSpace[i] -= itemSize[item],2);
+				if (pack(item+1))
 					return true;
-				bagFreeSpace[i] += itemSize[item]; // take item out of the bag
+				bagFreeSpace[i]=round(bagFreeSpace[i] += itemSize[item],2); // take item out of the bag
 				doesBagContainItem[i][item] = false;
 			}
+				
+		
 		}
 
 		return false;
+	}
+	
+	public static double round(double value, int places) {
+	    if (places < 0) throw new IllegalArgumentException();
+
+	    BigDecimal bd = new BigDecimal(value);
+	    bd = bd.setScale(places, BigDecimal.ROUND_HALF_UP);
+	    return bd.doubleValue();
 	}
 
 }
