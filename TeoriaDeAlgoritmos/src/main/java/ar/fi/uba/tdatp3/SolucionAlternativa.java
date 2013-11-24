@@ -4,25 +4,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SolucionAlternativa {
+public class SolucionAlternativa extends Solucion {
 
-	private final List<Float> elementos;
 	private Map<Integer, Float> envases;
 
-	public SolucionAlternativa(List<Float> elementos) {
-		this.elementos = elementos;
-		this.envases = new HashMap<Integer, Float>(elementos.size());
+	public SolucionAlternativa(FuenteDeDatos fuente) {
+		super(fuente);
+		this.envases = new HashMap<Integer, Float>();
 	}
 
-	public List<Float> getElementos() {
-		return elementos;
-	}
-
+	@Override
 	public Integer getEnvases() {
 		return envases.size();
 	}
 
-	public void ejecutar() {
+	@Override
+	public void aplicarAlgoritmo() {
 		
 		int envaseActual = 1;
 		envases.put(envaseActual, 0F);
