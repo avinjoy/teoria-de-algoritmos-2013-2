@@ -29,7 +29,7 @@ public class SolucionAlternativaTest {
 		elementos = new ArrayList<Float>();
 		when(fuente.obtenerDatos()).thenReturn(elementos);
 		
-		sa = new SolucionAlternativa(fuente);
+		sa = new SolucionAlternativa(elementos);
 	}
 	
 	
@@ -38,7 +38,7 @@ public class SolucionAlternativaTest {
 		
 		elementos.add(0.8F);
 		
-		sa.ejecutar();
+		sa.aplicarAlgoritmo();
 		
 		assertThat("la cantidad de envases", sa.getEnvases(), is(1));
 	}
@@ -49,7 +49,7 @@ public class SolucionAlternativaTest {
 		elementos.add(0.8F);
 		elementos.add(0.2F);
 		
-		sa.ejecutar();
+		sa.aplicarAlgoritmo();
 		
 		assertThat("la cantidad de envases", sa.getEnvases(), is(1));
 	}
@@ -60,7 +60,7 @@ public class SolucionAlternativaTest {
 		elementos.add(0.8F);
 		elementos.add(0.8F);
 		
-		sa.ejecutar();
+		sa.aplicarAlgoritmo();
 		
 		assertThat("la cantidad de envases", sa.getEnvases(), is(2));
 	}
@@ -72,7 +72,7 @@ public class SolucionAlternativaTest {
 		elementos.add(0.8F);
 		elementos.add(0.2F);
 		
-		sa.ejecutar();
+		sa.aplicarAlgoritmo();
 		
 		assertThat("la cantidad de envases", sa.getEnvases(), is(2));
 	}
@@ -92,7 +92,7 @@ public class SolucionAlternativaTest {
 		elementos.add(0.2F);
 		elementos.add(0.2F);
 		
-		sa.ejecutar();
+		sa.aplicarAlgoritmo();
 		
 		assertThat("la cantidad de envases", sa.getEnvases(), is(6));
 	}
