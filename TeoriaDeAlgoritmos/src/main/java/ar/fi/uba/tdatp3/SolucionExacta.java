@@ -2,13 +2,14 @@ package ar.fi.uba.tdatp3;
 
 import java.math.BigDecimal;
 
-public class SolucionExacta {
+public class SolucionExacta extends Solucion {
 
 	private double[] itemSize;
 	private double[] bagFreeSpace;
 	private boolean[][] doesBagContainItem;
 
 	public SolucionExacta(double[] itemSize) {
+		super(null);
 		this.itemSize = itemSize;
 		this.bagFreeSpace = new double[itemSize.length];
 
@@ -19,6 +20,23 @@ public class SolucionExacta {
 		this.doesBagContainItem = new boolean[this.bagFreeSpace.length][this.itemSize.length];
 	}
 
+	public SolucionExacta(FuenteDeDatos fuente) {
+		// TODO Auto-generated constructor stub
+		super(null);
+	}
+
+	@Override
+	public Integer getEnvases() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void aplicarAlgoritmo() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	public boolean pack(int item) {
 		// output the solution if we're done
 		if (item == itemSize.length) {
