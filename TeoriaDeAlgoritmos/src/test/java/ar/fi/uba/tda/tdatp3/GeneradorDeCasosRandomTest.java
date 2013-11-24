@@ -9,6 +9,8 @@ import org.hamcrest.Matcher;
 import org.hamcrest.core.AnyOf;
 import org.junit.Test;
 
+import ar.fi.uba.tdatp3.GeneradorDeCasosRandom;
+
 public class GeneradorDeCasosRandomTest {
 
 	@Test
