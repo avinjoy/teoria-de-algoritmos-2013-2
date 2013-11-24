@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class GeneradorDeCasosRandom {
+public class GeneradorDeCasosRandom implements FuenteDeDatos{
 
 	private final int cantidadDeElementos;
 	private final List<Float> elementos;
@@ -19,6 +19,7 @@ public class GeneradorDeCasosRandom {
 		format = new DecimalFormat("#.#");
 	}
 
+	@Override
 	public List<Float> obtenerDatos() {
 
 		for (int i = 0; i < cantidadDeElementos; i++) {
