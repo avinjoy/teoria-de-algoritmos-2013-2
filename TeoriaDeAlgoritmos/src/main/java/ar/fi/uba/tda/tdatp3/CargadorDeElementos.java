@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CargadorDeElementos {
+public class CargadorDeElementos implements FuenteDeDatos {
 
 	private final BufferedReader reader;
 	private List<Float> elementos;
@@ -14,6 +14,7 @@ public class CargadorDeElementos {
 		this.reader = reader;
 	}
 
+	@Override
 	public List<Float> obtenerDatos() {
 		
 		if (elementos == null) {
