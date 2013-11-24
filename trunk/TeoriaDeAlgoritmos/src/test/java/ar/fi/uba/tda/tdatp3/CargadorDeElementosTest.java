@@ -9,6 +9,8 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import ar.fi.uba.tdatp3.CargadorDeElementos;
+
 public class CargadorDeElementosTest {
 	
 	@Test

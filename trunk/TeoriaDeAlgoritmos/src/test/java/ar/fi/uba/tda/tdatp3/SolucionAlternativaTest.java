@@ -7,6 +7,8 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 import org.junit.Test;
 
+import ar.fi.uba.tdatp3.SolucionAlternativa;
+
 public class SolucionAlternativaTest {
 
 	@Test
