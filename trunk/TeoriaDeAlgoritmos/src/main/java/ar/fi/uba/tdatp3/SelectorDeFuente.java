@@ -1,12 +1,9 @@
-package ar.fi.uba.tda.tdatp3;
+package ar.fi.uba.tdatp3;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-import ar.fi.uba.tdatp3.CargadorDeElementos;
-import ar.fi.uba.tdatp3.FuenteDeDatos;
-import ar.fi.uba.tdatp3.GeneradorDeCasosRandom;
 
 public class SelectorDeFuente {
 

@@ -8,6 +8,7 @@ import org.junit.Test;
 import ar.fi.uba.tdatp3.CargadorDeElementos;
 import ar.fi.uba.tdatp3.FuenteDeDatos;
 import ar.fi.uba.tdatp3.GeneradorDeCasosRandom;
+import ar.fi.uba.tdatp3.SelectorDeFuente;
 
 public class SelectorDeFuenteTest {
 	
