@@ -40,8 +40,43 @@ public class SolucionTest {
 	@Test
 	public void unaSolucionTieneUnaFuenteDeDatos() {
 		
-		solucion.ejecutar();
+		solucion.ejecutar(1);
 		
 		verify(fuente).obtenerDatos();
 	}
+	
+	@Test
+	public void unaSolucionPuedeEjecutarseMultiplesVeces() {
+		
+		solucion.ejecutar(2);
+		
+		verify(fuente, times(2)).obtenerDatos();
+	}
+	
+	@Test
+	public void puedoSaberCuantasVecesSeEjecutoUnaSolucion() {
+		
+		solucion.ejecutar(2);
+		
+		assertThat("la cantidad de ejecuciones", solucion.getCantidadDeEjecuciones(), is(2));
+	}
+
+	@Test
+	public void puedoSaberCuantoDemoroCadaEjecucion() {
+		
+		solucion.ejecutar(2);
+		
+		assertThat("la cantidad de ejecuciones", solucion.getEjecuciones(), hasSize(2));
+		assertThat("el tiempo de la ejecucion", solucion.getEjecuciones().get(0), greaterThanOrEqualTo(0L));
+		assertThat("el tiempo de la ejecucion", solucion.getEjecuciones().get(1), greaterThanOrEqualTo(0L));
+	}
+	
+	@Test
+	public void puedoSaberElPromedioDeLasEjecuciones() {
+		
+		solucion.ejecutar(2);
+		
+		assertThat("el promedio de las ejecuciones", solucion.getTiempoPromedio(), greaterThanOrEqualTo(0L));
+	}
+	
 }
