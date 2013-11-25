@@ -69,13 +69,13 @@ public class SolucionExacta extends Solucion{
 	public boolean pack(int item) {
 		// Mostrar la solución si terminamos
 		if (item == elementos.size()) {
-			for (int i = 0; i < espacioLibreEnvase.length; i++) {
-				System.out.println("bag" + i);
-				for (int j = 0; j < elementos.size(); j++)
-					if (estaEnvaseConItem[i][j] == true)
-						System.out.println("item" + j + "(" + elementos.get(j)
-								+ ") ");
-			}
+//			for (int i = 0; i < espacioLibreEnvase.length; i++) {
+//				System.out.println("bag" + i);
+//				for (int j = 0; j < elementos.size(); j++)
+//					if (estaEnvaseConItem[i][j] == true)
+//						System.out.println("item" + j + "(" + elementos.get(j)
+//								+ ") ");
+//			}
 			return true;
 		}
 
@@ -124,7 +124,7 @@ public class SolucionExacta extends Solucion{
 
 		if (!elementos.isEmpty()) {
 			for (int cantEnvases=0; cantEnvases < this.elementos.size() && !flag; cantEnvases++) {
-				this.setCantidadEnvases(cantEnvases);
+				this.setCantidadEnvases(cantEnvases+1);
 				flag=this.pack(0);
 			}
 		}
