@@ -15,9 +15,6 @@
 	<profiles>
 		<profile>
 			<id>tp1</id>
-			<activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <properties>
             	<finalName>tdatp1</finalName>
             	<mainClass>ar.fi.uba.tda.Robustez</mainClass>
@@ -25,12 +22,19 @@
 		</profile>
 		<profile>
 			<id>tp2</id>
+            <properties>
+            	<finalName>tdatp2</finalName>
+            	<mainClass>ar.fi.uba.tdatp2.Distancia</mainClass>
+            </properties>
+		</profile>
+		<profile>
+			<id>tp3</id>
 			<activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-            	<finalName>tdatp2</finalName>
-            	<mainClass>ar.fi.uba.tdatp2.Distancia</mainClass>
+            	<finalName>tdatp3</finalName>
+            	<mainClass>ar.fi.uba.tdatp3.Empaquetamiento</mainClass>
             </properties>
 		</profile>
 	</profiles>

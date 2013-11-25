@@ -22,13 +22,13 @@ public class SolucionExacta extends Solucion {
 
 	public SolucionExacta(FuenteDeDatos fuente) {
 		// TODO Auto-generated constructor stub
-		super(null);
+		super(fuente);
 	}
 
 	@Override
 	public Integer getEnvases() {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 
 	@Override
