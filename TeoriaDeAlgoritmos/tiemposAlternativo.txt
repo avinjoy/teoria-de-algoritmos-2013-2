@@ -1,0 +1,67 @@
+java -jar tdatp3.jar A -P1 -V20
+Solución Aproximada: 1
+0
+java -jar tdatp3.jar A -P2 -V20
+Solución Aproximada: 2
+0
+java -jar tdatp3.jar A -P4 -V20
+Solución Aproximada: 3
+0
+java -jar tdatp3.jar A -P8 -V20
+Solución Aproximada: 7
+0
+java -jar tdatp3.jar A -P16 -V20
+Solución Aproximada: 13
+0
+java -jar tdatp3.jar A -P32 -V20
+Solución Aproximada: 23
+0
+java -jar tdatp3.jar A -P64 -V20
+Solución Aproximada: 52
+0
+java -jar tdatp3.jar A -P128 -V20
+Solución Aproximada: 97
+0
+java -jar tdatp3.jar A -P256 -V20
+Solución Aproximada: 197
+1
+java -jar tdatp3.jar A -P512 -V20
+Solución Aproximada: 383
+1
+java -jar tdatp3.jar A -P1024 -V20
+Solución Aproximada: 753
+2
+java -jar tdatp3.jar A -P2048 -V20
+Solución Aproximada: 1571
+4
+java -jar tdatp3.jar A -P4196 -V20
+Solución Aproximada: 3193
+5
+java -jar tdatp3.jar A -P4096 -V20
+Solución Aproximada: 3081
+5
+java -jar tdatp3.jar A -P8192 -V20
+Solución Aproximada: 6151
+5
+java -jar tdatp3.jar A -P16384 -V20
+Solución Aproximada: 12408
+9
+java -jar tdatp3.jar A -P32768 -V20
+Solución Aproximada: 24729
+10
+java -jar tdatp3.jar A -P65536 -V20
+Solución Aproximada: 49177
+17
+java -jar tdatp3.jar A -P131072 -V20
+Solución Aproximada: 98638
+28
+java -jar tdatp3.jar A -P262144 -V20
+Solución Aproximada: 197768
+60
+java -jar tdatp3.jar A -P524288 -V20
+Solución Aproximada: 394963
+143
+java -jar tdatp3.jar A -P1048576 -V20
+Solución Aproximada: 790059
+287
+

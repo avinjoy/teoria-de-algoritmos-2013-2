@@ -40,6 +40,21 @@ public class GeneradorDeCasosRandomTest {
 	}
 	
 	@Test
+	public void alGeneradorLePidoDosElementosEntre0y1DosVeces() {
+		
+		GeneradorDeCasosRandom generador = new GeneradorDeCasosRandom(2);
+		
+		List<Float> elementos = generador.obtenerDatos();
+		
+		assertThat("la cantidad de elementos", elementos, hasSize(2));
+		
+		elementos = generador.obtenerDatos();
+		
+		assertThat("la cantidad de elementos", elementos, hasSize(2));
+		
+	}
+	
+	@Test
 	public void alGeneradorLePidoDiezElementosEntre0y1() {
 		
 		GeneradorDeCasosRandom generador = new GeneradorDeCasosRandom(10);
