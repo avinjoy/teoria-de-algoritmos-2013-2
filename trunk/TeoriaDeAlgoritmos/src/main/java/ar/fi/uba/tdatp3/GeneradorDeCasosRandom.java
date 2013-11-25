@@ -3,6 +3,7 @@ package ar.fi.uba.tdatp3;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 public class GeneradorDeCasosRandom implements FuenteDeDatos{
@@ -16,7 +17,9 @@ public class GeneradorDeCasosRandom implements FuenteDeDatos{
 		this.cantidadDeElementos = cantidadDeElementos;
 		this.elementos = new ArrayList<Float>(cantidadDeElementos);
 		random = new Random();
+		Locale.setDefault(new Locale("us"));
 		format = new DecimalFormat("#.#");
+		
 	}
 
 	@Override
@@ -31,7 +34,7 @@ public class GeneradorDeCasosRandom implements FuenteDeDatos{
 				numeroRandom = 1.0F;
 			}
 			
-			String formateado = format.format(numeroRandom);
+			String formateado = String.format(Locale.US,"%s",format.format(numeroRandom));
 			float numeroFormateado = Float.valueOf(formateado);
 			
 			elementos.add(numeroFormateado);
