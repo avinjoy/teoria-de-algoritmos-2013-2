@@ -3,7 +3,7 @@ package ar.fi.uba.tdatp3;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Solucion {
+public abstract class Solucion{
 
 	protected List<Float> elementos;
 	private FuenteDeDatos fuente;
