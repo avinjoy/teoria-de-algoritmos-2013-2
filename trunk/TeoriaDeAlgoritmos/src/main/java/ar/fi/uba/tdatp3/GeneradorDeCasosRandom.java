@@ -22,6 +22,7 @@ public class GeneradorDeCasosRandom implements FuenteDeDatos{
 	@Override
 	public List<Float> obtenerDatos() {
 
+		this.elementos.clear();
 		for (int i = 0; i < cantidadDeElementos; i++) {
 			
 			float numeroRandom = random.nextFloat() + 0.1F;
