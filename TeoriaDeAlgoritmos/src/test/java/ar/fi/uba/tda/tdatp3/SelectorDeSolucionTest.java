@@ -41,4 +41,16 @@ public class SelectorDeSolucionTest {
 		
 		assertThat("el selector", selector.obtenerSolucion(null), is(instanceOf(SolucionExacta.class)));
 	}
+	
+	@Test
+	public void elSelectorDeSolucionAlternativaTieneUnMensaje() {
+		
+		assertThat("el mensaje", SelectorDeSolucion.SOLUCION_ALTERNATIVA.getMensaje(), is("Solución Aproximada"));
+	}
+	
+	@Test
+	public void elSelectorDeSolucionExactaTieneUnMensaje() {
+		
+		assertThat("el mensaje", SelectorDeSolucion.SOLUCION_EXACTA.getMensaje(), is("Solución Exacta"));
+	}
 }

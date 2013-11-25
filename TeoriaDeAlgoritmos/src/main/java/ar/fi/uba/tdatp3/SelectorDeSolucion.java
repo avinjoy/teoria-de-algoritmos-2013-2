@@ -11,11 +11,21 @@ public enum SelectorDeSolucion {
 		public Solucion obtenerSolucion(FuenteDeDatos fuente) {
 			return new SolucionAlternativa(fuente);
 		}
+
+		@Override
+		public String getMensaje() {
+			return "Solución Aproximada";
+		}
 	},
 	SOLUCION_EXACTA {
 		@Override
 		public Solucion obtenerSolucion(FuenteDeDatos fuente) {
 			return new SolucionExacta(fuente);
+		}
+
+		@Override
+		public String getMensaje() {
+			return "Solución Exacta";
 		}
 	};
 
@@ -32,4 +42,7 @@ public enum SelectorDeSolucion {
 	}
 
 	public abstract Solucion obtenerSolucion(FuenteDeDatos fuente);
+
+	public abstract String getMensaje();
+		
 }
