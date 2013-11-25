@@ -69,7 +69,7 @@ public class EmpaquetamientoTest {
 		verify(out).println("Solución Exacta: 0");
 		
 	}
-	
+//	
 	@Test
 	public void siSeInvocaConEYGuionPEjecutaLaSolucionExactaConDatosRandom() {
 		
@@ -84,7 +84,7 @@ public class EmpaquetamientoTest {
 	}
 	
 	@Test
-	public void siSeInvocaConAGuionPYConGuionVEjecutaLaSolucionAlternativaConDatosRandomNVeces() {
+	public void siSeInvocaConAGuionPYConGuionVEjecutaLaSolucionExactaConDatosRandomNVeces() {
 		
 		Empaquetamiento.main(new String[]{"E", "-P1", "-V2"});
 		

@@ -5,7 +5,6 @@ import java.util.List;
 
 public class SolucionExacta extends Solucion{
 
-	private List<Float> items;
 	private double[] espacioLibreEnvase;
 	private boolean[][] estaEnvaseConItem;
 
@@ -18,28 +17,28 @@ public class SolucionExacta extends Solucion{
 
 	public SolucionExacta(List<Float> elementos) {
 		super(null);
-		this.items = elementos;
+		this.elementos = elementos;
 		this.espacioLibreEnvase = new double[elementos.size()];
 	}
 
 	public SolucionExacta(List<Float> itemSize, int cantidadEnvases) {
 		super(null);
-		this.items = itemSize;
+		this.elementos = itemSize;
 		this.espacioLibreEnvase = new double[cantidadEnvases];
 
 		for (int i = 0; i < cantidadEnvases; i++) {
 			this.espacioLibreEnvase[i] = 1.0F;
 		}
 
-		this.estaEnvaseConItem = new boolean[cantidadEnvases][this.items.size()];
+		this.estaEnvaseConItem = new boolean[cantidadEnvases][this.elementos.size()];
 	}
 
 	public List<Float> getItems() {
-		return items;
+		return elementos;
 	}
 
 	public void setItems(List<Float> items) {
-		this.items = items;
+		this.elementos = items;
 	}
 
 	public double[] getEspacioLibreEnvase() {
@@ -64,17 +63,17 @@ public class SolucionExacta extends Solucion{
 			this.espacioLibreEnvase[i] = 1.0F;
 		}
 
-		this.estaEnvaseConItem = new boolean[cantEnvases][this.items.size()];
+		this.estaEnvaseConItem = new boolean[cantEnvases][this.elementos.size()];
 	}
 	
 	public boolean pack(int item) {
 		// Mostrar la solución si terminamos
-		if (item == items.size()) {
+		if (item == elementos.size()) {
 			for (int i = 0; i < espacioLibreEnvase.length; i++) {
 				System.out.println("bag" + i);
-				for (int j = 0; j < items.size(); j++)
+				for (int j = 0; j < elementos.size(); j++)
 					if (estaEnvaseConItem[i][j] == true)
-						System.out.println("item" + j + "(" + items.get(j)
+						System.out.println("item" + j + "(" + elementos.get(j)
 								+ ") ");
 			}
 			return true;
@@ -82,12 +81,12 @@ public class SolucionExacta extends Solucion{
 
 		// sino seguimos buscando los elementos
 		for (int i = 0; i < espacioLibreEnvase.length; i++) {
-			if (round(espacioLibreEnvase[i],2) >= round(items.get(item),2)) {
+			if (round(espacioLibreEnvase[i],2) >= round(elementos.get(item),2)) {
 				estaEnvaseConItem[i][item] = true; // insertarlo en el envase
-				espacioLibreEnvase[i]=round(espacioLibreEnvase[i] -= items.get(item),2);
+				espacioLibreEnvase[i]=round(espacioLibreEnvase[i] -= elementos.get(item),2);
 				if (pack(item+1)) //Sigo con el proximo elemento
 					return true;
-				espacioLibreEnvase[i]=round(espacioLibreEnvase[i] += items.get(item),2); // No, entró el anterior, lo sacamos
+				espacioLibreEnvase[i]=round(espacioLibreEnvase[i] += elementos.get(item),2); // No, entró el anterior, lo sacamos
 				estaEnvaseConItem[i][item] = false;
 			}
 				
@@ -110,7 +109,10 @@ public class SolucionExacta extends Solucion{
 
 	@Override
 	public Integer getEnvases() {
-		return this.espacioLibreEnvase.length;
+		Integer envases =0;
+		if (this.espacioLibreEnvase != null)
+			envases= this.espacioLibreEnvase.length;
+		return envases;
 	}
 
 	@Override
@@ -120,9 +122,11 @@ public class SolucionExacta extends Solucion{
 		//Asume que los elementos ya están cargados.
 		boolean flag=false;
 
-		for (int cantEnvases=0; cantEnvases < this.items.size() && !flag; cantEnvases++) {
-			this.setCantidadEnvases(cantEnvases);
-			flag=this.pack(0);
+		if (!elementos.isEmpty()) {
+			for (int cantEnvases=0; cantEnvases < this.elementos.size() && !flag; cantEnvases++) {
+				this.setCantidadEnvases(cantEnvases);
+				flag=this.pack(0);
+			}
 		}
 
 	}
