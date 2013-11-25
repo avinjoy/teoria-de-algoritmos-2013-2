@@ -10,7 +10,8 @@ namespace tdatp3
         static void Main(string[] args)
         {
             string tipoSolucion;
-            decimal[] datos = null;
+            //decimal[] datos = null;
+            List<Objeto> objetos;
 
             if (args.Length > 0)
             {
@@ -20,20 +21,31 @@ namespace tdatp3
                     tipoSolucion = args[0];
                     StreamReader archivo = new StreamReader(args[1]);
 
-                    leerArchivo(archivo, out datos);
+                    //leerArchivo(archivo, out datos);
+                    cargarDatos(out objetos);
 
-                    if (datos.Length == 0)
+                    if (objetos.Count == 0)
                     {
                         Console.WriteLine("Error en el formato del archivo.");
                     }
                     else
                     {
                         System.Console.Write(System.Environment.NewLine);
+                        DateTime horaInicio = DateTime.Now;
 
+                        /*
                         BackTracking binPack = new BackTracking(datos);
                         if (!binPack.pack(0))
                             Console.WriteLine("No existe solucion");
+                        */
 
+                        SolucionExacta solucionExacta = new SolucionExacta(objetos);
+                        solucionExacta.EncontrarSolucion();
+
+                        DateTime horaFin = DateTime.Now;
+
+                        System.Console.Write(System.Environment.NewLine);
+                        System.Console.Write("Total = " + (horaFin - horaInicio).TotalMilliseconds + " mseg.");
                     }
                 }
                 catch (Exception)
@@ -95,6 +107,36 @@ namespace tdatp3
 
                 i++;
                 line = reader.ReadLine();
+            }
+        }
+
+        private static void cargarDatos(out decimal[] datos)
+        {
+            datos = new decimal[1400];
+            Random random = new Random();
+
+            for (int idx = 0; idx < 1400; idx++)
+            {
+                datos[idx] = Math.Round((decimal)random.NextDouble(), 1);
+
+                while (datos[idx] == 0) 
+                    datos[idx] = Math.Round((decimal)random.NextDouble(), 1);
+            }
+        }
+
+        private static void cargarDatos(out List<Objeto> objetos)
+        {
+            objetos = new List<Objeto>();
+
+            Random random = new Random();
+
+            for (int idx = 0; idx < 50000; idx++)
+            {
+                double tamanio = Math.Round(random.NextDouble(), 1);
+                while (tamanio == 0)
+                    tamanio = Math.Round(random.NextDouble(), 1);
+
+                objetos.Add(new Objeto(tamanio));
             }
         }
     }
