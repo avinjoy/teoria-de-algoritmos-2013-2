@@ -6,7 +6,6 @@ namespace tdatp3
 {
     public class Objeto
     {
-
         private double _tamanio;
 
         public double Tamanio
@@ -14,7 +13,6 @@ namespace tdatp3
             get { return _tamanio; }
             set { _tamanio = value; }
         }
-
 
         public Objeto()
         {
@@ -25,6 +23,12 @@ namespace tdatp3
         {
             _tamanio = tamanio;
         }
+
+        public static int Comparer(Objeto x, Objeto y)
+        {
+            return x.Tamanio.CompareTo(y.Tamanio);
+        }
+
     }
 
 }

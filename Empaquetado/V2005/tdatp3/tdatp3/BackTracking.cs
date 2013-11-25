@@ -44,12 +44,18 @@ namespace tdatp3
             // output the solution if we're done
             if (item == itemSize.Length)
             {
+                bool salir;
                 for (int i = 0; i < bagFreeSpace.Length; i++)
                 {
+                    salir = true;
                     Console.WriteLine("bag" + i);
                     for (int j = 0; j < itemSize.Length; j++)
                         if (doesBagContainItem[i, j])
+                        {
                             Console.Write("item" + j + "(" + itemSize[j] + ") ");
+                            salir = false;
+                        }
+                    if (salir) break;
                     Console.WriteLine();
                 }
                 return true;

@@ -7,7 +7,7 @@ using tdatp3;
 namespace Test
 {
     [TestFixture]
-    public class TestSolucionAproximada
+    public class TestSolucionExacta
     {
 
         [Test]
