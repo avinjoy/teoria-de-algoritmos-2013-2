@@ -66,16 +66,16 @@ public class SolucionExacta extends Solucion{
 		this.estaEnvaseConItem = new boolean[cantEnvases][this.elementos.size()];
 	}
 	
+	/**
+	 * Algoritmo de fuerza bruta para la inserción de un elemento en los envases.
+	 * Orden O (m^n) donde n es la cantidad de elementos a insertar y m la cantidad de 
+	 * @param item
+	 * @return
+	 */
 	public boolean pack(int item) {
 		// Mostrar la solución si terminamos
 		if (item == elementos.size()) {
-//			for (int i = 0; i < espacioLibreEnvase.length; i++) {
-//				System.out.println("bag" + i);
-//				for (int j = 0; j < elementos.size(); j++)
-//					if (estaEnvaseConItem[i][j] == true)
-//						System.out.println("item" + j + "(" + elementos.get(j)
-//								+ ") ");
-//			}
+			//showResults();
 			return true;
 		}
 
@@ -96,9 +96,24 @@ public class SolucionExacta extends Solucion{
 		return false;
 	}
 
+	private void showResults() {
+		for (int i = 0; i < espacioLibreEnvase.length; i++) {
+			System.out.println("bag" + i);
+			for (int j = 0; j < elementos.size(); j++)
+				if (estaEnvaseConItem[i][j] == true)
+					System.out.println("item" + j + "(" + elementos.get(j)
+							+ ") ");
+		}
+	}
+
 	
 
-	//Redondeo para manejo de floats
+	/**
+	 * Redondeo para manejo de floats
+	 * @param value
+	 * @param places
+	 * @return
+	 */
 	public static double round(double value, int places) {
 	    if (places < 0) throw new IllegalArgumentException();
 
@@ -108,6 +123,10 @@ public class SolucionExacta extends Solucion{
 	}
 
 	@Override
+	/**
+	 * Cantidad de envases utilizados.
+	 */
+	
 	public Integer getEnvases() {
 		Integer envases =0;
 		if (this.espacioLibreEnvase != null)
@@ -115,6 +134,12 @@ public class SolucionExacta extends Solucion{
 		return envases;
 	}
 
+	/**
+	 * Aplica el algoritmo de la solucion exacta.
+	 * Va probando por fuerza bruta y de 1 en adelante la cantidad de envases a llenar para
+	 * obtener el mínimo.
+	 * Es de orden exponencial O(m x (n^n)) donde m es la cantidad de envases y n la cantidad de elementos 
+	 */
 	@Override
 	public void aplicarAlgoritmo() {
 		
