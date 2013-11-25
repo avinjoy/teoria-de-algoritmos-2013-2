@@ -1,78 +1,100 @@
 package ar.fi.uba.tda.tdatp3;
 
-import java.util.Arrays;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import ar.fi.uba.tdatp3.FuenteDeDatos;
+import ar.fi.uba.tdatp3.Solucion;
+import ar.fi.uba.tdatp3.SolucionAlternativa;
 import ar.fi.uba.tdatp3.SolucionExacta;
 
 public class SolucionExactaTest {
 
+	private List<Float> datos;
+	private FuenteDeDatos fuente;
+	private Solucion se;
+			
 	@Before
 	public void setUp() throws Exception {
+		fuente = mock(FuenteDeDatos.class);
+		datos = new ArrayList<Float>();
+		when(fuente.obtenerDatos()).thenReturn(datos);
+		se = new SolucionAlternativa(datos);
+
 	}
 
 	@After
 	public void tearDown() throws Exception {
 	}
+	
+	@Test
+	public void conUnElementoOcupamosUnEnvase() {
+		
+		datos.add(0.8F);
+		
+		se.aplicarAlgoritmo();
+		
+		assertThat("la cantidad de envases", se.getEnvases(), is(1));
+	}
+	
+	@Test
+	public void conDosElementosChicosOcupamosUnEnvase() {
+		
+		datos.add(0.8F);
+		datos.add(0.2F);
+		
+		se.aplicarAlgoritmo();
+		
+		assertThat("la cantidad de envases", se.getEnvases(), is(1));
+	}
+	
+	@Test
+	public void conDosElementosGrandesOcupamosDosEnvases() {
+		
+		datos.add(0.8F);
+		datos.add(0.8F);
+		
+		se.aplicarAlgoritmo();
+		
+		assertThat("la cantidad de envases", se.getEnvases(), is(2));
+	}
+	
+	@Test
+	public void conDosElementosGrandesYUnoChicoOcupamosDosEnvases() {
+		
+		datos.add(0.8F);
+		datos.add(0.8F);
+		datos.add(0.2F);
+		
+		se.aplicarAlgoritmo();
+		
+		assertThat("la cantidad de envases", se.getEnvases(), is(2));
+	}
 
 	@Test
 	public void test() {
-		
-		double [] datos = {0.4, 0.8, 0.5, 0.1, 0.7, 0.6, 0.1, 0.4, 0.2, 0.2};
-		Arrays.sort(datos);
-		SolucionExacta binPack = new SolucionExacta(datos);
-		if (!binPack.pack(0))
-			System.out.println("No existe solucion");
-		double [] datos2 = {0.8, 0.5, 0.1, 0.7, 0.6, 0.1, 0.4, 0.2, 0.2, 0.4};
-		binPack = new SolucionExacta(datos2);
-		if (!binPack.pack(0))
-			System.out.println("No existe solucion");
-		double [] datos3 = {0.5, 0.1, 0.7, 0.6, 0.1, 0.4, 0.2, 0.2, 0.4, 0.8};
-		 binPack = new SolucionExacta(datos3);
-		if (!binPack.pack(0))
-			System.out.println("No existe solucion");
-		double [] datos4 = {0.1, 0.7, 0.6, 0.1, 0.4, 0.2, 0.2,0.4, 0.8, 0.5};
-		binPack = new SolucionExacta(datos4);
-		if (!binPack.pack(0))
-			System.out.println("No existe solucion");
-		double [] datos5 = {0.7, 0.6, 0.1, 0.4, 0.2, 0.2, 0.4, 0.8, 0.5, 0.1};
-		 binPack = new SolucionExacta(datos5);
-		if (!binPack.pack(0))
-			System.out.println("No existe solucion");
-		double [] datos6 = {0.6, 0.1, 0.4, 0.2, 0.2, 0.4, 0.8, 0.5, 0.1, 0.7};
-		 binPack = new SolucionExacta(datos6);
-		if (!binPack.pack(0))
-			System.out.println("No existe solucion");
-		double [] datos7 = {0.1, 0.4, 0.2, 0.2, 0.4, 0.8, 0.5, 0.1, 0.7, 0.6};
-		binPack = new SolucionExacta(datos7);
-		if (!binPack.pack(0))
-			System.out.println("No existe solucion");
-		double [] datos8 = {0.4, 0.2, 0.2, 0.4, 0.8, 0.5, 0.1, 0.7, 0.6, 0.1};
-		binPack = new SolucionExacta(datos8);
-		if (!binPack.pack(0))
-			System.out.println("No existe solucion");
-		double [] datos10 = {0.2, 0.2, 0.4, 0.8, 0.5, 0.1, 0.7, 0.6, 0.1, 0.4};
-		binPack = new SolucionExacta(datos10);
-		if (!binPack.pack(0))
-			System.out.println("No existe solucion");
-		double [] datos9 = {0.2, 0.4, 0.8, 0.5, 0.1, 0.7, 0.6, 0.1, 0.4, 0.2};
-		binPack = new SolucionExacta(datos9);
-		if (!binPack.pack(0))
-			System.out.println("No existe solucion");
-		
-		
-		
-//		    int datos[] = {4,8,5,1,7,6,1,4,2,2};
-//		    BinPack bp = new BinPack(datos,10,10);
-//		    bp.clear();
-//		    bp.pack();
-//		    System.out.println(bp);
-		    
-		    
-		    
+		datos.add(0.4F);
+		datos.add(0.8F);
+		datos.add(0.5F);
+		datos.add(0.1F);
+		datos.add(0.7F);
+		datos.add(0.6F);
+		datos.add(0.1F);
+		datos.add(0.4F);
+		datos.add(0.2F);
+		datos.add(0.2F);
+		se = new SolucionExacta(datos);
+		se.aplicarAlgoritmo();
+		assertThat("la cantidad de envases", se.getEnvases(), is(4));
 	}
 
 }
