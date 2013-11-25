@@ -1,0 +1,21 @@
+java -jar tdatp3.jar E -P1 -V20
+Solución Exacta: 1
+0
+java -jar tdatp3.jar E -P2 -V20
+Solución Exacta: 2
+0
+java -jar tdatp3.jar E -P4 -V20
+Solución Exacta: 3
+4
+java -jar tdatp3.jar E -P8 -V20
+Solución Exacta: 4
+60
+java -jar tdatp3.jar E -P10 -V20
+Solución Exacta: 5
+675
+java -jar tdatp3.jar E -P11 -V20
+Solución Exacta: 5
+3725
+java -jar tdatp3.jar E -P12 -V20
+Solución Exacta: 11
+387629
