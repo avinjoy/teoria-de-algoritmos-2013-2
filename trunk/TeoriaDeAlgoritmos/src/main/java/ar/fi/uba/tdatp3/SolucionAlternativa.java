@@ -26,6 +26,12 @@ public class SolucionAlternativa extends Solucion {
 		return envases.size();
 	}
 
+	/**
+	 * Recorre uno por uno los elementos y los va ubicando siempre en el último envase.
+	 * Dado que no vuelve a recorrer la lista de envases, y siempre trabaja con el último,
+	 * y que agregar un nuevo envase, o evaluar si un elemento entra en un envase, tienen costo constante,
+	 * el tiempo de ejecución de este algoritmo es lineal respecto de la cantidad de elementos, O(n).
+	 */
 	@Override
 	public void aplicarAlgoritmo() {
 		
