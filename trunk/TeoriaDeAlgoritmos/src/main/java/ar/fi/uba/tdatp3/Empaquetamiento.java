@@ -6,6 +6,11 @@ public class Empaquetamiento {
 	
 	public static void main(String[] args) {
 
+		System.out.println("Teoría de algoritmos - TP 3");
+		System.out.println("Autores:");
+		System.out.println("Alejo Vinjoy - 83.989");
+		System.out.println("Santiago Nicolas Risaro Sesar - 84.623");
+		
 		Empaquetamiento instancia = getInstancia();
 		
 		String tipoDeSolucion = args[0];
