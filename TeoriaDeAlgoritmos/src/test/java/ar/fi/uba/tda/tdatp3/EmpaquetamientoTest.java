@@ -79,7 +79,7 @@ public class EmpaquetamientoTest {
 		
 		verify(instancia).ejecutar(eq(SelectorDeSolucion.SOLUCION_EXACTA), isA(GeneradorDeCasosRandom.class), eq(1));
 		
-		verify(out).println("Solución Exacta: 0");
+		verify(out).println("Solución Exacta: 1");
 		
 	}
 	
@@ -92,7 +92,7 @@ public class EmpaquetamientoTest {
 		
 		verify(instancia).ejecutar(eq(SelectorDeSolucion.SOLUCION_EXACTA), isA(GeneradorDeCasosRandom.class), eq(2));
 		
-		verify(out).println("Solución Exacta: 0");
+		verify(out).println("Solución Exacta: 1");
 		
 	}
 }
