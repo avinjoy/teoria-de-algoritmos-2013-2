@@ -48,7 +48,12 @@ public class Empaquetamiento {
 	public void ejecutar(SelectorDeSolucion selectorDeSolucion, FuenteDeDatos fuente, int cantidadDeEjecuciones) {
 		
 		Solucion solucion = selectorDeSolucion.obtenerSolucion(fuente);
-		solucion.ejecutar(cantidadDeEjecuciones);
+		
+		try {
+			solucion.ejecutar(cantidadDeEjecuciones);
+		} catch (NumberFormatException nfe) {
+			System.err.println("El separador decimal del archivo no es el mismo que el de la configuración del sistema");
+		}
 		
 		System.out.println(selectorDeSolucion.getMensaje() + ": " + solucion.getEnvases());
 		System.out.println(solucion.getTiempoPromedio());

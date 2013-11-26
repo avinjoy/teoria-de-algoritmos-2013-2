@@ -96,4 +96,23 @@ public class SolucionAlternativaTest {
 		
 		assertThat("la cantidad de envases", sa.getEnvases(), is(6));
 	}
+	
+	@Test
+	public void diezElementosDeUnDecimoOcupanUnEnvase() {
+		
+		elementos.add(0.1F);
+		elementos.add(0.1F);
+		elementos.add(0.1F);
+		elementos.add(0.1F);
+		elementos.add(0.1F);
+		elementos.add(0.1F);
+		elementos.add(0.1F);
+		elementos.add(0.1F);
+		elementos.add(0.1F);
+		elementos.add(0.1F);
+		
+		sa.aplicarAlgoritmo();
+		
+		assertThat("la cantidad de envases", sa.getEnvases(), is(1));
+	}
 }

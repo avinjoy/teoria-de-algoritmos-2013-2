@@ -40,8 +40,6 @@ public class EmpaquetamientoTest {
 		
 		verify(instancia).ejecutar(eq(SelectorDeSolucion.SOLUCION_ALTERNATIVA), isA(CargadorDeElementos.class), eq(1));
 		
-		verify(out).println("Solución Aproximada: 1");
-		
 	}
 	
 	@Test
@@ -66,10 +64,8 @@ public class EmpaquetamientoTest {
 		
 		verify(instancia).ejecutar(eq(SelectorDeSolucion.SOLUCION_EXACTA), isA(CargadorDeElementos.class), eq(1));
 		
-		verify(out).println("Solución Exacta: 0");
-		
 	}
-//	
+	
 	@Test
 	public void siSeInvocaConEYGuionPEjecutaLaSolucionExactaConDatosRandom() {
 		
