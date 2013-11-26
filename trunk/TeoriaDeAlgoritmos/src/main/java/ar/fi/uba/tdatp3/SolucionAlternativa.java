@@ -1,5 +1,6 @@
 package ar.fi.uba.tdatp3;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,13 +45,27 @@ public class SolucionAlternativa extends Solucion {
 			
 			Float elementosEnElEnvase = envases.get(envaseActual);
 			
-			if (elementosEnElEnvase + elemento <= 1) {
-				envases.put(envaseActual, elementosEnElEnvase + elemento);
+			float nuevoPeso = round(elementosEnElEnvase + elemento);
+			if (nuevoPeso <= 1) {
+				envases.put(envaseActual, nuevoPeso);
 			} else {
 				envaseActual++;
 				envases.put(envaseActual, elemento);
 			}
 		}
+	}
+	
+	/**
+	 * Redondeo para manejo de floats
+	 * @param value
+	 * @param places
+	 * @return
+	 */
+	private float round(float value) {
+
+	    BigDecimal bd = new BigDecimal(value);
+	    bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
+	    return bd.floatValue();
 	}
 
 }

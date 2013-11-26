@@ -34,8 +34,10 @@ public class CargadorDeElementos implements FuenteDeDatos {
 			
 			while (linea != null) {
 				
-				float elemento = Float.valueOf(linea);
-				elementos.add(elemento);
+				if (!linea.isEmpty()) {
+					float elemento = Float.valueOf(linea);
+					elementos.add(elemento);
+				}
 				
 				linea = reader.readLine();
 			}
