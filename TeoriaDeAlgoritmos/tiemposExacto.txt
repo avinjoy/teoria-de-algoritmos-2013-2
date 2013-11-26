@@ -17,5 +17,8 @@ java -jar tdatp3.jar E -P11 -V20
 Solución Exacta: 5
 3725
 java -jar tdatp3.jar E -P12 -V20
-Solución Exacta: 11
-387629
+Solución Exacta: 6
+17097
+java -jar tdatp3.jar E -P13 -V20
+Solución Exacta: 8
+93894
