@@ -10,8 +10,8 @@ namespace tdatp3
         static void Main(string[] args)
         {
             string tipoSolucion;
-            //decimal[] datos = null;
-            List<Objeto> objetos;
+            decimal[] datos = null;
+            //List<Objeto> objetos;
 
             if (args.Length > 0)
             {
@@ -21,10 +21,11 @@ namespace tdatp3
                     tipoSolucion = args[0];
                     StreamReader archivo = new StreamReader(args[1]);
 
-                    //leerArchivo(archivo, out datos);
-                    cargarDatos(out objetos);
+                    leerArchivo(archivo, out datos);
+                    //cargarDatos(out datos);
+                    //cargarDatos(out objetos);
 
-                    if (objetos.Count == 0)
+                    if (datos.Length == 0)
                     {
                         Console.WriteLine("Error en el formato del archivo.");
                     }
@@ -34,13 +35,23 @@ namespace tdatp3
                         DateTime horaInicio = DateTime.Now;
 
                         /*
-                        BackTracking binPack = new BackTracking(datos);
-                        if (!binPack.pack(0))
-                            Console.WriteLine("No existe solucion");
-                        */
-
                         SolucionExacta solucionExacta = new SolucionExacta(objetos);
                         solucionExacta.EncontrarSolucion();
+                         */
+                        int solucion = 0;
+                        //O(N)
+                        for (int i = 1; i <= datos.Length; i++)
+                        {
+                            SolucionE solE = new SolucionE(datos, i);
+                            if (solE.pack(0))
+                            {
+                                solucion = solE.NumberBags;
+                                break;
+                            }
+                        }
+
+                        Console.WriteLine();
+                        Console.WriteLine("Solucion exacta: " + solucion + " envases");
 
                         DateTime horaFin = DateTime.Now;
 
@@ -112,10 +123,10 @@ namespace tdatp3
 
         private static void cargarDatos(out decimal[] datos)
         {
-            datos = new decimal[1400];
+            datos = new decimal[14];
             Random random = new Random();
 
-            for (int idx = 0; idx < 1400; idx++)
+            for (int idx = 0; idx < 14; idx++)
             {
                 datos[idx] = Math.Round((decimal)random.NextDouble(), 1);
 
@@ -130,7 +141,7 @@ namespace tdatp3
 
             Random random = new Random();
 
-            for (int idx = 0; idx < 50000; idx++)
+            for (int idx = 0; idx < 12; idx++)
             {
                 double tamanio = Math.Round(random.NextDouble(), 1);
                 while (tamanio == 0)
