@@ -1,0 +1,6 @@
+Copiar: 1
+Reemplazar: 1
+Borrar: 1
+Intercambiar: 1
+Insertar: 1
+Terminar: 1
