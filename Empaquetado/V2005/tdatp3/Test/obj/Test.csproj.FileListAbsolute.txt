@@ -7,3 +7,12 @@ C:\Documents and Settings\User\Escritorio\teoria-de-algoritmos-2013-2\Empaquetad
 C:\Documents and Settings\User\Escritorio\teoria-de-algoritmos-2013-2\Empaquetado\V2005\tdatp3\Test\bin\Debug\nunit.framework.xml
 C:\Documents and Settings\User\Escritorio\teoria-de-algoritmos-2013-2\Empaquetado\V2005\tdatp3\Test\obj\Debug\Test.dll
 C:\Documents and Settings\User\Escritorio\teoria-de-algoritmos-2013-2\Empaquetado\V2005\tdatp3\Test\obj\Debug\Test.pdb
+C:\Users\PCDAMBROSIO\Desktop\teoria-de-algoritmos-2013-2\Empaquetado\V2005\tdatp3\Test\bin\Debug\Test.dll
+C:\Users\PCDAMBROSIO\Desktop\teoria-de-algoritmos-2013-2\Empaquetado\V2005\tdatp3\Test\bin\Debug\Test.pdb
+C:\Users\PCDAMBROSIO\Desktop\teoria-de-algoritmos-2013-2\Empaquetado\V2005\tdatp3\Test\bin\Debug\nunit.framework.dll
+C:\Users\PCDAMBROSIO\Desktop\teoria-de-algoritmos-2013-2\Empaquetado\V2005\tdatp3\Test\bin\Debug\tdatp3.exe
+C:\Users\PCDAMBROSIO\Desktop\teoria-de-algoritmos-2013-2\Empaquetado\V2005\tdatp3\Test\bin\Debug\tdatp3.pdb
+C:\Users\PCDAMBROSIO\Desktop\teoria-de-algoritmos-2013-2\Empaquetado\V2005\tdatp3\Test\bin\Debug\nunit.framework.xml
+C:\Users\PCDAMBROSIO\Desktop\teoria-de-algoritmos-2013-2\Empaquetado\V2005\tdatp3\Test\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\PCDAMBROSIO\Desktop\teoria-de-algoritmos-2013-2\Empaquetado\V2005\tdatp3\Test\obj\Debug\Test.dll
+C:\Users\PCDAMBROSIO\Desktop\teoria-de-algoritmos-2013-2\Empaquetado\V2005\tdatp3\Test\obj\Debug\Test.pdb
