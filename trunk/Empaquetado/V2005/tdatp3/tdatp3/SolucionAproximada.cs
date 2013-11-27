@@ -46,11 +46,11 @@ namespace tdatp3
             foreach (Objeto objeto in _objetos)
             {
 
-                double tamanioEnvase = _envases[nroEnvase];
+                decimal tamanioEnvase = (decimal)_envases[nroEnvase];
 
-                if (tamanioEnvase + objeto.Tamanio <= 1)
+                if (tamanioEnvase + (decimal)objeto.Tamanio <= 1)
                 {
-                    _envases[nroEnvase] = tamanioEnvase + objeto.Tamanio;
+                    _envases[nroEnvase] = Convert.ToDouble(tamanioEnvase + (decimal)objeto.Tamanio);
                 }
                 else
                 {

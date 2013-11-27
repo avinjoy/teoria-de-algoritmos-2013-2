@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Diagnostics;
 
 namespace tdatp3
 {
@@ -31,32 +32,7 @@ namespace tdatp3
                     }
                     else
                     {
-                        System.Console.Write(System.Environment.NewLine);
-                        DateTime horaInicio = DateTime.Now;
-
-                        /*
-                        SolucionExacta solucionExacta = new SolucionExacta(objetos);
-                        solucionExacta.EncontrarSolucion();
-                         */
-                        int solucion = 0;
-                        //O(N)
-                        for (int i = 1; i <= datos.Length; i++)
-                        {
-                            SolucionE solE = new SolucionE(datos, i);
-                            if (solE.pack(0))
-                            {
-                                solucion = solE.NumberBags;
-                                break;
-                            }
-                        }
-
-                        Console.WriteLine();
-                        Console.WriteLine("Solucion exacta: " + solucion + " envases");
-
-                        DateTime horaFin = DateTime.Now;
-
-                        System.Console.Write(System.Environment.NewLine);
-                        System.Console.Write("Total = " + (horaFin - horaInicio).TotalMilliseconds + " mseg.");
+                        EncontrarSolucionExacta(datos);
                     }
                 }
                 catch (Exception)
@@ -72,6 +48,42 @@ namespace tdatp3
                 System.Console.Write("Se debe ingresar el tipo de ejecucion y el nombre del archivo de datos" + System.Environment.NewLine);
                 Console.ReadKey();
             }
+
+        }
+
+        private static void EncontrarSolucionExacta(decimal[] datos)
+        {
+            System.Console.Write(System.Environment.NewLine);
+         
+
+            Stopwatch stopwatch = new Stopwatch();
+
+            // Begin timing
+            stopwatch.Start();
+
+            int solucion = 0;
+            //O(N)
+            for (int i = 1; i <= datos.Length; i++)
+            {
+                SolucionE solE = new SolucionE(datos, i);
+                if (solE.pack(0))
+                {
+                    solucion = solE.NumberBags;
+                    break;
+                }
+            }
+
+            // Stop timing
+            stopwatch.Stop();
+
+            double tiempoEjecucionMilisegundos = stopwatch.Elapsed.TotalMilliseconds;
+
+
+            Console.WriteLine();
+            Console.WriteLine("Solucion exacta: " + solucion + " envases");
+
+            System.Console.Write(System.Environment.NewLine);
+            System.Console.Write("Total = " + tiempoEjecucionMilisegundos + " mseg.");
 
         }
 
