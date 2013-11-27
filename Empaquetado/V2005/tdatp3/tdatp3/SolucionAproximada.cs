@@ -6,25 +6,25 @@ namespace tdatp3
 {
     public class SolucionAproximada
     {
-        private List<Objeto> _objetos;
-        private Dictionary<int, double> _envases;
+        private decimal[] _objetos;
+        private Dictionary<int, decimal> _envases;
 
-        public List<Objeto> Objetos
+        public decimal[] Objetos
         {
             get { return _objetos; }
             set { _objetos = value; }
         }
         
-        public Dictionary<int, double> Envases
+        public Dictionary<int, decimal> Envases
         {
             get { return _envases; }
             set { _envases = value; }
         }
 
-        public SolucionAproximada(List<Objeto> objetos)
+        public SolucionAproximada(decimal[] objetos)
         {
             _objetos = objetos;
-            _envases = new Dictionary<int, double>();
+            _envases = new Dictionary<int, decimal>();
         }
 
         /// <summary>
@@ -36,26 +36,26 @@ namespace tdatp3
         /// </summary>
         public void EncontrarSolucion()
         {
-            if (_objetos.Count == 0)
+            if (_objetos.Length == 0)
                 return;
 
             int nroEnvase = 1;
             _envases.Add(nroEnvase, 0);
 
             //O(N), N = Cantidad de Objetos.
-            foreach (Objeto objeto in _objetos)
+            foreach (decimal objeto in _objetos)
             {
 
-                decimal tamanioEnvase = (decimal)_envases[nroEnvase];
+                decimal tamanioEnvase = _envases[nroEnvase];
 
-                if (tamanioEnvase + (decimal)objeto.Tamanio <= 1)
+                if (tamanioEnvase + objeto <= 1)
                 {
-                    _envases[nroEnvase] = Convert.ToDouble(tamanioEnvase + (decimal)objeto.Tamanio);
+                    _envases[nroEnvase] = tamanioEnvase + objeto;
                 }
                 else
                 {
                     nroEnvase++;
-                    _envases.Add(nroEnvase, objeto.Tamanio);
+                    _envases.Add(nroEnvase, objeto);
                 }
             }
         }

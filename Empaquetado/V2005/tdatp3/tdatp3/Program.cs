@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
 using System.Diagnostics;
 
@@ -10,21 +8,18 @@ namespace tdatp3
     {
         static void Main(string[] args)
         {
-            string tipoSolucion;
-            decimal[] datos = null;
-            //List<Objeto> objetos;
-
+         
             if (args.Length > 0)
             {
-                presentacion();
+                Presentacion();
                 try
                 {
-                    tipoSolucion = args[0];
+                    string tipoSolucion = args[0];
                     StreamReader archivo = new StreamReader(args[1]);
 
-                    leerArchivo(archivo, out datos);
-                    //cargarDatos(out datos);
-                    //cargarDatos(out objetos);
+                    decimal[] datos;
+                    LeerArchivo(archivo, out datos);
+                  
 
                     if (datos.Length == 0)
                     {
@@ -32,7 +27,12 @@ namespace tdatp3
                     }
                     else
                     {
-                        EncontrarSolucionExacta(datos);
+                        if(tipoSolucion == "E")
+                            EncontrarSolucionExacta(datos);
+                        else
+                        {
+                            EncontrarSolucionAproximada(datos);
+                        }
                     }
                 }
                 catch (Exception)
@@ -51,10 +51,35 @@ namespace tdatp3
 
         }
 
+        private static void EncontrarSolucionAproximada(decimal[] datos)
+        {
+            Console.Write(Environment.NewLine);
+
+
+            Stopwatch stopwatch = new Stopwatch();
+
+            // Begin timing
+            stopwatch.Start();
+            
+            SolucionAproximada solucionAproximada = new SolucionAproximada(datos);
+            solucionAproximada.EncontrarSolucion();
+            
+            // Stop timing
+            stopwatch.Stop();
+
+            double tiempoEjecucionMilisegundos = stopwatch.Elapsed.TotalMilliseconds;
+
+
+            Console.WriteLine();
+            Console.WriteLine("Solucion exacta: " + solucionAproximada.Envases + " envases");
+
+            Console.Write(Environment.NewLine);
+            Console.Write("Total = " + tiempoEjecucionMilisegundos + " mseg.");
+        }
+
         private static void EncontrarSolucionExacta(decimal[] datos)
         {
-            System.Console.Write(System.Environment.NewLine);
-         
+            Console.Write(Environment.NewLine);
 
             Stopwatch stopwatch = new Stopwatch();
 
@@ -82,32 +107,32 @@ namespace tdatp3
             Console.WriteLine();
             Console.WriteLine("Solucion exacta: " + solucion + " envases");
 
-            System.Console.Write(System.Environment.NewLine);
-            System.Console.Write("Total = " + tiempoEjecucionMilisegundos + " mseg.");
+            Console.Write(Environment.NewLine);
+            Console.Write("Total = " + tiempoEjecucionMilisegundos + " mseg.");
 
         }
 
-        private static void presentacion()
+        private static void Presentacion()
         {
 
-            System.Console.Write(" " + System.Environment.NewLine);
-            System.Console.Write("************************************************************************" + System.Environment.NewLine);
-            System.Console.Write("*********************** TRABAJO PRACTICO NRO.3 *************************" + System.Environment.NewLine);
-            System.Console.Write("************************************************************************" + System.Environment.NewLine);
-            System.Console.Write("*                                                                      *" + System.Environment.NewLine);
-            System.Console.Write("* INTEGRANTES:                                                         *" + System.Environment.NewLine);
-            System.Console.Write("*              SERGIO NICOLAS ORSIANI          85855                   *" + System.Environment.NewLine);
-            System.Console.Write("*              JULIAN ANDRES D’AMBROSIO        90252                   *" + System.Environment.NewLine);
-            System.Console.Write("*                                                                      *" + System.Environment.NewLine);
-            System.Console.Write("************************************************************************" + System.Environment.NewLine);
-            System.Console.Write("************************************************************************" + System.Environment.NewLine);
-            System.Console.Write(System.Environment.NewLine);
-            System.Console.Write(System.Environment.NewLine);
+            Console.Write(" " + Environment.NewLine);
+            Console.Write("************************************************************************" + Environment.NewLine);
+            Console.Write("*********************** TRABAJO PRACTICO NRO.3 *************************" + Environment.NewLine);
+            Console.Write("************************************************************************" + Environment.NewLine);
+            Console.Write("*                                                                      *" + Environment.NewLine);
+            Console.Write("* INTEGRANTES:                                                         *" + Environment.NewLine);
+            Console.Write("*              SERGIO NICOLAS ORSIANI          85855                   *" + Environment.NewLine);
+            Console.Write("*              JULIAN ANDRES D’AMBROSIO        90252                   *" + Environment.NewLine);
+            Console.Write("*                                                                      *" + Environment.NewLine);
+            Console.Write("************************************************************************" + Environment.NewLine);
+            Console.Write("************************************************************************" + Environment.NewLine);
+            Console.Write(Environment.NewLine);
+            Console.Write(Environment.NewLine);
 
         }
 
 
-        private static void leerArchivo(StreamReader reader, out decimal[] datos)
+        private static void LeerArchivo(StreamReader reader, out decimal[] datos)
         {
             int i = 1;
             int idx = 0;
@@ -133,34 +158,6 @@ namespace tdatp3
             }
         }
 
-        private static void cargarDatos(out decimal[] datos)
-        {
-            datos = new decimal[14];
-            Random random = new Random();
-
-            for (int idx = 0; idx < 14; idx++)
-            {
-                datos[idx] = Math.Round((decimal)random.NextDouble(), 1);
-
-                while (datos[idx] == 0) 
-                    datos[idx] = Math.Round((decimal)random.NextDouble(), 1);
-            }
-        }
-
-        private static void cargarDatos(out List<Objeto> objetos)
-        {
-            objetos = new List<Objeto>();
-
-            Random random = new Random();
-
-            for (int idx = 0; idx < 12; idx++)
-            {
-                double tamanio = Math.Round(random.NextDouble(), 1);
-                while (tamanio == 0)
-                    tamanio = Math.Round(random.NextDouble(), 1);
-
-                objetos.Add(new Objeto(tamanio));
-            }
-        }
+     
     }
 }
