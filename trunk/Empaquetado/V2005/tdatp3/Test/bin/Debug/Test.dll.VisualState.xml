@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="true">
-  <TopNode>[0-1002]C:\Documents and Settings\User\Escritorio\teoria-de-algoritmos-2013-2\Empaquetado\V2005\tdatp3\Test\bin\Debug\Test.dll</TopNode>
-  <SelectedNode>[0-1002]C:\Documents and Settings\User\Escritorio\teoria-de-algoritmos-2013-2\Empaquetado\V2005\tdatp3\Test\bin\Debug\Test.dll</SelectedNode>
+  <TopNode>[0-1013]C:\Users\PCDAMBROSIO\Desktop\teoria-de-algoritmos-2013-2\Empaquetado\V2005\tdatp3\Test\bin\Debug\Test.dll</TopNode>
+  <SelectedNode>[0-1002]Test.TestSolucionExacta.TestEncontrarSolucion10Items</SelectedNode>
   <ExcludeCategories>false</ExcludeCategories>
   <Nodes>
-    <Node UniqueName="[0-1002]C:\Documents and Settings\User\Escritorio\teoria-de-algoritmos-2013-2\Empaquetado\V2005\tdatp3\Test\bin\Debug\Test.dll" Expanded="true" />
-    <Node UniqueName="[0-1003]Test" Expanded="true" />
-    <Node UniqueName="[0-1000]Test.TestSolucionAproximada" Expanded="true" />
+    <Node UniqueName="[0-1013]C:\Users\PCDAMBROSIO\Desktop\teoria-de-algoritmos-2013-2\Empaquetado\V2005\tdatp3\Test\bin\Debug\Test.dll" Expanded="true" />
+    <Node UniqueName="[0-1014]Test" Expanded="true" />
+    <Node UniqueName="[0-1000]Test.TestSolucionExacta" Expanded="true" />
   </Nodes>
 </VisualState>

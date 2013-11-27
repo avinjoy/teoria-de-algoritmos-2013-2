@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace tdatp3
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -71,7 +71,7 @@ namespace tdatp3
 
 
             Console.WriteLine();
-            Console.WriteLine("Solucion exacta: " + solucionAproximada.Envases + " envases");
+            Console.WriteLine("Solucion aproximada: " + solucionAproximada.Envases.Count + " envases");
 
             Console.Write(Environment.NewLine);
             Console.Write("Total = " + tiempoEjecucionMilisegundos + " mseg.");
@@ -90,7 +90,7 @@ namespace tdatp3
             //O(N)
             for (int i = 1; i <= datos.Length; i++)
             {
-                SolucionE solE = new SolucionE(datos, i);
+                SolucionExacta solE = new SolucionExacta(datos, i);
                 if (solE.pack(0))
                 {
                     solucion = solE.NumberBags;

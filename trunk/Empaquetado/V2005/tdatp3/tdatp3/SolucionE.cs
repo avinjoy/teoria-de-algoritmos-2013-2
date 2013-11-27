@@ -1,49 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace tdatp3
+﻿namespace tdatp3
 {
-    class SolucionE
+    public class SolucionExacta
     {
-        private decimal[] itemSize;
-        private decimal[] bagFreeSpace;
-        private bool[,] doesBagContainItem;
+        private readonly decimal[] _itemSize;
+        private readonly decimal[] _bagFreeSpace;
+        private readonly bool[,] _doesBagContainItem;
 
-        private int numberBags;
+        private int _numberBags;
 
         public int NumberBags
         {
-            get { return numberBags; }
-            set { numberBags = value; }
+            get { return _numberBags; }
+            set { _numberBags = value; }
         }
 
-        public SolucionE(decimal[] itemSize, int bags)
+        public SolucionExacta(decimal[] itemSize, int bags)
         {
-            this.itemSize = itemSize;
-            this.bagFreeSpace = new decimal[bags];
-            this.numberBags = 0;
+            _itemSize = itemSize;
+            _bagFreeSpace = new decimal[bags];
+            _numberBags = 0;
 
-            for (int i = 0; i < bagFreeSpace.Length; i++)
+            for (int i = 0; i < _bagFreeSpace.Length; i++)
             {
-                this.bagFreeSpace[i] = 1;
+                _bagFreeSpace[i] = 1;
             }
 
-            this.doesBagContainItem = new bool[this.bagFreeSpace.Length, this.itemSize.Length];
+            _doesBagContainItem = new bool[_bagFreeSpace.Length, this._itemSize.Length];
         }
 
         //O(N!)
         public bool pack(int item)
         {
             // Si llegamos a la solucion, guardo la cantidad de envases
-            if (item == itemSize.Length)
+            if (item == _itemSize.Length)
             {
-                for (int i = 0; i < bagFreeSpace.Length; i++)
+                for (int i = 0; i < _bagFreeSpace.Length; i++)
                 {
-                    for (int j = 0; j < itemSize.Length; j++)
-                        if (doesBagContainItem[i, j])
+                    for (int j = 0; j < _itemSize.Length; j++)
+                        if (_doesBagContainItem[i, j])
                         {
-                            numberBags++;
+                            _numberBags++;
                             break;
                         }
                 }
@@ -51,16 +47,16 @@ namespace tdatp3
             }
 
             // de lo contrario, sigo recorriendo el arbol de elementos
-            for (int i = 0; i < bagFreeSpace.Length; i++)
+            for (int i = 0; i < _bagFreeSpace.Length; i++)
             {
-                if (bagFreeSpace[i] >= itemSize[item])
+                if (_bagFreeSpace[i] >= _itemSize[item])
                 {
-                    doesBagContainItem[i, item] = true; // pongo el elemento en el envase
-                    bagFreeSpace[i] -= itemSize[item];
+                    _doesBagContainItem[i, item] = true; // pongo el elemento en el envase
+                    _bagFreeSpace[i] -= _itemSize[item];
                     if (pack(item + 1))                 // exploro siguiente rama
                         return true;
-                    bagFreeSpace[i] += itemSize[item];  // quito el elemento del envase
-                    doesBagContainItem[i, item] = false;
+                    _bagFreeSpace[i] += _itemSize[item];  // quito el elemento del envase
+                    _doesBagContainItem[i, item] = false;
                 }
             }
 
